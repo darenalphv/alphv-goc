@@ -1,0 +1,1082 @@
+---
+// Home-page navbar — port of the Framer code component ALPHVNavbar (ALPHVNavbar_1.tsx), which Framer renders
+// position:fixed (16px from the top, 95% / max 1400px wide, glass pill) followed by a 92px in-flow spacer.
+//
+// - ≥1200px: logo · "Ecosystem" mega-menu toggle · Solutions / Training / Insights / About · a green
+//   "Get in touch" WhatsApp button that slides in once the page is scrolled > 40px.
+// - <1200px: logo + hamburger; the menu opens as a frosted drawer with an "Ecosystem" accordion.
+// - The mega menu shows the entity under the pointer/focus (services + a feature card with a count-up stat).
+// - Escape, the backdrop or the toggle closes the menus.
+// On phones Framer puts the spacer at the very bottom of the page, so the hero starts under the bar there.
+import { url } from '../../lib/paths';
+
+const whatsapp =
+  'https://api.whatsapp.com/send/?phone=60165187740&text=Hello%20ALPHV%20Technologies&type=phone_number&app_absent=0';
+
+// Same targets as the live site, except that the alphv.com/<page> links for pages that exist in this
+// project point at the local pages (alphv.com does not serve them yet — they 404).
+const links = [
+  { label: 'Solutions', href: url('/service'), icon: 'solutions' },
+  { label: 'Training', href: 'https://alphv.com/training', icon: 'training', external: true },
+  { label: 'Insights', href: url('/contact-us'), icon: 'insights' },
+  { label: 'About', href: url('/about-us'), icon: 'about' },
+];
+
+// Copy as rendered on the live site. (The component source had "Build · Software & AI", "goal · ASEAN" and
+// em dashes in two card bodies; Framer's copy lost those characters, so the live site shows plain spaces.)
+const entities = [
+  {
+    id: 'technologies',
+    name: 'ALPHV Technologies',
+    tagline: 'Build Software & AI',
+    color: '#3B3BF9',
+    url: 'https://alphv.com',
+    category: 'SOFTWARE & AI DEVELOPMENT',
+    services: [
+      ['AI & Agentic Solutions', 'Custom RAG, fine-tuning and multi-agent systems for enterprises'],
+      ['System Integration', 'Enterprise-grade integration across cloud, data and legacy stacks'],
+      ['Web & Mobile Development', 'From concept to deployment, full-stack product engineering'],
+      ['Computer Vision', 'People counting, traffic analytics and smart city deployments'],
+      ['RPA & Process Automation', 'Automate workflows and unlock operational efficiency'],
+      ['UI/UX & Branding', 'Design systems and product experiences that convert'],
+    ],
+    card: {
+      badge: 'AGENTIC PROCESS',
+      numeric: 72,
+      suffix: '%',
+      statLabel: 'time saved',
+      tag: 'FLAGSHIP CAPABILITY',
+      headline: 'Ship intelligent agents in weeks, not quarters',
+      body: 'Featured in Konsortium AI Negara 2025. Build production-grade AI with our agentic core, governance guardrails and custom MCP tooling.',
+      cta: 'See AI solutions',
+      ctaUrl: 'https://alphv.com',
+    },
+  },
+  {
+    id: 'academy',
+    name: 'ALPHV Academy',
+    tagline: 'Grow Talent Development',
+    color: '#22C55E',
+    url: 'https://academy.alphv.com',
+    category: 'TRAINING & UPSKILLING',
+    services: [
+      ['AI & Data Bootcamps', 'Hands-on training in AI, ML and modern data engineering'],
+      ['HRDCorp Claimable Courses', 'Certified upskilling programs for Malaysian employers'],
+      ['Corporate Training', 'Custom learning paths designed for your team and roadmap'],
+      ['Programming Fundamentals', 'Practical, project-based learning led by industry practitioners'],
+      ['SIDC-Endorsed Programs', 'Securities Industry endorsed financial-tech curriculum'],
+      ['Train-the-Trainer', 'Equip in-house mentors with our delivery methodology'],
+    ],
+    card: {
+      badge: 'TALENTS TRAINED',
+      numeric: 800,
+      suffix: 'K',
+      statLabel: 'goal ASEAN',
+      tag: 'NATIONAL INITIATIVE',
+      headline: 'Skilling 800,000 talents across Malaysia & ASEAN',
+      body: 'A national-scale push to prepare the next generation for AI and Data careers practical, hands-on, industry-led.',
+      cta: 'Browse all courses',
+      ctaUrl: 'https://academy.alphv.com',
+    },
+  },
+  {
+    id: 'devrel',
+    name: 'ALPHV DevRel',
+    tagline: 'Connect Developer Relations',
+    color: '#F97316',
+    url: 'https://devrel.alphv.com',
+    category: 'COMMUNITY & ADVOCACY',
+    services: [
+      ['Developer Kaki Community', "Malaysia's largest tech community with 50,000+ developers"],
+      ['Hackathon Kaki', 'Immersive hackathons that ship real products and real talent'],
+      ['Strategic Campaigns', 'Reach developers directly with co-built awareness programs'],
+      ['Technical Workshops', 'Hands-on sessions, deep dives and code-alongs'],
+      ['Content & Advocacy', 'Technical content, talks and thought leadership at scale'],
+      ['Event Partnerships', "Sponsor, speak or co-host with the region's top tech voices"],
+    ],
+    card: {
+      badge: 'ACTIVE DEVELOPERS',
+      numeric: 50,
+      suffix: 'K+',
+      statLabel: 'across Malaysia',
+      tag: 'COMMUNITY SCALE',
+      headline: 'The fastest way to reach Malaysian developers',
+      body: "Tap into Malaysia's largest tech community through Developer Kaki & Hackathon Kaki. Authentic engagement, measurable outcomes.",
+      cta: 'Partner with us',
+      ctaUrl: 'https://devrel.alphv.com',
+    },
+  },
+  {
+    id: 'recruit',
+    name: 'ALPHV Recruit',
+    tagline: 'Place Talent & Hiring',
+    color: '#A855F7',
+    url: 'https://recruit.alphv.com',
+    category: 'HIRING & PLACEMENT',
+    services: [
+      ['Tech Talent Acquisition', 'Curated sourcing for engineering, AI and data roles'],
+      ['Jobs by Developer Kaki', 'Niche tech job board built on our community network'],
+      ['Executive Search', 'CTO, Head of AI and senior technical leadership placements'],
+      ['Contract & Freelance', 'On-demand specialists for short-term and project work'],
+      ['HR Advisory', 'Workforce strategy and tech-org design consulting'],
+      ['AI-Powered Screening', 'Digital Interviewer for unbiased candidate evaluation'],
+    ],
+    card: {
+      badge: 'ACTIVE DEVELOPERS',
+      numeric: 2.4,
+      suffix: 'x',
+      statLabel: 'faster',
+      tag: 'TALENT NETWORK',
+      headline: 'Hire from the community we already built',
+      body: 'Pre-vetted, community-engaged tech talent backed by our DevRel reach and Academy graduates pipeline.',
+      cta: 'Start hiring',
+      ctaUrl: 'https://recruit.alphv.com',
+    },
+  },
+];
+
+const chevron = 'M2 4L6 8L10 4';
+const whatsappIcon =
+  'M19.11 4.91A10.05 10.05 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.92c0 1.75.46 3.46 1.33 4.97L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.92 0-2.65-1.03-5.14-2.85-7.01zM12.04 20.17h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.27-4.39c0-4.55 3.7-8.25 8.25-8.25 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.7 8.25-8.24 8.25zm4.52-6.18c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07s.88 2.4 1 2.57c.12.16 1.74 2.65 4.21 3.71.59.25 1.04.4 1.4.52.59.19 1.12.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.1-.22-.16-.47-.28z';
+const ext = { target: '_blank', rel: 'noopener noreferrer' };
+---
+
+<header class="mnav" data-mnav>
+  <div class="mnav__backdrop" data-mnav-backdrop hidden></div>
+
+  <nav class="mnav__bar" aria-label="Main">
+    <a class="mnav__logo" href={url('/')} aria-label="ALPHV — home">
+      <img src={url('/images/cgRGQudkGk9oZk0F8NtJFDLt0.svg')} alt="" width="93" height="44" fetchpriority="high" />
+    </a>
+
+    <!-- Desktop: Ecosystem mega menu -->
+    <div class="mnav__center">
+      <button
+        class="mnav__eco"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mnav-mega"
+        data-mnav-eco
+      >
+        Ecosystem
+        <svg class="mnav__chevron" width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d={chevron} stroke="#3B3BF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+
+      <div class="mnav__mega" id="mnav-mega" data-mnav-mega hidden>
+        <div class="mnav__panel">
+          <div class="mnav__entities">
+            <ul class="mnav__entity-list">
+              {
+                entities.map((entity, i) => (
+                  <li>
+                    <a
+                      class:list={['mnav__entity', { 'is-active': i === 0 }]}
+                      href={entity.url}
+                      {...ext}
+                      data-entity={entity.id}
+                      style={`--accent: ${entity.color}`}
+                    >
+                      <span class="mnav__dot" aria-hidden="true"></span>
+                      <span>
+                        <span class="mnav__entity-name">{entity.name}</span>
+                        <span class="mnav__entity-tagline">{entity.tagline}</span>
+                      </span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+            <p class="mnav__explore">Explore the ecosystem</p>
+          </div>
+
+          {
+            entities.map((entity, i) => (
+              <div
+                class:list={['mnav__detail', { 'is-active': i === 0 }]}
+                data-entity-panel={entity.id}
+                style={`--accent: ${entity.color}`}
+              >
+                <div class="mnav__services">
+                  <p class="mnav__category">{entity.category}</p>
+                  <ul>
+                    {entity.services.map(([title, desc]) => (
+                      <li class="mnav__service">
+                        <p class="mnav__service-title">{title}</p>
+                        <p class="mnav__service-desc">{desc}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="mnav__card-col">
+                  <div class="mnav__card">
+                    <div class="mnav__card-top">
+                      <div class="mnav__stat">
+                        <p class="mnav__stat-badge">{entity.card.badge}</p>
+                        <p class="mnav__stat-row">
+                          <span class="mnav__stat-number">
+                            <span data-count={entity.card.numeric}>{entity.card.numeric}</span>
+                            {entity.card.suffix}
+                          </span>
+                          <span class="mnav__stat-label">{entity.card.statLabel}</span>
+                        </p>
+                        <div class="mnav__stat-bar" aria-hidden="true">
+                          <div class="mnav__stat-fill" data-bar></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mnav__card-bottom">
+                      <p class="mnav__card-tag">{entity.card.tag}</p>
+                      <p class="mnav__card-headline">{entity.card.headline}</p>
+                      <p class="mnav__card-body">{entity.card.body}</p>
+                      <a class="mnav__card-cta" href={entity.card.ctaUrl} {...ext}>
+                        {entity.card.cta}
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                          <path
+                            d="M2.5 6H9.5M6.5 3L9.5 6L6.5 9"
+                            stroke="white"
+                            stroke-width="1.6"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop: page links + scroll-revealed CTA -->
+    <div class="mnav__right">
+      <ul class="mnav__links">
+        {
+          links.map((link) => (
+            <li>
+              <a class="mnav__link" href={link.href} {...(link.external ? ext : {})}>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  {link.icon === 'solutions' && (
+                    <>
+                      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                    </>
+                  )}
+                  {link.icon === 'training' && (
+                    <>
+                      <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                      <path d="M14 3v6h6" />
+                      <path d="M8 13h8" />
+                      <path d="M8 17h5" />
+                    </>
+                  )}
+                  {link.icon === 'insights' && (
+                    <>
+                      <path d="M9 18h6" />
+                      <path d="M10 21h4" />
+                      <path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1.2 1.5 1.5 2.5h5c.3-1 .7-1.7 1.5-2.5A6 6 0 0 0 12 3z" />
+                    </>
+                  )}
+                  {link.icon === 'about' && (
+                    <>
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 16v-5" />
+                      <circle cx="12" cy="8" r="0.6" fill="currentColor" stroke="none" />
+                    </>
+                  )}
+                </svg>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mnav__cta-wrap">
+        <a class="mnav__cta" href={whatsapp} {...ext} data-mnav-cta tabindex="-1">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d={whatsappIcon} /></svg>
+          Get in touch
+        </a>
+      </div>
+    </div>
+
+    <!-- Tablet / phone: hamburger + drawer -->
+    <button
+      class="mnav__burger"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mnav-drawer"
+      data-mnav-burger
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <div class="mnav__drawer" id="mnav-drawer" data-mnav-drawer hidden>
+      <button
+        class="mnav__m-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mnav-m-eco"
+        data-mnav-m-eco
+      >
+        <span>Ecosystem</span>
+        <svg class="mnav__chevron" width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d={chevron} stroke="#3B3BF9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+      <ul class="mnav__m-entities" id="mnav-m-eco" hidden>
+        {
+          entities.map((entity) => (
+            <li>
+              <a class="mnav__m-entity" href={entity.url} {...ext} style={`--accent: ${entity.color}`}>
+                <span class="mnav__dot" aria-hidden="true"></span>
+                <span>
+                  <span class="mnav__m-entity-name">{entity.name}</span>
+                  <span class="mnav__m-entity-tagline">{entity.tagline}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="mnav__m-links">
+        {
+          links.map((link) => (
+            <li>
+              <a class="mnav__m-link" href={link.href} {...(link.external ? ext : {})}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="mnav__m-cta" href={whatsapp} {...ext}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d={whatsappIcon} /></svg>
+        Get in touch
+      </a>
+    </div>
+  </nav>
+</header>
+<div class="mnav-spacer" aria-hidden="true"></div>
+
+<style>
+  .mnav {
+    --mnav-blue: #3b3bf9;
+    --mnav-ink: #1a1a2e;
+    --mnav-text: #3a3a4a;
+    --mnav-green: #22c55e;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+    pointer-events: none;
+    font-family: var(--font-sans);
+    /* Text boxes below use the px line-heights the live component renders with (its "normal" line-height
+       comes from the Fontshare build of Plus Jakarta Sans, ≈1.8em). */
+    line-height: 1.8;
+  }
+  .mnav-spacer {
+    height: 92px;
+  }
+
+  .mnav__backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+    animation: mnav-fade 0.2s ease;
+  }
+
+  /* ---------- Bar ---------- */
+  .mnav__bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    max-width: 1400px;
+    height: 60px;
+    padding: 0 21px; /* 20px + the 1px border drawn by ::before */
+    border-radius: 100px;
+    pointer-events: auto;
+    isolation: isolate;
+  }
+  /* Glass background on a pseudo-element: backdrop-filter on the bar itself would make it the containing
+     block of the fixed-position mega menu / drawer and stop their own backdrop blur. */
+  .mnav__bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: inherit;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+
+  .mnav__logo {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+  .mnav__logo img {
+    width: auto;
+    height: 44px;
+  }
+
+  .mnav__center {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 16px;
+  }
+  .mnav__eco,
+  .mnav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--mnav-text);
+    white-space: nowrap;
+    transition: color 0.15s ease;
+  }
+  .mnav__eco:hover,
+  .mnav__link:hover,
+  .mnav__eco[aria-expanded='true'] {
+    color: var(--mnav-blue);
+  }
+  .mnav__chevron {
+    flex: none;
+    transition: transform 0.2s ease;
+  }
+  [aria-expanded='true'] > .mnav__chevron {
+    transform: rotate(180deg);
+  }
+
+  .mnav__right {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+  .mnav__links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mnav__link svg {
+    flex: none;
+  }
+
+  /* "Get in touch" slides in after the page is scrolled > 40px */
+  .mnav__cta-wrap {
+    display: flex;
+    align-items: center;
+    max-width: 0;
+    margin-left: -8px;
+    overflow: hidden;
+    transition:
+      max-width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      margin-left 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .mnav__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: var(--mnav-green);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(20px);
+    visibility: hidden;
+    transition:
+      opacity 0.45s ease,
+      transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 0.15s ease,
+      box-shadow 0.15s ease,
+      visibility 0s linear 0.45s;
+    line-height: 25px;
+  }
+  .mnav.is-scrolled .mnav__cta-wrap {
+    max-width: 240px;
+    margin-left: 0;
+  }
+  .mnav.is-scrolled .mnav__cta {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition:
+      opacity 0.45s ease,
+      transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 0.15s ease,
+      box-shadow 0.15s ease,
+      visibility 0s;
+  }
+  .mnav__cta:hover {
+    background: #1ea854;
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.45);
+  }
+  .mnav__cta:active {
+    background: #178a44;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+  }
+
+  /* ---------- Mega menu ---------- */
+  .mnav__mega {
+    position: fixed;
+    top: 90px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    width: 95%;
+    max-width: 1400px;
+    margin-inline: auto;
+    pointer-events: auto;
+    animation: mnav-mega-in 0.18s ease;
+  }
+  .mnav__mega[hidden] {
+    display: none;
+  }
+  .mnav__panel {
+    display: grid;
+    grid-template-columns: 240px 1fr 360px;
+    min-height: 440px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #ebebf0;
+    border-radius: 24px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+  }
+
+  .mnav__entities {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px 16px 24px 24px;
+    border-right: 1px solid #f0f0f5;
+  }
+  .mnav__entity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mnav__entity,
+  .mnav__m-entity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mnav__entity {
+    padding: 11px 12px;
+    border-radius: 10px;
+    transition: background-color 0.12s ease;
+  }
+  .mnav__entity:hover,
+  .mnav__entity.is-active {
+    background: #f5f5ff;
+  }
+  .mnav__dot {
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .mnav__entity-name,
+  .mnav__entity-tagline,
+  .mnav__m-entity-name,
+  .mnav__m-entity-tagline {
+    display: block;
+  }
+  .mnav__entity-name {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--mnav-ink);
+  }
+  .mnav__entity.is-active .mnav__entity-name {
+    color: var(--mnav-blue);
+  }
+  .mnav__entity-tagline {
+    margin-top: 1px;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #999;
+  }
+  .mnav__explore {
+    padding-top: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mnav-blue);
+    line-height: 24px;
+  }
+
+  .mnav__detail {
+    display: none;
+  }
+  .mnav__detail.is-active {
+    display: contents;
+  }
+  .mnav__services {
+    padding: 24px 28px;
+  }
+  .mnav__category {
+    margin-bottom: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    line-height: 18px;
+  }
+  .mnav__service {
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f8;
+  }
+  .mnav__service-title {
+    margin-bottom: 2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--mnav-ink);
+    line-height: 25px;
+  }
+  .mnav__service-desc {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #777;
+  }
+
+  .mnav__card-col {
+    padding: 24px 24px 24px 0;
+  }
+  .mnav__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+  .mnav__card-top {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background: var(--accent);
+  }
+  .mnav__stat {
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  }
+  .mnav__stat-badge {
+    margin-bottom: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #aaa;
+    line-height: 16px;
+  }
+  .mnav__stat-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .mnav__stat-number {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .mnav__stat-label {
+    font-size: 13px;
+    font-weight: 400;
+    color: #666;
+    line-height: 24px;
+  }
+  .mnav__stat-bar {
+    height: 3px;
+    margin-top: 10px;
+    overflow: hidden;
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.07);
+  }
+  .mnav__stat-fill {
+    width: 65%;
+    height: 100%;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+  .mnav__card-bottom {
+    padding: 20px;
+    background: #0d0d1f;
+  }
+  .mnav__card-tag {
+    margin-bottom: 8px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #666;
+    line-height: 16px;
+  }
+  .mnav__card-headline {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #fff;
+  }
+  .mnav__card-body {
+    margin-bottom: 14px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #999;
+  }
+  .mnav__card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+    line-height: 24px;
+  }
+  .mnav__card-cta:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* ---------- Hamburger + drawer (tablet / phone) ---------- */
+  .mnav__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+  }
+  .mnav__burger span {
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--mnav-ink);
+    transition: all 0.2s ease;
+  }
+  .mnav__burger[aria-expanded='true'] span:nth-child(1) {
+    transform: rotate(45deg) translateY(7px);
+  }
+  .mnav__burger[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
+  .mnav__burger[aria-expanded='true'] span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-7px);
+  }
+
+  .mnav__drawer {
+    position: fixed;
+    top: 92px;
+    left: 2.5%;
+    right: 2.5%;
+    bottom: 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 16px 20px 32px;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 24px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    pointer-events: auto;
+    animation: mnav-drawer-in 0.2s ease;
+  }
+  .mnav__drawer[hidden] {
+    display: none;
+  }
+  .mnav__m-toggle,
+  .mnav__m-link {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 29px;
+    color: var(--mnav-ink);
+    text-align: left;
+  }
+  .mnav__m-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mnav__m-link {
+    display: block;
+  }
+  .mnav__m-entities {
+    padding: 0 0 8px 8px;
+  }
+  .mnav__m-entities[hidden] {
+    display: none;
+  }
+  .mnav__m-entity {
+    padding: 12px 0;
+  }
+  .mnav__m-entity-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--mnav-ink);
+    line-height: 25px;
+  }
+  .mnav__m-entity-tagline {
+    margin-top: 1px;
+    font-size: 12px;
+    line-height: 21px;
+    color: #999;
+  }
+  .mnav__m-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 100px;
+    background: var(--mnav-green);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 27px;
+  }
+
+  @keyframes mnav-fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes mnav-mega-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+  @keyframes mnav-drawer-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  /* ---------- Breakpoints ---------- */
+  @media (max-width: 1199.98px) {
+    .mnav__center,
+    .mnav__right {
+      display: none;
+    }
+    .mnav__burger {
+      display: flex;
+    }
+  }
+  @media (min-width: 1200px) {
+    .mnav__drawer {
+      display: none;
+    }
+  }
+  /* Framer places the navbar's 92px spacer at the end of the phone layout, so the hero starts at the top. */
+  @media (max-width: 809.98px) {
+    .mnav-spacer {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mnav *,
+    .mnav {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-mnav]');
+
+  if (root) {
+    const backdrop = root.querySelector<HTMLElement>('[data-mnav-backdrop]')!;
+    const ecoBtn = root.querySelector<HTMLButtonElement>('[data-mnav-eco]')!;
+    const mega = root.querySelector<HTMLElement>('[data-mnav-mega]')!;
+    const burger = root.querySelector<HTMLButtonElement>('[data-mnav-burger]')!;
+    const drawer = root.querySelector<HTMLElement>('[data-mnav-drawer]')!;
+    const mEcoBtn = root.querySelector<HTMLButtonElement>('[data-mnav-m-eco]')!;
+    const mEcoList = root.querySelector<HTMLElement>('#mnav-m-eco')!;
+    const cta = root.querySelector<HTMLAnchorElement>('[data-mnav-cta]')!;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // ---- Count-up stat (ease-out cubic, like the Framer component) ----
+    let rafs: number[] = [];
+    const runStat = (panel: Element) => {
+      rafs.forEach(cancelAnimationFrame);
+      rafs = [];
+      const num = panel.querySelector<HTMLElement>('[data-count]');
+      const bar = panel.querySelector<HTMLElement>('[data-bar]');
+      if (!num || !bar) return;
+      const target = Number(num.dataset.count);
+      const decimal = target % 1 !== 0;
+      const fmt = (v: number) => (decimal ? v.toFixed(1) : String(Math.floor(v)));
+      if (reduceMotion.matches) {
+        num.textContent = fmt(target);
+        bar.style.width = '65%';
+        return;
+      }
+      num.textContent = fmt(0);
+      bar.style.width = '0%';
+      const animate = (duration: number, update: (eased: number) => void) => {
+        let start: number | null = null;
+        const step = (t: number) => {
+          start ??= t;
+          const p = Math.min((t - start) / duration, 1);
+          update(1 - Math.pow(1 - p, 3));
+          if (p < 1) rafs.push(requestAnimationFrame(step));
+        };
+        rafs.push(requestAnimationFrame(step));
+      };
+      window.setTimeout(() => {
+        animate(1200, (e) => (num.textContent = fmt(decimal ? Math.round(e * target * 10) / 10 : e * target)));
+        animate(1400, (e) => (bar.style.width = `${Math.floor(e * 100) * 0.65}%`));
+      }, 70);
+    };
+
+    const setEntity = (id: string) => {
+      root.querySelectorAll<HTMLElement>('[data-entity]').forEach((el) => {
+        el.classList.toggle('is-active', el.dataset.entity === id);
+      });
+      root.querySelectorAll<HTMLElement>('[data-entity-panel]').forEach((el) => {
+        const on = el.dataset.entityPanel === id;
+        const was = el.classList.contains('is-active');
+        el.classList.toggle('is-active', on);
+        if (on && !was) runStat(el);
+      });
+    };
+
+    // ---- Open / close ----
+    const syncBackdrop = () => {
+      backdrop.hidden = mega.hidden && drawer.hidden;
+    };
+    const setMega = (open: boolean) => {
+      mega.hidden = !open;
+      ecoBtn.setAttribute('aria-expanded', String(open));
+      if (open) {
+        const active = root.querySelector('[data-entity-panel].is-active');
+        if (active) runStat(active);
+      }
+      syncBackdrop();
+    };
+    const setDrawer = (open: boolean) => {
+      drawer.hidden = !open;
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      syncBackdrop();
+    };
+
+    ecoBtn.addEventListener('click', () => {
+      setDrawer(false);
+      setMega(mega.hidden);
+    });
+    burger.addEventListener('click', () => {
+      setMega(false);
+      setDrawer(drawer.hidden);
+    });
+    backdrop.addEventListener('click', () => {
+      setMega(false);
+      setDrawer(false);
+    });
+    mEcoBtn.addEventListener('click', () => {
+      const open = mEcoList.hidden;
+      mEcoList.hidden = !open;
+      mEcoBtn.setAttribute('aria-expanded', String(open));
+    });
+
+    root.querySelectorAll<HTMLElement>('[data-entity]').forEach((el) => {
+      const activate = () => setEntity(el.dataset.entity!);
+      el.addEventListener('mouseenter', activate);
+      el.addEventListener('focus', activate);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (!mega.hidden) {
+        setMega(false);
+        ecoBtn.focus();
+      } else if (!drawer.hidden) {
+        setDrawer(false);
+        burger.focus();
+      }
+    });
+
+    // Close the mega menu when keyboard focus leaves it and its toggle.
+    mega.addEventListener('focusout', (e) => {
+      const next = e.relatedTarget as Node | null;
+      if (next && !mega.contains(next) && next !== ecoBtn) setMega(false);
+    });
+
+    window.matchMedia('(min-width: 1200px)').addEventListener('change', () => {
+      setMega(false);
+      setDrawer(false);
+    });
+
+    // ---- "Get in touch" appears after scrolling 40px ----
+    const onScroll = () => {
+      const scrolled = window.scrollY > 40;
+      root.classList.toggle('is-scrolled', scrolled);
+      cta.tabIndex = scrolled ? 0 : -1;
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>

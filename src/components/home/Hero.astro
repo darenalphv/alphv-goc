@@ -1,0 +1,395 @@
+---
+// Home hero — Framer "Hero" frame (100vh, max 1200px, padding 100/80/80).
+// Robot video on the right, headline with rotating word, CTA buttons, and the
+// blue "shimmer" streaks that shoot upward behind the content.
+import { url } from '../../lib/paths';
+import ArrowButton from './a/ArrowButton.astro';
+
+// Rotating word cycle (Framer "Words" component). The last entry repeats the first so
+// the loop can jump back to the start without a visible change.
+const words = ['Innovation', 'Knowledge', 'Communities', 'Innovation'];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__media" aria-hidden="true">
+    <video
+      class="hero__video"
+      src={url('/assets/V8hZUo8A88pmhHEzR1TT4zgTbas.mp4')}
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      tabindex="-1"
+      data-hero-video
+    ></video>
+  </div>
+
+  <div class="hero__content">
+    <p class="tag hero__tag" data-reveal style="--reveal-distance: 20px; --reveal-delay: 100ms">
+      <span class="tag__dot"></span>Malaysia's Fastest Growing Technology Enabler
+    </p>
+
+    <h1 id="hero-title" class="hero__title" data-reveal style="--reveal-distance: 20px; --reveal-delay: 200ms">
+      {/* Framer uses different wording/line breaks per breakpoint; exactly one variant is displayed.
+          Spaces are significant (white-space: pre-wrap, as on the live site). */}
+      <span class="hero__copy hero__copy--desk">{'Transform Ideas '}<br />{'into Reality.'}<br />{'Accelerate'}</span>
+      <span class="hero__copy hero__copy--tab">{'Transforming Ideas  into Reality.'}<br />{'Accelerate '}</span>
+      <span class="hero__copy hero__copy--phone">{'Transforming  Ideas '}<br />{'into Reality'}<br />{'Accelerate '}</span>
+      <span class="sr-only"> Innovation</span>
+      <span class="rotator" aria-hidden="true" data-rotator>
+        <span class="rotator__track">
+          {words.map((w, i) => <span class:list={['rotator__word', { 'is-active': i === 0 }]}>{w}</span>)}
+        </span>
+      </span>
+    </h1>
+
+    <p class="hero__lead" data-reveal style="--reveal-distance: 20px; --reveal-delay: 300ms">
+      At ALPHV, we build scalable software, intelligent AI systems and strategic solutions that fuel digital
+      transformation and accelerate businesses to greater heights
+    </p>
+
+    <div class="hero__actions">
+      <div data-reveal style="--reveal-distance: 20px; --reveal-delay: 400ms">
+        <ArrowButton href={url('/service')} label="Our Solutions" variant="primary" size="l-m" />
+      </div>
+      <div data-reveal style="--reveal-distance: 20px; --reveal-delay: 500ms">
+        <ArrowButton href={url('/contact-us')} label="Contact Us" variant="secondary" size="l-m" />
+      </div>
+    </div>
+  </div>
+
+  {/* Framer "Banner Logo": an empty 431px block that reserves the right-hand column on desktop. */}
+  <div class="hero__spacer" aria-hidden="true"></div>
+
+  <div class="hero__shimmer" aria-hidden="true">
+    <div class="hero__shimmer-inner">
+      <span class="streak streak--a"></span>
+      <span class="streak streak--b"></span>
+      <span class="streak streak--c"></span>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ---------- Frame ---------- */
+  .hero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    height: 100vh;
+    margin-inline: auto;
+    padding: 100px 80px 80px;
+    overflow: hidden;
+    background: var(--c-white);
+  }
+
+  /* ---------- Robot video ---------- */
+  .hero__media {
+    position: absolute;
+    z-index: 1;
+    right: -75px;
+    bottom: 0;
+    width: 1025px;
+    height: 710px;
+    pointer-events: none;
+  }
+  .hero__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  /* ---------- Copy column ---------- */
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero__tag {
+    gap: 10px;
+    padding: 7px 15px;
+    border: 0;
+    box-shadow:
+      inset 0 0 0 1px rgb(245, 245, 245),
+      0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+  }
+  .hero__tag .tag__dot {
+    background: var(--c-blue);
+    box-shadow: 0 0 4px 4px rgba(28, 100, 255, 0.2);
+  }
+
+  /* Headline box: 609×233 on desktop; the rotating word is pinned to its bottom edge. */
+  .hero__title {
+    position: relative;
+    flex: none;
+    width: 609px;
+    max-width: 100%;
+    height: 233px;
+    font-size: 55px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.04em;
+    color: var(--c-text);
+  }
+  .hero__copy { white-space: pre-wrap; }
+  .hero__copy--tab,
+  .hero__copy--phone { display: none; }
+
+  .hero__lead {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 2;
+    color: rgb(51, 51, 51);
+  }
+
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero__spacer {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    width: 431px;
+    height: 431px;
+  }
+
+  /* ---------- Rotating word ---------- */
+  .rotator {
+    --rot-ease: cubic-bezier(0.25, 1, 0.5, 1);
+    position: absolute;
+    z-index: 5;
+    left: 287px;
+    bottom: 0;
+    display: block;
+    height: 1.4em;
+    overflow: hidden;
+    font-size: 60px;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+    color: var(--c-blue);
+    transition: width 0.6s var(--rot-ease);
+  }
+  .rotator__track {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transform: translateY(calc(var(--i, 0) * -1.4em));
+    transition: transform 0.6s var(--rot-ease);
+  }
+  .rotator__word {
+    display: block;
+    height: 1.4em;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.7s ease 0.05s;
+  }
+  .rotator__word.is-active { opacity: 1; }
+  .rotator.is-jumping,
+  .rotator.is-jumping * { transition: none !important; }
+
+  /* ---------- Shimmer streaks (Framer loop effects) ---------- */
+  .hero__shimmer {
+    position: absolute;
+    z-index: -1;
+    top: calc(50.0824% - 50vh);
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 0 35px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hero__shimmer-inner {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+  .streak {
+    position: absolute;
+    width: 2px;
+    background: linear-gradient(180deg, var(--c-blue) 0%, #96b8ff 23.13%, rgba(0, 0, 0, 0) 100%);
+    animation: var(--streak-name) var(--streak-duration) infinite;
+    will-change: transform, opacity;
+  }
+  .streak--a {
+    --streak-name: streak-a;
+    --streak-duration: 2s;
+    left: calc(3.89381% - 1px);
+    bottom: 97px;
+    height: 100px;
+  }
+  .streak--b {
+    --streak-name: streak-b;
+    --streak-duration: 2.7s;
+    left: calc(92.6549% - 1px);
+    top: calc(50% - 100px);
+    height: 200px;
+  }
+  .streak--c {
+    --streak-name: streak-c;
+    --streak-duration: 1.7s;
+    left: calc(24.3363% - 1px);
+    top: calc(50% - 25px);
+    height: 50px;
+    background: linear-gradient(180deg, var(--c-blue) 0%, #bdd2ff 35.59%, rgba(0, 0, 0, 0) 100%);
+  }
+  /* Each streak rises and fades over its tween, then waits (repeatDelay) before restarting. */
+  @keyframes streak-a {
+    0% { opacity: 1; transform: translateY(0); animation-timing-function: cubic-bezier(0.12, 0.23, 0.5, 1); }
+    50%, 100% { opacity: 0; transform: translateY(-800px); }
+  }
+  @keyframes streak-b {
+    0% { opacity: 1; transform: translateY(0); animation-timing-function: cubic-bezier(0.12, 0.23, 0.5, 1); }
+    44.44%, 100% { opacity: 0; transform: translateY(-500px); }
+  }
+  @keyframes streak-c {
+    0% { opacity: 1; transform: translateY(0); animation-timing-function: cubic-bezier(0.12, 0.23, 0.5, 1); }
+    88.24%, 100% { opacity: 0; transform: translateY(-450px); }
+  }
+
+  /* ---------- Tablet ---------- */
+  @media (max-width: 1199.98px) {
+    .hero { flex-direction: column; }
+    .hero__media {
+      top: 55%;
+      left: 55%;
+      right: auto;
+      bottom: auto;
+      width: 109%;
+      height: auto;
+      transform: translate(-50%, -50%);
+    }
+    .hero__video { height: auto; aspect-ratio: 16 / 9; }
+    .hero__content {
+      flex: none;
+      width: 100%;
+      padding-right: 250px;
+    }
+    .hero__title {
+      width: 400px;
+      height: 392px;
+      overflow: clip;
+    }
+    .hero__copy--desk { display: none; }
+    .hero__copy--tab { display: inline; }
+    .rotator { left: 0; }
+    .hero__spacer { display: none; }
+  }
+
+  /* ---------- Phone ---------- */
+  @media (max-width: 809.98px) {
+    .hero {
+      justify-content: flex-start;
+      padding: 20px;
+    }
+    .hero__media {
+      position: relative;
+      order: 1;
+      top: auto;
+      left: auto;
+      flex: none;
+      width: 122%;
+      transform: none;
+    }
+    .hero__video { object-fit: contain; }
+    .hero__content {
+      align-items: center;
+      padding: 120px 0 0;
+    }
+    .hero__title {
+      width: 100%;
+      height: 233px;
+      overflow: visible;
+      font-size: 35px;
+      text-align: center;
+    }
+    .hero__copy--tab { display: none; }
+    .hero__copy--phone { display: inline; }
+    .rotator {
+      left: calc(50% + 6px);
+      bottom: 37px;
+      font-size: 35px;
+      transform: translateX(-50%);
+    }
+    .hero__lead { text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .streak { animation: none; opacity: 0; }
+  }
+</style>
+
+<script>
+  // Rotating headline word — mirrors the Framer "Words" component timing:
+  // Innovation (0.5s) → Knowledge (1s) → Communities (1s) → Innovation clone (0.5s) → jump to start.
+  const HOLD = [500, 1000, 1000, 500];
+
+  function initRotator(rot: HTMLElement) {
+    const words = Array.from(rot.querySelectorAll<HTMLElement>('.rotator__word'));
+    let index = 0;
+
+    const fitWidth = () => {
+      rot.style.width = `${words[index].getBoundingClientRect().width}px`;
+    };
+
+    const show = (i: number, animate: boolean) => {
+      if (!animate) rot.classList.add('is-jumping');
+      index = i;
+      rot.style.setProperty('--i', String(i));
+      words.forEach((w, j) => w.classList.toggle('is-active', j === i));
+      fitWidth();
+      if (!animate) {
+        void rot.offsetWidth; // commit the jump before re-enabling transitions
+        rot.classList.remove('is-jumping');
+      }
+    };
+
+    show(0, false);
+    document.fonts?.ready.then(() => show(index, false));
+    window.addEventListener('resize', () => show(index, false));
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const tick = () => {
+      const last = words.length - 1;
+      if (index === last) show(0, false);
+      else show(index + 1, true);
+      window.setTimeout(tick, HOLD[index]);
+    };
+    window.setTimeout(tick, HOLD[0]);
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-rotator]').forEach(initRotator);
+
+  // Respect reduced motion for the background video too.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLVideoElement>('[data-hero-video]').forEach((v) => {
+      v.removeAttribute('autoplay');
+      v.pause();
+    });
+  }
+</script>

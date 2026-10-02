@@ -1,0 +1,104 @@
+---
+// Framer "Main Blue Button" / "Secondary White Button" (pill + arrow-in-circle), built on the
+// shared .btn primitives with the exact Framer sizes:
+//   size "l"   → (L) variant: 15px/600 text, 10/15/10/20 padding  (45px tall)
+//   size "m"   → (M)/(S) variant: 13px/500 text, 5/5/5/15 padding (35px tall)
+//   size "l-m" → L on tablet/desktop, M on phone (hero buttons)
+// Hover: opacity .8 + deeper shadow; press: opacity .6, scale .97 (Framer spring 500/60).
+import Icon from './Icon.astro';
+
+interface Props {
+  href: string;
+  label: string;
+  variant?: 'primary' | 'secondary';
+  size?: 'l' | 'm' | 'l-m';
+  newTab?: boolean;
+}
+
+const { href, label, variant = 'secondary', size = 'l', newTab = false } = Astro.props;
+---
+
+<a
+  class:list={['btn', `btn--${variant}`, 'abtn', `abtn--${size}`]}
+  href={href}
+  target={newTab ? '_blank' : undefined}
+  rel={newTab ? 'noopener' : undefined}
+>
+  <span class="abtn__label">{label}</span>
+  <span class="btn__icon abtn__icon" aria-hidden="true"><Icon name="arrow-right" /></span>
+</a>
+
+<style>
+  .abtn {
+    gap: 10px;
+    border: 0;
+    line-height: 1.5;
+    transition:
+      opacity 0.25s var(--ease-out),
+      box-shadow 0.25s var(--ease-out),
+      transform 0.2s var(--ease-out);
+  }
+  .abtn:hover { transform: none; opacity: 0.8; }
+  .abtn:active { opacity: 0.6; transform: scale(0.97); }
+
+  .abtn__icon {
+    width: 25px;
+    height: 25px;
+    border: 0;
+  }
+  .abtn:hover .abtn__icon { transform: none; }
+  .abtn__icon :global(svg) { width: 13px; height: 13px; }
+
+  /* Primary: blue pill, white text, translucent icon circle */
+  .btn--primary.abtn {
+    background: var(--c-blue);
+    color: var(--c-white);
+    box-shadow: 0 3px 10px 0 rgba(29, 100, 255, 0.2);
+  }
+  .btn--primary.abtn:hover,
+  .btn--primary.abtn:active { box-shadow: 0 6px 10px 0 rgba(29, 100, 255, 0.25); }
+  .btn--primary .abtn__icon {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.3);
+  }
+  .btn--primary .abtn__label { line-height: 1.6; }
+
+  /* Secondary: white pill with a hairline ring (drawn inset so it doesn't change the size) */
+  .btn--secondary.abtn {
+    background: var(--c-white);
+    color: var(--c-black);
+    box-shadow:
+      inset 0 0 0 1px rgb(230, 230, 230),
+      0 3px 5px 0 rgba(0, 0, 0, 0.05);
+  }
+  .btn--secondary.abtn:hover,
+  .btn--secondary.abtn:active {
+    box-shadow:
+      inset 0 0 0 1px rgb(230, 230, 230),
+      0 6px 7px 0 rgba(0, 0, 0, 0.07);
+  }
+  .btn--secondary .abtn__icon {
+    background: rgba(0, 0, 0, 0.03);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Sizes */
+  .abtn--l,
+  .abtn--l-m {
+    padding: 10px 15px 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .abtn--m {
+    padding: 5px 5px 5px 15px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  @media (max-width: 809.98px) {
+    .abtn--l-m {
+      padding: 5px 5px 5px 15px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+</style>

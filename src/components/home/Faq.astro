@@ -1,0 +1,338 @@
+---
+/**
+ * Home — "FAQs Section" ("All FAQs" + CTA component) and the FAQPage JSON-LD that the
+ * "FAQ Schema (SEO)" code component injects.
+ *
+ * Each question toggles independently (several can be open at once, as on the live site);
+ * the first one starts open.
+ */
+import SmallHeading from './b/SmallHeading.astro';
+
+// Answers as displayed on the live site.
+const faqs = [
+  {
+    q: 'What is ALPHV Technologies?',
+    a: 'ALPHV Technologies is an AI-native system integrator based in Malaysia. We design, build, and deploy custom AI and software solutions, train technical teams through HRD Corp–claimable programs, and connect organisations with vetted developer talent.',
+  },
+  {
+    q: 'What does an AI-native system integrator do?',
+    a: 'An AI-native system integrator embeds AI into your core workflows instead of bolting it on. ALPHV scopes the use case, builds the custom AI or software, integrates it with your existing systems, and trains your team to operate it — end to end.',
+  },
+  {
+    q: 'What services does ALPHV offer?',
+    a: 'ALPHV delivers four core services:\n\n- Custom AI and software development\n\n- System integration and digital transformation\n\n- HRD Corp–claimable tech training and upskilling\n\n- Developer recruitment through our Developer Kaki community',
+  },
+  {
+    q: 'How long does an AI integration project take with ALPHV?',
+    a: 'Most ALPHV engagements run 6–16 weeks from discovery to deployment, depending on scope. We start with a 2-week discovery sprint, then deliver in two-week increments so you see working software early and adjust as we go.',
+  },
+  {
+    q: 'How much does it cost to work with ALPHV?',
+    a: 'Pricing depends on scope, but ALPHV offers three engagement models:\n\n- Fixed-scope projects for defined deliverables\n\n- Monthly retainers for ongoing build and integration\n\n- HRD Corp–claimable training packages (eligible Malaysian employers can claim up to 100% of training costs)',
+  },
+  {
+    q: 'Is my data secure when ALPHV builds AI for us?',
+    a: 'Yes. ALPHV follows a private-by-default approach: we deploy AI on your infrastructure or in isolated cloud tenants, never train external models on your data without written consent, and align with PDPA and ISO 27001 control practices.',
+  },
+  {
+    q: 'How is ALPHV different from a traditional IT vendor or consultancy?',
+    a: 'ALPHV is built around an integrated ecosystem — engineering, training, and a 76,000+ developer community (Developer Kaki) under one roof. You get the AI build, the team to run it, and the talent pipeline to scale it, instead of stitching three vendors together.',
+  },
+  {
+    q: 'How do I get started with ALPHV?',
+    a: "Book a free 30-minute discovery call via our Contact Us page. We'll map your use case, recommend the right engagement model, and send a scoped proposal within five business days.",
+  },
+];
+
+// Verbatim from the FaqSchema.tsx code component (its copy differs slightly from the on-page answers).
+const schemaFaqs = [
+  {
+    q: 'What is ALPHV Technologies?',
+    a: 'ALPHV Technologies is an AI-native system integrator based in Malaysia. We design, build, and deploy custom AI and software solutions, train technical teams through HRD Corp-claimable programs, and connect organisations with vetted developer talent.',
+  },
+  {
+    q: 'What does an AI-native system integrator do?',
+    a: 'An AI-native system integrator embeds AI into your core workflows instead of bolting it on. ALPHV scopes the use case, builds the custom AI or software, integrates it with your existing systems, and trains your team to operate it - end to end.',
+  },
+  {
+    q: 'What services does ALPHV offer?',
+    a: 'ALPHV delivers four core services: custom AI and software development; system integration and digital transformation; HRD Corp-claimable tech training and upskilling; and developer recruitment through our Developer Kaki community.',
+  },
+  {
+    q: 'How long does an AI integration project take with ALPHV?',
+    a: 'Most ALPHV engagements run 6 to 16 weeks from discovery to deployment, depending on scope. We start with a 2-week discovery sprint, then deliver in two-week increments so you see working software early and adjust as we go.',
+  },
+  {
+    q: 'How much does it cost to work with ALPHV?',
+    a: 'Pricing depends on scope, but ALPHV offers three engagement models: fixed-scope projects for defined deliverables; monthly retainers for ongoing build and integration; and HRD Corp-claimable training packages (eligible Malaysian employers can claim up to 100% of training costs).',
+  },
+  {
+    q: 'Is my data secure when ALPHV builds AI for us?',
+    a: 'Yes. ALPHV follows a private-by-default approach: we deploy AI on your infrastructure or in isolated cloud tenants, never train external models on your data without written consent, and align with PDPA and ISO 27001 control practices.',
+  },
+  {
+    q: 'How is ALPHV different from a traditional IT vendor or consultancy?',
+    a: 'ALPHV is built around an integrated ecosystem - engineering, training, and a 76,000+ developer community (Developer Kaki) under one roof. You get the AI build, the team to run it, and the talent pipeline to scale it, instead of stitching three vendors together.',
+  },
+  {
+    q: 'How do I get started with ALPHV?',
+    a: 'Book a free 30-minute discovery call via our Contact Us page. We will map your use case, recommend the right engagement model, and send a scoped proposal within five business days.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: schemaFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<section class="faq" aria-labelledby="faq-title">
+  <div class="faq__layout">
+    <div class="faq__aside">
+      <div class="faq__heading">
+        <SmallHeading label="FAQs" icon="question" data-reveal style="--reveal-distance: 20px" />
+        <h2 id="faq-title" class="faq__title" data-reveal style="--reveal-distance: 20px; --reveal-delay: 100ms">
+          Frequently Asked Questions!
+        </h2>
+      </div>
+
+      <div class="faq__cta" data-reveal style="--reveal-distance: 20px; --reveal-delay: 200ms">
+        <p class="faq__cta-title">
+          Can't Find Your Answer Here?<br class="faq__br" />{' '}<span>We Can Help Out!</span>
+        </p>
+        {/* href as on the live site */}
+        <a class="btn btn--primary faq__btn" href="mailto:hey@framerit.com">
+          <span>Send Us an Email</span>
+          <span class="btn__icon" aria-hidden="true">
+            {/* Phosphor "PaperPlaneTilt" (regular) */}
+            <svg viewBox="0 0 256 256" fill="currentColor" focusable="false">
+              <path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="faq__list" data-reveal style="--reveal-distance: 20px; --reveal-delay: 300ms">
+      {
+        faqs.map((f, i) => (
+          <div class:list={['faq__item', { 'is-open': i === 0 }]} data-faq-item>
+            <h3 class="faq__q">
+              <button
+                class="faq__toggle"
+                type="button"
+                id={`faq-q-${i}`}
+                aria-expanded={i === 0 ? 'true' : 'false'}
+                aria-controls={`faq-a-${i}`}
+              >
+                <span class="faq__question">{f.q}</span>
+                {/* Phosphor "Plus" (bold); rotates 45° into an × when open */}
+                <svg class="faq__icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" />
+                </svg>
+              </button>
+            </h3>
+            <div class="faq__a" id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
+              <div class="faq__a-clip">
+                <p class="faq__answer">{f.a}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>
+
+<style>
+  .faq {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin-inline: auto;
+    padding: 100px 0 50px;
+    background: var(--c-white);
+    box-shadow: inset 0 1px 0 var(--c-border);
+    overflow: hidden;
+  }
+
+  .faq__layout {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  /* ---------- Left column: heading at the top, CTA card pinned to the bottom ---------- */
+  .faq__aside {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+    justify-content: space-between;
+    min-width: 0;
+  }
+  .faq__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+  .faq__title {
+    width: 100%;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--c-black);
+  }
+
+  .faq__cta {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    background: var(--c-white);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+  }
+  .faq__cta::after,
+  .faq__item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px dashed var(--c-border);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .faq__cta-title {
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--c-black);
+  }
+  .faq__cta-title span { color: rgba(109, 122, 130, 0.7); }
+
+  /* ---------- Right column: accordion ---------- */
+  .faq__list {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: 15px;
+    width: 55%;
+  }
+  .faq__item {
+    position: relative;
+    padding: 0 20px 0 10px;
+    border-radius: 15px;
+    background: var(--c-white);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+  }
+  .faq__q { font: inherit; }
+  .faq__toggle {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+    padding: 30px 20px;
+    text-align: left;
+    user-select: none;
+    transition: padding-bottom 0.35s var(--ease-out);
+  }
+  .faq__question {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--c-black);
+  }
+  .faq__icon {
+    flex: none;
+    width: 15px;
+    height: 15px;
+    color: var(--c-black);
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .faq__a {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.35s var(--ease-out), visibility 0s;
+  }
+  .faq__a-clip {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .faq__answer {
+    padding: 10px 20px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.7);
+    white-space: pre-line;
+  }
+
+  .faq__item.is-open .faq__toggle { padding-bottom: 15px; }
+  .faq__item.is-open .faq__icon { transform: rotate(45deg); }
+  /* Collapse only once JS is available, so answers stay readable without it. */
+  :global(html.js) .faq__item:not(.is-open) .faq__a {
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows 0.35s var(--ease-out), visibility 0s 0.35s;
+  }
+
+  /* ---------- Phone: stacked ("Variant 3") ---------- */
+  @media (max-width: 809.98px) {
+    .faq__layout {
+      flex-direction: column;
+    }
+    .faq__aside {
+      flex: none;
+      align-self: auto;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+    }
+    .faq__title { font-size: 35px; }
+    .faq__cta { padding: 19px; }
+    .faq__cta-title { font-size: 20px; }
+    .faq__br { display: none; }
+    .faq__btn { width: 100%; }
+    .faq__list { width: 100%; }
+    .faq__answer { font-size: 15px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq__toggle,
+    .faq__icon,
+    .faq__a,
+    :global(html.js) .faq__item:not(.is-open) .faq__a { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-faq-item]').forEach((item) => {
+    const toggle = item.querySelector<HTMLButtonElement>('.faq__toggle');
+    toggle?.addEventListener('click', () => {
+      const open = !item.classList.contains('is-open');
+      item.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  });
+</script>

@@ -1,0 +1,276 @@
+---
+// Site footer — port of Framer's "Footer" component (variants Footer Desktop / Tablet / Mobile).
+// Same on every page. On the live site the column entries are plain text (no links); give an
+// entry an `href` here to turn it into a link.
+import { url } from '../../lib/paths';
+
+interface FooterItem {
+  label: string;
+  href?: string;
+}
+
+const home: FooterItem[] = [{ label: 'About Us' }, { label: 'Awards' }, { label: 'Testimonials' }];
+const services: FooterItem[] = [
+  { label: 'Custom AI Solution' },
+  { label: 'Digital Avatars' },
+  { label: 'Web Development' },
+  { label: 'Mobile Apps' },
+  { label: 'Technology Consulting' },
+  { label: 'Computer Vision' },
+];
+const explore: FooterItem[] = [
+  { label: 'Technologies' },
+  { label: 'Academy' },
+  { label: 'Recruit' },
+  { label: 'Devrel' },
+];
+
+const groups = [
+  { id: 'home', title: 'HOME', items: home },
+  { id: 'services', title: 'SERVICES', items: services },
+  { id: 'explore', title: 'EXPLORE', items: explore },
+];
+---
+
+<footer class="site-footer">
+  <div class="site-footer__content">
+    <div class="site-footer__brand">
+      <a class="site-footer__logo" href={url('/')} aria-label="ALPHV — home">
+        <svg viewBox="0 0 144 51" width="144" height="51" aria-hidden="true" focusable="false">
+          <g fill="currentColor">
+            <path d="M 50.137 33.162 L 57.862 17.836 L 61.134 17.836 L 68.859 33.162 L 65.698 33.162 L 64.05 29.861 L 54.745 29.861 L 53.098 33.162 Z M 55.903 27.496 L 62.893 27.496 L 60.868 23.325 C 60.793 23.162 60.685 22.927 60.545 22.623 C 60.404 22.318 60.263 22.001 60.122 21.675 C 59.981 21.348 59.851 21.058 59.732 20.805 C 59.613 20.552 59.532 20.396 59.488 20.336 L 59.31 20.336 C 59.176 20.634 59.02 20.98 58.842 21.373 C 58.665 21.767 58.494 22.143 58.331 22.5 C 58.167 22.857 58.033 23.14 57.93 23.348 L 55.904 27.497 Z" />
+            <path d="M 71.776 33.163 L 71.776 17.837 L 74.647 17.837 L 74.647 30.62 L 84.286 30.62 L 84.286 33.163 L 71.775 33.163 Z" />
+            <path d="M 87.313 33.163 L 87.313 17.837 L 98.31 17.837 C 99.29 17.837 100.139 18.049 100.859 18.472 C 101.578 18.896 102.135 19.473 102.529 20.201 C 102.922 20.93 103.119 21.77 103.119 22.723 C 103.119 23.675 102.922 24.522 102.529 25.265 C 102.135 26.01 101.575 26.589 100.848 27.006 C 100.121 27.422 99.26 27.63 98.266 27.63 L 90.185 27.63 L 90.185 33.163 Z M 90.185 25.221 L 97.509 25.221 C 98.385 25.221 99.052 24.998 99.512 24.552 C 99.972 24.105 100.203 23.503 100.203 22.744 C 100.203 22.239 100.099 21.8 99.89 21.428 C 99.683 21.057 99.379 20.77 98.978 20.569 C 98.577 20.368 98.088 20.268 97.509 20.268 L 90.185 20.268 L 90.185 25.22 Z" />
+            <path d="M 106.214 33.163 L 106.214 17.837 L 109.085 17.837 L 109.085 24.083 L 120.016 24.083 L 120.016 17.837 L 122.887 17.837 L 122.887 33.163 L 120.016 33.163 L 120.016 26.626 L 109.085 26.626 L 109.085 33.163 Z" />
+            <path d="M 132.927 33.163 L 125.581 17.837 L 128.809 17.837 L 133.105 27.072 C 133.268 27.4 133.44 27.767 133.617 28.176 C 133.795 28.585 133.974 28.987 134.151 29.381 C 134.329 29.775 134.478 30.114 134.597 30.396 L 134.775 30.396 C 134.893 30.129 135.035 29.801 135.198 29.414 C 135.361 29.027 135.535 28.63 135.721 28.221 C 135.907 27.812 136.081 27.436 136.244 27.094 L 140.562 17.836 L 143.613 17.836 L 136.289 33.162 L 132.927 33.162 Z" />
+            <path d="M 25.808 13.962 C 24.497 10.943 22.648 8.102 20.259 5.588 L 0.388 25.5 L 20.258 45.412 C 22.648 42.898 24.496 40.056 25.807 37.038 L 14.293 25.5 L 25.807 13.962 Z" />
+            <path d="M 34.165 5.587 L 25.808 13.962 C 28.996 21.302 28.996 29.697 25.808 37.038 L 34.165 45.412 C 44.753 34.268 44.753 16.731 34.165 5.586 Z" />
+          </g>
+        </svg>
+      </a>
+      <p class="site-footer__company">ALPHV Technologies Sdn Bhd (1509526-V)</p>
+      <address class="site-footer__address">
+        Unit 21-05, Level 21, Tower A, The Vertical Business Suites, 8, Jalan Kerinchi, Bangsar South, 59200 Kuala
+        Lumpur, Federal Territory of Kuala Lumpur
+      </address>
+      <div class="site-footer__contact">
+        <p class="site-footer__idea">Have an idea?</p>
+        <a class="site-footer__email" href="mailto:hello@alphv.com">hello@alphv.com</a>
+      </div>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer">
+      <div class="site-footer__groups">
+      {
+        groups.map((group) => (
+          <div class={`site-footer__group site-footer__group--${group.id}`}>
+            <h2 class="site-footer__heading">{group.title}</h2>
+            <ul class="site-footer__list">
+              {group.items.map((item) => (
+                <li>{item.href ? <a href={url(item.href)}>{item.label}</a> : item.label}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+      </div>
+    </nav>
+  </div>
+
+  <p class="site-footer__hashtag">#SEEKALPHV</p>
+</footer>
+
+<style>
+  .site-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 100px 0;
+    overflow: hidden;
+    background: var(--c-blue);
+    border-radius: 50px 50px 0 0;
+    color: var(--c-white);
+  }
+
+  .site-footer__content {
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  /* ---- Left column: logo, company, address, contact ---- */
+  .site-footer__brand {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+  }
+  .site-footer__logo {
+    display: block;
+    width: 144px;
+    height: 51px;
+    color: var(--c-blue-nav);
+  }
+  .site-footer__logo svg {
+    width: 100%;
+    height: 100%;
+  }
+  .site-footer__company {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+  .site-footer__address {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    font-style: normal;
+    line-height: 1.2;
+    color: var(--c-surface);
+    text-wrap: balance;
+  }
+  .site-footer__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-block: 1px;
+  }
+  .site-footer__idea,
+  .site-footer__email {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .site-footer__idea {
+    font-weight: 800;
+  }
+  .site-footer__email {
+    font-weight: 400;
+    width: fit-content;
+  }
+  .site-footer__email:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ---- Right column: link groups ---- */
+  .site-footer__nav {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .site-footer__groups {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 60px;
+    width: 100%;
+  }
+  .site-footer__group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .site-footer__heading {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .site-footer__group--services .site-footer__heading {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    font-feature-settings: 'cv01', 'cv05', 'cv09', 'cv11';
+  }
+  .site-footer__list {
+    display: contents;
+  }
+  .site-footer__list li {
+    font-family: var(--font-inter);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    font-feature-settings: 'cv01', 'cv05', 'cv09', 'cv11';
+    white-space: nowrap;
+  }
+  .site-footer__list a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .site-footer__hashtag {
+    font-size: 162px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* ---- Tablet (Footer Tablet) ---- */
+  @media (max-width: 1199.98px) {
+    .site-footer {
+      padding: 100px 40px;
+    }
+    .site-footer__content {
+      gap: 0;
+    }
+    .site-footer__groups {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas:
+        'home services'
+        'explore services';
+      justify-content: start;
+      align-content: start;
+      gap: 60px;
+      width: 335px;
+      max-width: 100%;
+    }
+    .site-footer__group--home {
+      grid-area: home;
+    }
+    .site-footer__group--services {
+      grid-area: services;
+    }
+    .site-footer__group--explore {
+      grid-area: explore;
+    }
+    .site-footer__hashtag {
+      font-size: 100px;
+    }
+  }
+
+  /* ---- Phone (Footer Mobile) ---- */
+  @media (max-width: 809.98px) {
+    .site-footer {
+      padding: 50px 30px;
+      border-radius: 40px 40px 0 0;
+    }
+    .site-footer__content {
+      flex-direction: column;
+      gap: 60px;
+    }
+    .site-footer__brand {
+      flex: none;
+      width: 100%;
+    }
+    .site-footer__nav {
+      flex: none;
+      width: 100%;
+    }
+    .site-footer__groups {
+      width: 290px;
+    }
+    .site-footer__hashtag {
+      font-size: 40px;
+    }
+  }
+</style>

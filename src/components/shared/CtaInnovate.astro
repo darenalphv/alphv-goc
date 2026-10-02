@@ -1,0 +1,158 @@
+---
+// "Ready to Innovate The ALPHV Way?" call-to-action — used near the bottom of home, about-us and service.
+// Port of Framer's "CTA Section" (100px vertical padding, white card with a looping world-map line animation).
+// The map was a Lottie file in Framer; public/assets/cta-world-map.svg is a static re-creation of it
+// (same paths, colours and timing, animated with CSS — no Lottie runtime). Hidden on phones, like Framer.
+import { url } from '../../lib/paths';
+
+const arrow =
+  'M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z';
+---
+
+<section class="cta-innovate" aria-labelledby="cta-innovate-title">
+  <div class="cta-innovate__card" data-reveal="scale">
+    <div class="cta-innovate__content">
+      <div class="cta-innovate__text">
+        <p class="tag tag--glass"><span class="tag__dot" aria-hidden="true"></span>50,000+ Developers. Countless Possibilities.</p>
+        <h2 class="cta-innovate__title" id="cta-innovate-title">
+          Ready to Innovate<br />The <span class="text-blue">ALPHV</span> Way ?
+        </h2>
+        <p class="cta-innovate__lead">Be part of the change shaping tomorrow’s tech</p>
+      </div>
+      <div class="cta-innovate__buttons">
+        <a class="btn btn--primary" href={url('/contact-us')}>
+          <span>Talk to Our Team</span>
+          <span class="btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 256 256" fill="currentColor" focusable="false"><path d={arrow} /></svg>
+          </span>
+        </a>
+        <a class="btn btn--secondary" href={url('/service')}>
+          <span>Explore Services</span>
+          <span class="btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 256 256" fill="currentColor" focusable="false"><path d={arrow} /></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+    <img
+      class="cta-innovate__map"
+      src={url('/assets/cta-world-map.svg')}
+      alt=""
+      width="429"
+      height="314"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+</section>
+
+<style>
+  .cta-innovate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 100px 0;
+    overflow: hidden;
+    background: var(--c-white);
+  }
+
+  .cta-innovate__card {
+    /* Framer appear effect: fade in from 80% scale, 5px lower, after 0.4s */
+    --reveal-scale: 0.8;
+    --reveal-distance: 5px;
+    --reveal-delay: 400ms;
+    --reveal-duration: 1.2s;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 30px;
+    width: 90%;
+    max-width: 1200px;
+    height: 550px;
+    padding: 60px;
+    overflow: hidden;
+    background: var(--c-white);
+    border-radius: 20px;
+    box-shadow:
+      0 16px 35px 15px rgba(0, 0, 0, 0.15),
+      0 6px 15px rgba(0, 0, 0, 0.15),
+      0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .cta-innovate__content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+    width: 50%;
+  }
+  .cta-innovate__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+  .cta-innovate__title {
+    width: 100%;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--c-text);
+    text-wrap: balance;
+  }
+  .cta-innovate__lead {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--c-text);
+  }
+  .cta-innovate__buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .cta-innovate__map {
+    flex: none;
+    width: 429px;
+    height: 314px;
+    object-fit: cover;
+  }
+
+  /* Tablet: stacked buttons, smaller map */
+  @media (max-width: 1199.98px) {
+    .cta-innovate__buttons {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .cta-innovate__map {
+      width: 256px;
+      height: 188px;
+    }
+  }
+
+  /* Phone: single column, no map */
+  @media (max-width: 809.98px) {
+    .cta-innovate__card {
+      flex-direction: column;
+      justify-content: flex-start;
+      height: auto;
+    }
+    .cta-innovate__content {
+      width: 128%;
+    }
+    .cta-innovate__map {
+      display: none;
+    }
+  }
+</style>

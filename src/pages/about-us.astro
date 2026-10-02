@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/about/Hero.astro';
+import Story from '../components/about/Story.astro';
+import VisionMission from '../components/about/VisionMission.astro';
+import Impact from '../components/about/Impact.astro';
+import Ecosystem from '../components/about/Ecosystem.astro';
+import Founder from '../components/about/Founder.astro';
+import CtaInnovate from '../components/shared/CtaInnovate.astro';
+---
+
+<BaseLayout
+  title="About ALPHV — AI Engineering, Training & Talent"
+  description="Meet ALPHV Technologies, the Malaysia-based AI-native system integrator behind Developer Kaki. Learn our mission, team, and approach to building AI ecosystems."
+  path="/about-us"
+>
+  <Hero />
+  <Story />
+  <VisionMission />
+  <Impact />
+  <Ecosystem />
+  <Founder />
+  <CtaInnovate />
+</BaseLayout>
+
+<style>
+  /* About sections slide up 170px into place without fading (Framer appear: y 170 → 0, opacity 1). */
+  :global(html.js .about-slide[data-reveal]) {
+    opacity: 1;
+    transition-duration: 1s;
+  }
+</style>

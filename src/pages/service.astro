@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceHero from '../components/service/ServiceHero.astro';
+import ServiceCards from '../components/service/ServiceCards.astro';
+import FeaturedExpertise from '../components/service/FeaturedExpertise.astro';
+import ScrollingText from '../components/service/ScrollingText.astro';
+import CtaInnovate from '../components/shared/CtaInnovate.astro';
+---
+
+<BaseLayout
+  title="AI & Software Services — Custom Build, Integration, DevRel | ALPHV"
+  description="Explore ALPHV's services: custom AI and software development, system integration, developer relations, and recruitment for startups, enterprises, and government."
+  path="/service"
+>
+  <ServiceHero />
+  <ServiceCards />
+  <FeaturedExpertise />
+  <ScrollingText />
+  <CtaInnovate />
+</BaseLayout>

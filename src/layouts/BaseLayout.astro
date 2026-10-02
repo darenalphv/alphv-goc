@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+import NavMain from '../components/shared/NavMain.astro';
+import NavPill from '../components/shared/NavPill.astro';
+import Footer from '../components/shared/Footer.astro';
+import { url } from '../lib/paths';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Root-relative path of this page, used for the canonical URL, e.g. "/about-us". */
+  path: string;
+  /** Home uses the full-width "Ecosystem" navbar; other pages use the centred pill nav. */
+  nav?: 'main' | 'pill';
+  ogImage?: string;
+  /** Set false for pages that should not be indexed (e.g. 404). */
+  index?: boolean;
+}
+
+const {
+  title,
+  description,
+  path,
+  nav = 'pill',
+  ogImage = '/images/XLdIyFNeWEQPk8DuOEnZbpdQjhk.png',
+  index = true,
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://alphvgroup.com');
+const canonical = new URL(url(path), site).href;
+const ogImageUrl = new URL(url(ogImage), site).href;
+const GA_ID = 'G-5QRFPXJGLL';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {!index && <meta name="robots" content="noindex" />}
+    {index && <meta name="robots" content="max-image-preview:large" />}
+
+    <link rel="icon" href={url('/images/jq4WovQ1ikJKT8oEG9yJscS3Sw.png')} />
+    <link rel="apple-touch-icon" href={url('/images/sbU8quCzhgRkhiu6zpt0c4AtA.png')} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Self-hosted copies of the exact font files the Framer site used (see public/fonts/fonts.css). -->
+    <link rel="stylesheet" href={url('/fonts/fonts.css')} />
+
+    <script is:inline>document.documentElement.classList.add('js');</script>
+
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+    <script is:inline define:vars={{ GA_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {nav === 'main' ? <NavMain /> : <NavPill />}
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Scroll-reveal for [data-reveal] elements (Framer appear effects).
+      const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach((el) => el.classList.add('is-revealed'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.01 }
+        );
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

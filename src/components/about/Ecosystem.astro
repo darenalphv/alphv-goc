@@ -1,0 +1,240 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+const steps = [
+  {
+    title: 'System Integration & Software Development',
+    text: 'Custom solutions, AI/ML, enterprise applications, cloud consulting.',
+  },
+  { title: 'Talent Development ( ALPHV Academy )', text: 'HRDC-certified training, GenAI, Data Science, Analytics.' },
+  { title: 'Developer Relations (DevRel)', text: 'Hackathons, advocacy, events via Developer Kaki.' },
+  { title: 'Job Placement (ALPHV Recruit)', text: 'Streamlined recruitment and talent matching.' },
+];
+---
+
+<section class="ecosystem about-slide" id="process" data-reveal style="--reveal-distance:170px" aria-labelledby="ecosystem-title">
+  <div class="ecosystem__inner">
+    <SectionHeading id="ecosystem-title" parts={['Our ', { text: 'Ecosystem', class: 'text-blue' }]} />
+
+    <!--
+      Desktop (≥1200px): one card is expanded at a time; clicking a collapsed card expands it.
+      Tablet: static stacked rows. Phone: cards stack on top of each other while scrolling (sticky).
+    -->
+    <div class="eco" data-eco>
+      {
+        steps.map((step, i) => (
+          <article class:list={['eco__card', { 'is-open': i === 0 }]} data-eco-card>
+            <span class="eco__bg" aria-hidden="true" />
+            <span class="eco__num" aria-hidden="true">
+              {i + 1}
+            </span>
+            <div class="eco__body">
+              <h3 class="eco__title" id={`eco-title-${i + 1}`}>
+                {step.title}
+              </h3>
+              <p class="eco__text" id={`eco-text-${i + 1}`}>
+                {step.text}
+              </p>
+            </div>
+            <button
+              class="eco__hit"
+              type="button"
+              aria-expanded={i === 0 ? 'true' : 'false'}
+              aria-controls={`eco-text-${i + 1}`}
+              aria-labelledby={`eco-title-${i + 1}`}
+            />
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .ecosystem {
+    display: flex;
+    justify-content: center;
+    padding: 100px 40px;
+    scroll-margin-top: 100px;
+  }
+
+  .ecosystem__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  /* ---------- Base (tablet): static rows ---------- */
+  .eco {
+    --eco-ink: rgb(245, 255, 253);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .eco__card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+    min-width: 0;
+    padding: 40px;
+    border-radius: 30px;
+    background: var(--c-surface);
+    color: var(--c-text-strong);
+    overflow: hidden;
+  }
+
+  .eco__bg {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    border-radius: 30px;
+    background: var(--c-surface);
+  }
+
+  .eco__num {
+    flex: none;
+    font-family: var(--font-inter);
+    font-size: 112px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    white-space: pre;
+  }
+
+  .eco__body {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 10px;
+  }
+
+  .eco__title {
+    font-family: var(--font-inter);
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+
+  .eco__text {
+    font-family: var(--font-inter);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.04em;
+  }
+
+  .eco__hit { display: none; }
+
+  /* ---------- Phone: sticky stacking cards ---------- */
+  @media (max-width: 809.98px) {
+    .eco__card {
+      position: sticky;
+      top: 74px;
+      z-index: 1;
+      flex-direction: column;
+      gap: 32px;
+      padding: 30px;
+    }
+    .eco__body { flex: none; width: 100%; }
+  }
+
+  /* ---------- Desktop: expanding cards ---------- */
+  @media (min-width: 1200px) {
+    .eco {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .eco__card {
+      flex: 0 0 85px;
+      height: 512px;
+      color: var(--eco-ink);
+    }
+    .eco__card.is-open { flex-grow: 1; }
+    .eco__card:not(.is-open):hover .eco__num { transform: translateX(20px); }
+
+    .eco__bg {
+      right: -945px;
+      width: 915px;
+      background: var(--c-blue);
+    }
+    .is-open .eco__bg {
+      right: 0;
+      width: 100%;
+    }
+
+    .eco__num { color: var(--c-blue); transition: transform 0.3s var(--ease-out); }
+    .is-open .eco__num { color: var(--eco-ink); }
+
+    /* Animate only once the visitor has interacted, so breakpoint changes never replay the expansion. */
+    .eco.is-interactive .eco__card {
+      transition: flex-grow 0.6s var(--ease-out);
+    }
+    .eco.is-interactive .eco__bg {
+      transition:
+        right 0.6s var(--ease-out),
+        width 0.6s var(--ease-out);
+    }
+    .eco.is-interactive .eco__num {
+      transition:
+        color 0.6s var(--ease-out),
+        transform 0.3s var(--ease-out);
+    }
+
+    .eco__body {
+      flex: none;
+      justify-content: space-between;
+      gap: 0;
+      width: 670px;
+      height: 432px;
+    }
+
+    .eco__hit {
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border-radius: inherit;
+      cursor: pointer;
+    }
+    .is-open .eco__hit { cursor: default; }
+    .eco__hit:focus-visible { outline-offset: -4px; }
+    .is-open .eco__hit:focus-visible { outline-color: var(--c-white); }
+  }
+
+  @media (min-width: 1200px) and (prefers-reduced-motion: reduce) {
+    .eco.is-interactive .eco__card,
+    .eco.is-interactive .eco__bg,
+    .eco.is-interactive .eco__num { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-eco]').forEach((root) => {
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-eco-card]')];
+    const open = (index: number) => {
+      root.classList.add('is-interactive');
+      cards.forEach((card, i) => {
+        const isOpen = i === index;
+        card.classList.toggle('is-open', isOpen);
+        card.querySelector('.eco__hit')?.setAttribute('aria-expanded', String(isOpen));
+      });
+    };
+    cards.forEach((card, i) => {
+      card.querySelector('.eco__hit')?.addEventListener('click', () => open(i));
+    });
+  });
+</script>

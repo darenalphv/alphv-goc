@@ -1,0 +1,62 @@
+---
+// Service page hero — Framer frame "Hero" (padding 80px 20px, identical at every breakpoint).
+// The eyebrow keeps the live site's copy verbatim ("Sevices" typo included).
+---
+
+<section class="hero">
+  <div class="hero__inner">
+    <p class="hero__eyebrow">Our Sevices</p>
+    <h1 class="hero__title" data-reveal style="--reveal-distance: 20px; --reveal-delay: 200ms">
+      We <span class="text-blue">Build</span> What Matters
+    </h1>
+    <p class="hero__lead" data-reveal style="--reveal-distance: 20px; --reveal-delay: 300ms">
+      From enterprise AI to talent development, ALPHV delivers end-to-end services that help businesses scale,
+      developers thrive, and communities innovate.
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 80px 20px;
+    background: var(--c-white);
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .hero__eyebrow {
+    align-self: stretch;
+    font-family: var(--font-inter);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--c-black);
+  }
+
+  .hero__title {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 55px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--c-text);
+  }
+
+  .hero__lead {
+    width: 80%;
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 2;
+    text-align: center;
+    color: var(--c-text);
+  }
+</style>

@@ -1,0 +1,59 @@
+---
+/**
+ * "Small Heading" eyebrow used by the home Counter and FAQ sections:
+ * Phosphor icon + uppercase blue label + a short line that fades out to the right.
+ * Extra attributes (data-reveal, style, class) are forwarded to the wrapper.
+ */
+interface Props {
+  label: string;
+  icon: 'stack' | 'question';
+  class?: string;
+  [attr: string]: unknown;
+}
+
+const { label, icon, class: className, ...attrs } = Astro.props;
+
+// Phosphor "StackSimple" and "Question" (regular weight), as inlined by Framer.
+const paths = {
+  stack:
+    'M12,111l112,64a8,8,0,0,0,7.94,0l112-64a8,8,0,0,0,0-13.9l-112-64a8,8,0,0,0-7.94,0l-112,64A8,8,0,0,0,12,111ZM128,49.21,223.87,104,128,158.79,32.13,104ZM246.94,140A8,8,0,0,1,244,151L132,215a8,8,0,0,1-7.94,0L12,151A8,8,0,0,1,20,137.05l108,61.74,108-61.74A8,8,0,0,1,246.94,140Z',
+  question:
+    'M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z',
+};
+---
+
+<div class:list={['small-heading', className]} {...attrs}>
+  <svg class="small-heading__icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false">
+    <path d={paths[icon]}></path>
+  </svg>
+  <p class="small-heading__label">{label}</p>
+  <span class="small-heading__line" aria-hidden="true"></span>
+</div>
+
+<style>
+  .small-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: max-content;
+    color: var(--c-blue);
+  }
+  .small-heading__icon {
+    flex: none;
+    width: 20px;
+    height: 20px;
+  }
+  .small-heading__label {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .small-heading__line {
+    flex: none;
+    width: 50px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--c-blue), transparent);
+  }
+</style>

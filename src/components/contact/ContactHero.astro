@@ -1,0 +1,270 @@
+---
+// Contact page hero: "Spots Badge" tag, headline, intro, WhatsApp CTA and the glossy 3D ALPHV mark.
+// Ported from the Framer "Hero" frame on /contact-us. Framer kept a separate copy of this block per
+// breakpoint; here a single markup tree is restyled at the tablet (810–1199px) and phone (<810px) breakpoints.
+import { url } from '../../lib/paths';
+
+const whatsappHref = 'https://wa.me/60165187740';
+const visual = {
+  src: url('/images/B9hvsuEv4OLuNLhxkrVnzc6gAM.png'),
+  width: 419,
+  height: 434,
+};
+---
+
+<section class="hero" aria-labelledby="contact-hero-title">
+  <div class="hero__inner">
+    <div class="hero__content">
+      <p class="tag hero__tag" data-reveal style="--reveal-delay: 100ms">
+        <span class="tag__dot" aria-hidden="true"></span>
+        50,000+ Developers. Countless Possibilities.
+      </p>
+
+      <h1 id="contact-hero-title" class="hero__title" data-reveal style="--reveal-delay: 200ms">
+        Not Just Technology.<br class="hero__break" /> But A <span class="hero__accent">Movement.</span>
+      </h1>
+
+      <p class="hero__lead" data-reveal style="--reveal-delay: 300ms">
+        Be part of the change shaping tomorrow’s tech. Send us an email or connect with us through our social media.
+      </p>
+
+      {/* The reveal lives on a wrapper so its transition doesn't override the button's hover/tap transitions. */}
+      <div data-reveal style="--reveal-delay: 400ms">
+        <a class="btn btn--primary hero__cta" href={whatsappHref}>
+          <span>Contact Us Here</span>
+          <span class="btn__icon" aria-hidden="true">
+            {/* Phosphor "WhatsappLogo" (regular), as inlined by Framer */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" focusable="false">
+              <path
+                d="M187.58,144.84l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88,40,40,0,0,0,40-40A8,8,0,0,0,187.58,144.84ZM152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155l14.61-9.74,23,11.48A24,24,0,0,1,152,176ZM128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z"
+              ></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__visual" data-reveal style="--reveal-delay: 300ms">
+      <img
+        class="hero__img"
+        src={visual.src}
+        width={visual.width}
+        height={visual.height}
+        alt="Glossy 3D ALPHV logo mark"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ---------- Desktop (≥1200px): text left, visual right ---------- */
+  .hero {
+    --reveal-distance: 20px; /* Framer appear effect: fade up 20px, staggered 0.1s */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 20px;
+    background: var(--c-white);
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 44px;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    flex: 1 0 0;
+    align-self: stretch;
+    min-width: 400px;
+    max-width: 720px;
+  }
+
+  /* "Spots Badge" — the shared .tag, tuned to Framer's exact values.
+     Framer draws the 1px border as an inset overlay, so padding is 1px less than its 7px 15px. */
+  .hero__tag {
+    gap: 10px;
+    padding: 6px 14px;
+    border-color: #f5f5f5;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+  }
+  .hero__tag .tag__dot {
+    box-shadow: 0 0 4px 4px rgba(28, 100, 255, 0.2);
+  }
+
+  /* Headline (tablet/phone style is the base; see the desktop override below). */
+  .hero__title {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 35px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.4;
+    color: var(--c-text);
+  }
+  .hero__accent {
+    color: var(--c-blue);
+  }
+
+  /* Live-site quirk, reproduced on purpose: at ≥1200px Framer renders the headline with its
+     unstyled default text style (Inter 16px, black, one line). Delete this block to use the
+     large two-line headline on desktop as well. */
+  @media (min-width: 1200px) {
+    .hero__title {
+      font-family: var(--font-inter);
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.2;
+      color: var(--c-black);
+    }
+    .hero__break {
+      display: none;
+    }
+    .hero__accent {
+      color: inherit;
+    }
+  }
+
+  .hero__lead {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 2;
+    color: var(--c-text);
+  }
+
+  /* "Main Blue Button (L)" — the shared .btn--primary at its large size. */
+  .hero__cta {
+    gap: 10px;
+    padding: 10px 15px 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.6;
+    box-shadow: 0 3px 10px rgba(29, 100, 255, 0.2);
+    transition:
+      opacity 0.25s ease,
+      box-shadow 0.25s ease,
+      transform 0.2s var(--ease-out);
+  }
+  .hero__cta:hover {
+    transform: none;
+    opacity: 0.8;
+    box-shadow: 0 6px 10px rgba(29, 100, 255, 0.25);
+  }
+  .hero__cta:active {
+    transform: scale(0.97);
+  }
+  .hero__cta .btn__icon {
+    width: 25px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(238, 238, 238, 0.3);
+  }
+  .hero__cta:hover .btn__icon {
+    transform: none;
+  }
+  .hero__cta .btn__icon svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .hero__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 45%;
+    min-width: 400px;
+    max-width: 720px;
+    padding: 40px 30px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .hero__img {
+    flex: none;
+    width: 434px;
+    max-width: 100%;
+    height: 326px;
+    object-fit: cover;
+  }
+
+  /* ---------- Tablet (810–1199.98px): stacked and centred, larger headline ---------- */
+  @media (min-width: 810px) and (max-width: 1199.98px) {
+    .hero {
+      padding-top: 0;
+    }
+    .hero__inner {
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .hero__content {
+      flex: none;
+      align-self: auto;
+      width: 90%;
+      min-width: 0;
+      max-width: none;
+    }
+    .hero__title {
+      font-size: 55px;
+    }
+    .hero__visual {
+      align-items: center;
+      width: 90%;
+    }
+    .hero__img {
+      width: 440px;
+      height: 331px;
+    }
+  }
+
+  /* ---------- Phone (<810px): single column, visual full-width under the button ---------- */
+  @media (max-width: 809.98px) {
+    .hero__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .hero__content {
+      flex: none;
+      align-self: stretch;
+      min-width: 0;
+      max-width: none;
+    }
+    .hero__lead {
+      font-size: 14px;
+    }
+    .hero__visual {
+      width: 100%;
+      min-width: 0;
+      max-width: none;
+      padding: 0;
+      border-radius: 0;
+    }
+    .hero__img {
+      width: 100%;
+      height: 263px;
+    }
+  }
+</style>

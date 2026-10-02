@@ -1,0 +1,213 @@
+---
+import { url } from '../../lib/paths';
+import SplitText from './SplitText.astro';
+import LoopVideo from './LoopVideo.astro';
+
+const tags = ['Innovate', 'Hackathon', 'Build', 'Community', 'Growth'];
+---
+
+<section class="story" aria-labelledby="story-title">
+  <div class="story__content">
+    <div class="story__top">
+      <div class="story__copy">
+        <h2 class="story__title" id="story-title" data-split style="--split-stagger:0.1s">
+          <SplitText parts={['Our Story']} />
+        </h2>
+        <!-- Copy kept verbatim from the live site (including the missing spaces after full stops). -->
+        <p class="story__text">
+          Founded in Kuala Lumpur, ALPHV Technologies has established itself as a trailblazer in Malaysia’s technology
+          sector and beyond.We combine software innovation, AI-driven solutions, and community building with a
+          commitment to developing next-generation talent.With over 50,000 developers engaged through our platform
+          Developer Kaki, ALPHV is recognized as Malaysia’s Largest Tech Community.
+        </p>
+      </div>
+      <ul class="story__tags">
+        {tags.map((tag) => <li class="story__tag">{tag}</li>)}
+      </ul>
+    </div>
+
+    <div class="story__logo-wrap">
+      <img
+        class="story__logo"
+        src={url('/images/jEJD87xcnIwYDY4E1OJlSSLOVo.png')}
+        alt="ALPHV logo mark in glossy blue 3D"
+        width="1000"
+        height="1000"
+        loading="lazy"
+        decoding="async"
+        data-parallax-logo
+      />
+    </div>
+
+    <div class="story__bottom">
+      <h2 class="story__title story__title--right" data-split style="--split-stagger:0.1s">
+        <SplitText parts={['Malaysia’s Largest Tech Community']} by="char" />
+      </h2>
+      <p class="story__text story__text--right">
+        Our founder and leadership bring strong expertise from global enterprises, research, and training initiatives —
+        ensuring a balance of technical depth and business vision.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="story-video">
+  <LoopVideo src="/assets/WTCOMJFR7MrX3sXRqILioNFYPg.mp4" />
+</div>
+
+<style>
+  .story {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 1920px;
+    margin-inline: auto;
+    padding: 0 72px;
+    overflow: hidden;
+  }
+
+  .story__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 72px;
+  }
+
+  .story__top,
+  .story__bottom {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .story__top { gap: 20px; }
+  .story__bottom { align-items: flex-end; gap: 10px; }
+
+  .story__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .story__title {
+    width: 100%;
+    max-width: 875px;
+    font-family: var(--font-sans);
+    font-size: 55px;
+    font-weight: 600;
+    line-height: 90px;
+    color: var(--c-blue);
+    font-feature-settings: 'blwf', 'cv09', 'cv03', 'cv04', 'cv11';
+  }
+  .story__title--right {
+    max-width: none;
+    text-align: right;
+  }
+
+  .story__text {
+    width: 80%;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 2;
+    color: var(--c-text);
+  }
+  .story__text--right { text-align: right; }
+
+  .story__tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    max-width: 525px;
+  }
+
+  .story__tag {
+    padding: 10px 23px;
+    border: 1px solid var(--c-blue);
+    border-radius: 64px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: var(--c-blue);
+    white-space: nowrap;
+    font-feature-settings: 'blwf', 'cv09', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* 3D logo rises out of its clipped frame as it scrolls into view (Framer scroll transform). */
+  .story__logo-wrap {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .story__logo {
+    flex: none;
+    width: 564px;
+    height: auto;
+    aspect-ratio: 1.12794;
+    object-fit: contain;
+    transition: transform 0.45s var(--ease-out);
+    will-change: transform;
+  }
+  :global(html.js) .story__logo { transform: translateY(240px); }
+
+  .story-video {
+    width: 90%;
+    height: 500px;
+    margin: 120px auto;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 1199.98px) {
+    .story__content { gap: 10px; }
+  }
+
+  @media (max-width: 809.98px) {
+    .story { padding: 0 20px; }
+    .story__title {
+      font-size: 35px;
+      line-height: 50px;
+    }
+    .story__text { font-size: 14px; }
+    .story__logo {
+      flex: 1 1 0;
+      width: 1px;
+      object-fit: cover;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js) .story__logo { transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  // Scroll-linked transform: translateY 240px → 0 while the frame travels from the bottom edge of
+  // the viewport until it is fully visible (matches Framer's "Layer in view" scroll effect).
+  const logo = document.querySelector<HTMLElement>('[data-parallax-logo]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (logo && !reduce.matches) {
+    const frame = logo.parentElement as HTMLElement;
+    const OFFSET = 240;
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const rect = frame.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (window.innerHeight - rect.top) / rect.height));
+      logo.style.transform = `translateY(${((1 - progress) * OFFSET).toFixed(2)}px)`;
+    };
+    const request = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', request);
+  }
+</script>

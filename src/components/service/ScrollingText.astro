@@ -1,0 +1,59 @@
+---
+// Framer "Scrolling-Text" component: a giant blue "Innovation Starts With You" ticker.
+// Each item is a fixed 3200px cell (text left-aligned inside it); the track moves one cell
+// (3200px) every 32s, i.e. 100px/s, with soft 12.5% edge fades.
+// Vertical padding: 94px desktop · 50px tablet · 20px phone.
+const text = 'Innovation Starts With You';
+---
+
+<section class="scrolling-text">
+  <div class="marquee scrolling-text__marquee" style="--marquee-duration: 32s; --marquee-gap: 0px">
+    <div class="marquee__track">
+      <p class="scrolling-text__item">{text}</p>
+      <p class="scrolling-text__item" aria-hidden="true">{text}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scrolling-text {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1920px;
+    margin-inline: auto;
+    padding: 94px 0;
+  }
+
+  .scrolling-text__marquee {
+    display: flex;
+    align-items: center;
+    height: 300px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%);
+  }
+
+  .scrolling-text__item {
+    flex: none;
+    width: 3200px;
+    font-family: var(--font-poppins);
+    font-size: 240px;
+    font-weight: 400;
+    letter-spacing: -14.4px;
+    line-height: 168px;
+    white-space: nowrap;
+    color: var(--c-blue);
+  }
+
+  @media (max-width: 1199.98px) {
+    .scrolling-text {
+      padding: 50px 0;
+    }
+  }
+
+  @media (max-width: 809.98px) {
+    .scrolling-text {
+      padding: 20px 0;
+    }
+  }
+</style>

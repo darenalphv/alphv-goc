@@ -1,0 +1,323 @@
+---
+// Home — Framer "Services Section" (#services): intro heading + paragraph, "Our Group of Companies"
+// logos, the 4-card services bento, the CEO quote and the "More Services" pill list.
+import { url } from '../../lib/paths';
+import Icon from './a/Icon.astro';
+import ServiceCard from './a/ServiceCard.astro';
+
+const companies = [
+  { href: 'https://alphv.com', src: '/images/hwb44JkUHK1ej38Ap2SZO0X0sc.png', alt: 'ALPHV Technology', w: 290, h: 138 },
+  { href: 'https://academy.alphv.com/', src: '/images/sEHPe4LvaMSZJQ4Q7pHnDhayo.png', alt: 'ALPHV Academy', w: 290, h: 138 },
+  { href: 'https://devrel.alphv.com/', src: '/images/yaTuWTNK4kISTNQoWMKPCnEnYmQ.png', alt: 'ALPHV DevRel', w: 290, h: 138 },
+  { href: 'http://recruit.alphv.com/', src: '/images/hWMaJ653nab1sdeWJnht0n5LnI0.png', alt: 'ALPHV Recruit', w: 290, h: 138 },
+  { href: 'https://jobs.developerkaki.my/', src: '/images/NwN1DZpJzC6EoWRyE09bhCwVkQ.png', alt: 'Jobs by Developer Kaki', w: 288, h: 154 },
+];
+
+const moreServices = [
+  { icon: 'app-window', label: 'Software' },
+  { icon: 'hexagon', label: 'AI & Machine Learning' },
+  { icon: 'cloud', label: 'Cloud' },
+  { icon: 'chart-line', label: 'Analytics' },
+  { icon: 'sparkle', label: 'Integration' },
+  { icon: 'book', label: 'Training' },
+  { icon: 'search', label: 'Recruit' },
+  { icon: 'code-window', label: 'Devrel' },
+  { icon: 'cube', label: 'Hackathons' },
+  { icon: 'info', label: 'Consulting' },
+] as const;
+---
+
+<section id="services" class="services">
+  <div class="intro">
+    <div class="intro__heading">
+      <p class="eyebrow" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 100ms">
+        <Icon name="stack" class="eyebrow__icon" />
+        <span>What Do we do ?</span>
+        <span class="eyebrow__line" aria-hidden="true"></span>
+      </p>
+      <h2 class="intro__title" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 200ms">
+        <span class="muted">We </span><span class="ink">Build </span>Technology<span class="muted">.</span><br />
+        <span class="muted">We </span><span class="ink-soft">Train </span>Talents<span class="muted">.</span><br />
+        <span class="muted">We </span><span class="ink">Grow </span>Communities<span class="muted">.</span><br />
+        <span class="muted">We </span><span class="ink">Shape</span><span class="muted"> the </span>Future<span class="muted">.</span>
+      </h2>
+    </div>
+    <p class="intro__lead" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 300ms">
+      At ALPHV, we don’t just deliver software — we create an ecosystem where businesses thrive, developers grow, and
+      innovation never stops. From AI solutions to talent development and tech communities, we power the movement that
+      shapes tomorrow.
+    </p>
+  </div>
+
+  <div class="group">
+    <h3 class="group__label" data-reveal style="--reveal-distance: 20px">Our Group of Companies</h3>
+    <ul class="group__logos">
+      {
+        companies.map((c, i) => (
+          <li class:list={['group__item', { 'group__item--lead': i === 0 }]}>
+            <a href={c.href} target="_blank" rel="noopener">
+              <img src={url(c.src)} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="bento">
+    <div class="bento__col bento__col--a">
+      <ServiceCard
+        icon="code"
+        title="Software & AI Development"
+        category="Services"
+        href="https://alphv.com/"
+        newTab
+        revealDelay={200}
+      >
+        From concept to deployment, we build intelligent, scalable solutions that drive business growth through digital
+        transformation and consulting.
+      </ServiceCard>
+      <ServiceCard
+        icon="users-four"
+        title="Developer Relations"
+        category="Community"
+        href="https://devrel.alphv.com/"
+        fill
+        photos={['/images/9jvJVjkD9jYYoV2ZAZqw2jnkM0.jpg', '/images/ymH6jZJosdsDDJ5qxRmRflBA.jpg']}
+        revealDelay={300}
+      >
+        We connect 70,000+<span class="ws">{'  '}</span>developers<span class="ws">{'  '}</span>with tech companies through strategic <strong>campaigns, meetups </strong>and
+        immersive <strong>hackathons</strong>.
+      </ServiceCard>
+    </div>
+    <div class="bento__col bento__col--b">
+      <ServiceCard
+        icon="dna"
+        title="Corporate Upskilling"
+        category="Training"
+        href="https://academy.alphv.com/"
+        newTab
+        fill
+        photos={['/images/qiplSkiBBYKKxgegzuqc7GQYBY.jpg', '/images/M73iDdjZDAZh0MTOxJLNhPJojA.jpg']}
+        revealDelay={300}
+      >
+        We deliver HRDC-claimable trainings in emerging technologies and programming skills, preparing individuals for
+        real-world industry demands. Taught by practitionaers only.
+      </ServiceCard>
+      <ServiceCard
+        icon="notebook"
+        title="Job Placement"
+        category="career"
+        href="http://recruit.alphv.com/"
+        newTab
+        revealDelay={200}
+      >
+        Connecting exceptional talent with outstanding opportunities. We offer curated job listings and strategic
+        placement services that streamline hiring for companies and accelerate career growth for developers through
+        Developer Kaki and ALPHV Recruit.
+      </ServiceCard>
+    </div>
+  </div>
+
+  <blockquote class="quote" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 300ms">
+    <p>"We're Malaysia's AI-Native System Integrator.</p>
+    <p>Building Intelligent Solutions While Growing Asia's Largest Developer Community.</p>
+    <p>Empowering your team to innovate with confidence" - Daren<span class="ws">{'  '}</span>Tan, CEO</p>
+  </blockquote>
+
+  <ul class="more" aria-label="More services">
+    {
+      moreServices.map((s, i) => (
+        <li class="pill" data-reveal="left" style={`--reveal-distance: 50px; --reveal-delay: ${(i + 1) * 50}ms`}>
+          <Icon name={s.icon} class="pill__icon" />
+          {s.label}
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .services {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 70px;
+    width: 90%;
+    margin-inline: auto;
+    padding: 80px 0 100px;
+    scroll-margin-top: 50px;
+  }
+
+  /* ---------- Intro ---------- */
+  .intro {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  .intro__heading {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--c-blue);
+    white-space: nowrap;
+  }
+  .eyebrow :global(.eyebrow__icon) { flex: none; width: 20px; height: 20px; }
+  .eyebrow__line {
+    flex: none;
+    width: 50px;
+    height: 1px;
+    background: var(--c-blue);
+    -webkit-mask: linear-gradient(270deg, transparent 0%, #000 100%);
+    mask: linear-gradient(270deg, transparent 0%, #000 100%);
+  }
+  .intro__title {
+    width: 100%;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--c-blue);
+  }
+  .muted { color: rgba(109, 122, 130, 0.7); }
+  /* Preserves the live copy's double spaces (Framer text is white-space: pre-wrap). */
+  .ws { white-space: pre-wrap; }
+  .ink { color: rgb(17, 17, 17); }
+  .ink-soft { color: rgb(51, 51, 51); }
+  .intro__lead {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.8;
+    color: rgb(89, 100, 107);
+  }
+
+  /* ---------- Our Group of Companies ---------- */
+  .group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .group__label {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .group__logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  }
+  .group__item { flex: none; width: 150px; height: 73px; }
+  .group__item a { display: block; width: 100%; height: 100%; }
+  .group__item img { width: 100%; height: 100%; object-fit: contain; }
+
+  /* ---------- Bento ---------- */
+  .bento {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  .bento__col {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-width: 0;
+    height: 685px;
+  }
+
+  /* ---------- CEO quote ---------- */
+  .quote {
+    width: 80%;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.8;
+    text-align: center;
+    color: rgb(89, 100, 107);
+  }
+
+  /* ---------- More Services ---------- */
+  .more {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 19px; /* 20px in Framer, whose 1px border is drawn inside the box */
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 20px;
+    background: var(--c-white);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.7;
+    color: var(--c-black);
+    white-space: nowrap;
+  }
+  .pill :global(.pill__icon) { flex: none; width: 20px; height: 20px; color: var(--c-blue); }
+
+  /* ---------- Tablet ---------- */
+  @media (max-width: 1199.98px) {
+    .intro { gap: 20px; }
+  }
+
+  /* ---------- Phone ---------- */
+  @media (max-width: 809.98px) {
+    .services { gap: 30px; }
+    .intro {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .intro__heading,
+    .intro__lead { flex: none; width: 100%; }
+    .group__logos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(50px, 1fr));
+      grid-auto-rows: minmax(0, 1fr); /* equal rows, as in Framer */
+      width: 351px;
+      max-width: 100%;
+    }
+    .group__item { place-self: start; width: 100%; }
+    .group__item--lead { height: auto; aspect-ratio: 2.05479; }
+    .bento { flex-direction: column; }
+    .bento__col { flex: none; width: 100%; height: auto; }
+    /* Framer fixes the first column at 663px on phone and centres its taller content, so the
+       cards overflow it by ~64px at both ends (overlapping the Jobs logo above and the next card
+       below). Reproduced as-is; drop this rule to let the column grow instead. */
+    .bento__col--a { height: 663px; }
+    .quote { width: 100%; }
+  }
+</style>

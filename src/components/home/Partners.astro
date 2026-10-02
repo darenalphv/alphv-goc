@@ -1,0 +1,229 @@
+---
+// Home — "Partner" (Our Certifications), "Our Partners" grid and "Client Ticker" (We're trusted by).
+// (The Framer "Ticker-section" instance that follows these is hidden on every breakpoint, so it is not ported.)
+import { url } from '../../lib/paths';
+
+type Logo = { src: string; alt: string; w: number; h: number; dim?: boolean };
+
+const certifications: (Logo & { cls: string })[] = [
+  { cls: 'cert--md', src: '/images/tSzVVuPHqmbeOMKR8p0hzHBgb1E.png', alt: 'Malaysia Digital', w: 449, h: 220 },
+  { cls: 'cert--sq', src: '/images/ndaERycq1x1vA0zMlDpd6F00Qzg.png', alt: 'HRD Corp Registered Training Provider', w: 3601, h: 3601 },
+  { cls: 'cert--sq', src: '/images/MDJyO8gt0ApwCBUP8WDC3lZxGTg.png', alt: 'Petronas', w: 753, h: 752 },
+  { cls: 'cert--wide', src: '/images/FNAS5R3YGmbRXfuAQSmtFbi3pE.jpeg', alt: 'Government of Malaysia ePerolehan', w: 339, h: 148 },
+];
+
+const partners: Logo[] = [
+  { src: '/images/Mk045SeWWzIzz9owFZZjanXiZTM.png', alt: 'Alibaba Cloud', w: 900, h: 350 },
+  { src: '/images/LAYwmUu3SsaUScLtFi1mx7RLf08.png', alt: 'FPT Cloud', w: 309, h: 67 },
+  { src: '/images/nssn5MvpQwezWIRtCBnFnXlDGDQ.png', alt: 'Google Cloud', w: 738, h: 150 },
+  { src: '/images/vhIZVNhUTP7X2GWQKYGnsI47NI.png', alt: 'Macrokiosk', w: 481, h: 100 },
+  { src: '/images/CluTdGCc3Imye6HPxT2MEmo683s.png', alt: 'Emarque.AI', w: 315, h: 67 },
+  { src: '/images/yKircBhNRZ3Z6OEk3b55CnInlro.png', alt: 'CloudEngine Digital', w: 430, h: 75 },
+];
+
+// Client ticker items, in Framer order. `box` is the rendered size of each logo slot (px);
+// `dim` items are shown at 40% opacity on the live site.
+const clients: (Logo & { box: [number, number] })[] = [
+  { src: '/images/vnfmrW9NXmuj1iCOt3QQl6HdDA.png', alt: 'Fundaztic', w: 500, h: 500, box: [62, 64] },
+  { src: '/images/StC31yRdrgnnWNt60C9xP6byp4.png', alt: 'Pajak', w: 500, h: 500, box: [72, 72], dim: true },
+  { src: '/images/iRYgQMpWYjVhoPdoVXkmi2Qa4Ok.png', alt: 'PowerDNA', w: 224, h: 71, box: [79, 25] },
+  { src: '/images/XRZQWhbhq9zz0tUCnqZgzR8bMg.png', alt: 'Easy Renz', w: 500, h: 500, box: [67, 67] },
+  { src: '/images/YF49zN39VSW39VOzhaA2WYozc.png', alt: 'AOP', w: 500, h: 500, box: [66, 66] },
+  { src: '/images/pOk1LAsGvHxsWj4dGKDmjxeHw.png', alt: 'Carlsberg', w: 900, h: 720, box: [62, 50] },
+  { src: '/images/1s8eaXak6E1AmOixaC3z5hmVPY.png', alt: 'Amway', w: 218, h: 115, box: [74, 39] },
+  { src: '/images/w8vtulBj47ZLAGTUpXLQfDEmefI.png', alt: 'Great Eastern', w: 242, h: 110, box: [77, 35] },
+  { src: '/images/JemAhvRMgaz78dTh2HWEtpJydN8.png', alt: 'MSA Focus', w: 500, h: 500, box: [73, 73] },
+  { src: '/images/eh2TfHhhma1lNuT4Z5iQYOTHNM.png', alt: 'NVIDIA', w: 186, h: 118, box: [63, 40] },
+  { src: '/images/8Dkr9WlVxOzYVIYF6S6b9Ru4EYQ.png', alt: 'Sonar', w: 500, h: 500, box: [50, 50], dim: true },
+  { src: '/images/C6niXQ0dd1c0LLjzPEDN0Ha32IA.png', alt: 'TNG Digital', w: 199, h: 118, box: [66, 39] },
+  { src: '/images/29OzE28h9JRVZszpT1BQY3lMXE.png', alt: 'VMware', w: 186, h: 118, box: [61, 39] },
+  { src: '/images/AqG9gTxxT2HkudDG8hjgfwq29s.png', alt: 'F5', w: 78, h: 75, box: [47, 45] },
+  { src: '/images/Pv1nIsbSPVXnsz9vIsceEjhU.png', alt: 'Dynatrace', w: 192, h: 118, box: [63, 39] },
+  { src: '/images/Mk045SeWWzIzz9owFZZjanXiZTM.png', alt: 'Alibaba Cloud', w: 900, h: 350, box: [58, 35] },
+  { src: '/images/QkjFDrAp3rRKdrIhwrpVFbW5ILY.png', alt: 'Akamai', w: 500, h: 500, box: [69, 71] },
+  { src: '/images/7EUZHoaIcz8yvqV6u54j4kTGg4c.png', alt: 'SEEK', w: 500, h: 500, box: [64, 64], dim: true },
+  { src: '/images/sSMPwtT1lYLYlQtlosl49Jp2DZ0.png', alt: 'Pixlr', w: 192, h: 118, box: [63, 39] },
+  { src: '/images/04ps7CdENLrQZkwc576yxWOai6w.png', alt: 'Antler', w: 186, h: 118, box: [63, 40] },
+  { src: '/images/2YbLfVLExqvQZMAx8cJuLkOyEc.png', alt: 'Masverse', w: 186, h: 118, box: [61, 39] },
+  { src: '/images/tsbCMyCXNM7uVTq10gAWDEWak.png', alt: 'Forward School', w: 186, h: 118, box: [61, 39] },
+  { src: '/images/zyOvDygCo8NudTuZCyfbJcd4bk.png', alt: '1337 Ventures', w: 186, h: 118, box: [61, 39] },
+  { src: '/images/Rmp9rq1rPU70U5Ef8MVxBuXI4U.png', alt: 'Hackathons International', w: 192, h: 118, box: [63, 39] },
+];
+
+// The ticker starts with an empty 94px slot (as in Framer), then the logos.
+const tickerSet = [null, ...clients];
+---
+
+<section class="partners" aria-label="Certifications, partners and clients">
+  <div class="certs">
+    <h2 class="label" data-reveal style="--reveal-distance: 20px">Our Certifications</h2>
+    <ul class="certs__logos">
+      {
+        certifications.map((c) => (
+          <li class:list={['cert', c.cls]}>
+            <img src={url(c.src)} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="our-partners">
+    <h2 class="label our-partners__label" data-reveal style="--reveal-distance: 20px">Our Partners</h2>
+    <ul class="our-partners__grid">
+      {
+        partners.map((p) => (
+          <li class="our-partners__item">
+            <img src={url(p.src)} alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="clients">
+    <h2 class="label" data-reveal style="--reveal-distance: 20px">We're trusted by</h2>
+    <div class="clients__frame" data-reveal style="--reveal-distance: 20px; --reveal-delay: 100ms">
+      <div class="marquee clients__marquee" style="--marquee-gap: 16px; --marquee-duration: 68s">
+        <ul class="marquee__track clients__track">
+          {
+            [0, 1].map((copy) =>
+              tickerSet.map((c) =>
+                c ? (
+                  <li class:list={['client', { 'client--dim': c.dim }]} aria-hidden={copy === 1 ? 'true' : undefined}>
+                    <img
+                      src={url(c.src)}
+                      alt={copy === 1 ? '' : c.alt}
+                      width={c.w}
+                      height={c.h}
+                      style={`width:${c.box[0]}px;height:${c.box[1]}px`}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </li>
+                ) : (
+                  <li class="client client--spacer" aria-hidden="true" />
+                ),
+              ),
+            )
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partners {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: clip; /* the phone ticker is 200% wide (as in Framer); keep it inside the viewport */
+  }
+
+  /* Small grey section labels ("Our Certifications", "Our Partners", "We're trusted by") */
+  .label {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  img { display: block; object-fit: contain; }
+
+  /* ---------- Our Certifications ---------- */
+  .certs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 30px;
+  }
+  .certs__logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .cert img { width: 100%; height: 100%; }
+  .cert--md { width: 73px; height: 73px; }
+  .cert--sq { width: 60px; height: 60px; }
+  .cert--wide { height: 70px; aspect-ratio: 339 / 148; }
+
+  /* ---------- Our Partners ---------- */
+  .our-partners {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 50px;
+  }
+  .our-partners__label { width: min(633px, 100vw); }
+  .our-partners__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(50px, 1fr));
+    gap: 10px;
+    width: min(633px, 100vw);
+  }
+  .our-partners__item {
+    place-self: center;
+    width: 140px;
+    aspect-ratio: 2.79452;
+  }
+  .our-partners__item img { width: 100%; height: 100%; }
+
+  /* ---------- Client ticker ---------- */
+  .clients {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+    padding-top: 50px;
+  }
+  .clients .label { width: 100%; }
+  .clients__frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 100%;
+    height: 100px;
+  }
+  .clients__marquee {
+    flex: 1 1 0;
+    max-width: 1000px;
+    height: 75px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 29%, #000 71%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 29%, #000 71%, transparent 100%);
+  }
+  .clients__track {
+    align-items: center;
+    height: 100%;
+  }
+  .client {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .client--dim { opacity: 0.4; }
+  .client--spacer { width: 94px; height: 94px; }
+
+  /* ---------- Tablet ---------- */
+  @media (max-width: 1199.98px) {
+    .clients { padding-top: 0; }
+  }
+
+  /* ---------- Phone ---------- */
+  @media (max-width: 809.98px) {
+      .certs__logos { flex-direction: column; }
+    .our-partners__grid {
+      grid-template-columns: repeat(2, minmax(50px, 1fr));
+      width: 312px;
+    }
+    .our-partners__item { width: 100%; }
+    .clients__frame { width: 200%; }
+  }
+</style>

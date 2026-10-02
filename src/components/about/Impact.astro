@@ -1,0 +1,177 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+const stats = [
+  { value: 15, suffix: '%', title: 'Revenue Growth', text: 'Helped clients achieve 15%+ revenue growth.' },
+  { value: 30, suffix: '%', title: 'Productivity', text: 'Boosted productivity by 30% with AI / automation.' },
+  {
+    value: 467,
+    suffix: '+',
+    title: 'Professionals',
+    text: 'Trained 467+ professionals accross 9 countries ( AI & Data domains)',
+  },
+];
+---
+
+<section class="impact about-slide" data-reveal style="--reveal-distance:170px">
+  <div class="impact__inner">
+    <SectionHeading parts={['Bringing ', { text: 'Impact', class: 'text-blue' }, ' To Business']} />
+    <ul class="impact__stats">
+      {
+        stats.map((stat) => (
+          <li class="stat">
+            <div class="stat__box">
+              <p class="stat__value">
+                <span class="stat__num" data-count-to={stat.value}>
+                  {stat.value}
+                </span>
+                <span class="stat__suffix">{stat.suffix}</span>
+              </p>
+              <p class="stat__title">{stat.title}</p>
+            </div>
+            <p class="stat__text">{stat.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .impact {
+    display: flex;
+    justify-content: center;
+    padding: 100px 40px;
+  }
+
+  .impact__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .impact__stats {
+    display: flex;
+    gap: 15px;
+  }
+
+  .stat {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    color: var(--c-text-strong);
+  }
+
+  .stat__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 19px;
+    border: 1px dashed rgba(28, 100, 255, 0.4);
+    border-radius: 10px;
+    background: var(--c-white);
+  }
+
+  .stat__value {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: 100%;
+  }
+
+  .stat__num {
+    flex: none;
+    font-family: var(--font-inter);
+    font-size: 74px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.09em;
+    font-variant-numeric: normal;
+  }
+
+  .stat__suffix {
+    flex: 1 1 0;
+    min-width: 0;
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--c-blue);
+  }
+
+  .stat__title {
+    width: 100%;
+    font-family: var(--font-inter);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+  }
+
+  .stat__text {
+    padding: 10px;
+    font-family: var(--font-inter);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 809.98px) {
+    .impact__stats { flex-direction: column; }
+    .stat__box { border-color: var(--c-blue); }
+    .stat__value { justify-content: center; }
+    .stat__num {
+      font-size: 56px;
+      line-height: 1.2;
+      letter-spacing: -0.08em;
+    }
+    .stat__suffix { flex: none; }
+    .stat__title,
+    .stat__text { text-align: center; }
+  }
+</style>
+
+<script>
+  // Count-up for the stat numbers once they scroll into view (Framer "Counter" code component).
+  // The phone layout shows the final values statically, as on the live site.
+  const nums = document.querySelectorAll<HTMLElement>('[data-count-to]');
+  const animate = !window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 809.98px)').matches;
+
+  if (animate && 'IntersectionObserver' in window) {
+    const DURATION = 2000;
+    const run = (el: HTMLElement) => {
+      const target = Number(el.dataset.countTo);
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / DURATION);
+        const eased = 1 - Math.pow(1 - t, 4);
+        el.textContent = Math.round(target * eased).toLocaleString('en-US');
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          io.unobserve(entry.target);
+          run(entry.target as HTMLElement);
+        }
+      },
+      { rootMargin: '-100px 0px' }
+    );
+
+    nums.forEach((el) => {
+      el.textContent = '0';
+      io.observe(el);
+    });
+  }
+</script>

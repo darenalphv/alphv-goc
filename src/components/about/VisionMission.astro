@@ -1,0 +1,68 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+const mission = [
+  ['Building', 'intelligent, scalable solutions that solve complex business challenges.'],
+  ['Creating', 'lasting impact through sustainable digital transformation.'],
+  ['Fostering', 'technological advancement through our integrated ecosystem.'],
+  ['Developing', 'next-generation tech talent who drive innovation forward.'],
+];
+---
+
+<section class="vm about-slide" data-reveal style="--reveal-distance:170px">
+  <SectionHeading parts={['Our Vision']} />
+  <p class="vm__text">
+    To pioneer transformative technology solutions that accelerate business innovation and<br />
+    shape the digital future. At ALPHV, we envision a world where cutting-edge technology<br />
+    seamlessly empowers organizations to achieve unprecedented growth and efficiency.
+  </p>
+
+  <SectionHeading parts={['Our Mission']} />
+  <div class="vm__text">
+    <p>
+      To deliver excellence in digital transformation through innovative software development,<br />
+      artificial intelligence solutions, and emerging technologies. We accomplish this by:
+    </p>
+    <ul class="vm__list">
+      {
+        mission.map(([verb, rest]) => (
+          <li>
+            <strong class="text-blue">{verb}</strong> {rest}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .vm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    padding: 100px 40px;
+    margin-bottom: 120px;
+  }
+
+  .vm__text {
+    width: 80%;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 2;
+    text-align: center;
+    color: var(--c-text);
+  }
+
+  /* The live page separates the intro from the list with an empty 20px/2em paragraph. */
+  .vm__list { margin-top: 40px; }
+  .vm__list strong { font-weight: 700; }
+
+  @media (max-width: 809.98px) {
+    .vm { padding: 100px 20px; }
+    .vm__text {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+</style>

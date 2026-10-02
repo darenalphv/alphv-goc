@@ -1,0 +1,204 @@
+---
+import { url } from '../../lib/paths';
+import SectionHeading from './SectionHeading.astro';
+
+// Phosphor "fill" icons, as inlined by the live site.
+const socials = [
+  {
+    label: 'Daren Tan on Instagram',
+    href: 'https://www.instagram.com/darentandz/',
+    path: 'M176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24ZM128,176a48,48,0,1,1,48-48A48.05,48.05,0,0,1,128,176Zm60-96a12,12,0,1,1,12-12A12,12,0,0,1,188,80Zm-28,48a32,32,0,1,1-32-32A32,32,0,0,1,160,128Z',
+  },
+  {
+    label: 'Daren Tan on LinkedIn',
+    href: 'https://www.linkedin.com/in/daren-tan/',
+    path: 'M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24ZM96,176a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0ZM88,96a12,12,0,1,1,12-12A12,12,0,0,1,88,96Zm96,80a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140Z',
+  },
+];
+---
+
+<section class="founder about-slide" data-reveal style="--reveal-distance:170px" aria-labelledby="founder-title">
+  <div class="founder__inner">
+    <SectionHeading id="founder-title" parts={['Our  ', { text: 'Founder', class: 'text-blue' }]} />
+
+    <figure class="speaker">
+      <div class="speaker__media">
+        <div class="speaker__image">
+          <img
+            class="speaker__photo"
+            src={url('/images/cgPZRqrv944rtuZzDHsax8LAuI.png')}
+            alt="Daren Tan speaking on stage with a microphone"
+            width="1080"
+            height="1080"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="speaker__glow"
+            src={url('/images/Q38ypNMBsBVK6qjiF6kKfrobM24.png')}
+            alt=""
+            width="571"
+            height="530"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        {
+          socials.map((s) => (
+            <a class="speaker__social" href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
+              <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false">
+                <path d={s.path} />
+              </svg>
+            </a>
+          ))
+        }
+      </div>
+      <figcaption class="speaker__profile">
+        <h3 class="speaker__name">Daren Tan</h3>
+        <p class="speaker__role">CEO of ALPHV</p>
+      </figcaption>
+    </figure>
+
+    <p class="founder__bio">
+      Led by <strong>Daren Tan</strong>, a former MaGIC Senior Full Stack Developer and Digital Transformation Specialist at
+      BASF, ALPHV is rooted in both <strong>enterprise experience</strong> and <strong>grassroots developer engagement</strong>.
+      Through CSR initiatives, global training, and strategic partnerships (including <strong>Alibaba Cloud</strong>), ALPHV
+      continues to bridge local expertise with global impact.
+    </p>
+  </div>
+</section>
+
+<style>
+  .founder {
+    display: flex;
+    justify-content: center;
+    padding: 100px 40px;
+  }
+
+  .founder__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  /* ---------- Speaker card ---------- */
+  .speaker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 380px;
+    max-width: 100%;
+  }
+
+  .speaker__media {
+    position: relative;
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .speaker__image {
+    position: relative;
+    aspect-ratio: 0.889831;
+    border-radius: 24px;
+    overflow: hidden;
+    filter: grayscale(1);
+    transition: filter 0.4s var(--ease-out);
+  }
+
+  .speaker__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .speaker__glow {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 165px;
+    height: auto;
+    aspect-ratio: 1.07736;
+    object-fit: cover;
+    transform-origin: 100% 100%;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .speaker:hover .speaker__image,
+  .speaker:focus-within .speaker__image { filter: none; }
+  .speaker:hover .speaker__glow,
+  .speaker:focus-within .speaker__glow { transform: scale(1.2727); } /* 165px → 210px */
+
+  .speaker__social {
+    position: absolute;
+    bottom: 16px;
+    display: grid;
+    width: 40px;
+    height: 40px;
+    color: var(--c-white);
+    transition: transform 0.3s var(--ease-out);
+  }
+  .speaker__social:first-of-type { right: 66px; }
+  .speaker__social:last-of-type { right: 17px; }
+  .speaker__social svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+  .speaker__social:hover { transform: scale(0.9); }
+
+  .speaker__profile {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .speaker__name {
+    font-family: var(--font-inter);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    color: var(--c-blue);
+  }
+
+  .speaker__role {
+    font-family: var(--font-inter);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--c-text);
+  }
+
+  .founder__bio {
+    width: 74%;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 2;
+    text-align: center;
+    color: var(--c-text);
+  }
+  .founder__bio strong { font-weight: 700; }
+
+  @media (max-width: 809.98px) {
+    .founder { padding: 100px 20px; }
+    .speaker { width: 100%; }
+    .founder__bio {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .speaker__image,
+    .speaker__glow,
+    .speaker__social { transition: none; }
+  }
+</style>

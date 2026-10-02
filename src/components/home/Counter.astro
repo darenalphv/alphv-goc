@@ -1,0 +1,317 @@
+---
+/**
+ * Home — "Counter-Section" (Framer id counter-sticky).
+ *
+ * Desktop/ultra-wide (≥1200px): intro row + a sticky 800px stage. The stage (building/ALPHV
+ * artwork) starts zoomed in (translateY(-100px) scale(2.6)) and the four stat cards start
+ * pushed down 426px; both ease to rest as the section scrolls from "top enters viewport bottom"
+ * to "bottom reaches viewport bottom" (Framer scroll-target transform, viewport: end).
+ * Tablet: only the intro row (the sticky stage is hidden in Framer).
+ * Phone: Framer hides this section and shows a separate stacked "Heading & Description" frame
+ * in its place (same copy, 35px heading, "Impact We Brought") — reproduced here with CSS.
+ */
+import SmallHeading from './b/SmallHeading.astro';
+import { url } from '../../lib/paths';
+
+const stats = [
+  { label: 'Revenue Growth', start: 0, end: 15, suffix: '%' },
+  { label: 'Productivity Boost', start: 0, end: 30, suffix: '%' },
+  { label: 'Developer Community', start: 1, end: 76, suffix: 'K' },
+  // Copy (including spelling) as on the live site.
+  { label: 'Trained Proffesionals', start: 0, end: 467, suffix: '+' },
+];
+---
+
+<section class="counter" id="counter-sticky" aria-labelledby="counter-title" data-counter-section>
+  <div class="counter__intro">
+    <div class="counter__heading">
+      <SmallHeading label="What is ALPHV" icon="stack" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 100ms" />
+
+      <h2 id="counter-title" class="counter__title" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 200ms">
+        Get To <span class="text-blue">Know Us More</span> and<br />
+        The <span class="text-blue">Impact We <span class="counter__word--wide">Delivered</span><span class="counter__word--phone">Brought</span></span>
+      </h2>
+
+      <a class="btn btn--secondary" href={url('/')}>
+        <span>About Us</span>
+        <span class="btn__icon" aria-hidden="true">
+          {/* Phosphor "ArrowRight" (regular) */}
+          <svg viewBox="0 0 256 256" fill="currentColor" focusable="false">
+            <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+          </svg>
+        </span>
+      </a>
+    </div>
+
+    <p class="counter__desc" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 300ms">
+      We are more than a System Integrator. We are builders, educators, and community shapers. From enterprise AI
+      solutions to grassroots tech training, ALPHV creates an integrated ecosystem where businesses and developers
+      thrive.
+    </p>
+  </div>
+
+  <div class="counter__sticky">
+    <div class="counter__stage">
+      <img
+        class="counter__bg"
+        src={url('/images/RNpCca5OVOmp4BXc2p38hNX11X8.png')}
+        alt=""
+        width="5669"
+        height="4384"
+        loading="lazy"
+        decoding="async"
+      />
+      <ul class="counter__stats">
+        {
+          stats.map((s) => (
+            <li class="counter__card">
+              <div class="counter__info">
+                <p class="counter__label">
+                  <span class="counter__square" aria-hidden="true" />
+                  {s.label}
+                </p>
+                <p class="counter__value">
+                  <span class="sr-only">{`${s.end}${s.suffix}`}</span>
+                  <span aria-hidden="true">
+                    <span data-count data-start={s.start} data-end={s.end}>{s.end}</span>
+                    <span>{s.suffix}</span>
+                  </span>
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .counter {
+    --p: 1; /* scroll progress 0→1, driven by the script below (1 = resting state) */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1920px;
+    min-height: 150vh;
+    margin-inline: auto;
+  }
+
+  /* ---------- Intro: heading column + paragraph ---------- */
+  .counter__intro {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    width: 90%;
+    max-width: 1200px;
+    overflow: hidden;
+  }
+  .counter__heading {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .counter__title {
+    width: 100%;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--c-text);
+  }
+  .counter__word--phone { display: none; }
+  .counter__desc {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.8;
+    color: rgb(89, 100, 107);
+  }
+
+  /* ---------- Sticky stage with the stat cards ---------- */
+  .counter__sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+  }
+  .counter__stage {
+    position: relative;
+    z-index: 4;
+    width: 90%;
+    transform: translateY(calc((1 - var(--p)) * -100px)) scale(calc(2.6 - 1.6 * var(--p)));
+    will-change: transform;
+  }
+  .counter__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .counter__stats {
+    position: relative;
+    display: flex;
+  }
+  .counter__card {
+    display: flex;
+    flex: 1 1 0;
+    align-items: flex-end;
+    min-width: 0;
+    height: 800px;
+    transform: translateY(calc((1 - var(--p)) * 426px));
+    will-change: transform;
+  }
+  .counter__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 0 0 40px 40px;
+  }
+  .counter__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-poppins);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--c-blue);
+    white-space: nowrap;
+  }
+  .counter__square {
+    flex: none;
+    width: 8px;
+    height: 8px;
+    background: var(--c-blue-nav);
+  }
+  .counter__value {
+    font-family: var(--font-poppins);
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 1.475; /* Poppins' "normal" line box as rendered by the Framer site */
+    color: var(--c-text);
+    white-space: nowrap;
+  }
+
+  /* ---------- Tablet: intro only ---------- */
+  @media (max-width: 1199.98px) {
+    .counter { min-height: 0; }
+    .counter__sticky { display: none; }
+  }
+
+  /* ---------- Phone: Framer's stacked "Heading & Description" frame ---------- */
+  @media (max-width: 809.98px) {
+    .counter__intro {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+    }
+    .counter__heading,
+    .counter__desc { flex: none; }
+    .counter__title { font-size: 35px; }
+    .counter__word--wide { display: none; }
+    .counter__word--phone { display: inline; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .counter__stage,
+    .counter__card { transform: none; }
+  }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>('[data-counter-section]');
+
+  if (section) {
+    const desktop = matchMedia('(min-width: 1200px)');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+
+    /* --- Scroll transform: progress runs from the section's top entering the viewport bottom (0)
+           to its bottom reaching the viewport bottom (1). Eased towards the target like Framer's spring. --- */
+    let shown = 1;
+    let goal = 1;
+    let frame = 0;
+    let active = false;
+
+    const measure = () => {
+      const r = section.getBoundingClientRect();
+      return Math.min(1, Math.max(0, (innerHeight - r.top) / r.height));
+    };
+    const render = () => section.style.setProperty('--p', shown.toFixed(4));
+    const tick = () => {
+      shown += (goal - shown) * 0.2;
+      if (Math.abs(goal - shown) < 0.0005) shown = goal;
+      render();
+      frame = shown === goal ? 0 : requestAnimationFrame(tick);
+    };
+    const update = () => {
+      goal = measure();
+      if (!frame) frame = requestAnimationFrame(tick);
+    };
+    const setup = () => {
+      const on = desktop.matches && !reduce.matches;
+      if (on && !active) {
+        active = true;
+        shown = goal = measure();
+        render();
+        addEventListener('scroll', update, { passive: true });
+        addEventListener('resize', update);
+      } else if (!on && active) {
+        active = false;
+        removeEventListener('scroll', update);
+        removeEventListener('resize', update);
+        cancelAnimationFrame(frame);
+        frame = 0;
+        section.style.removeProperty('--p');
+      }
+    };
+    setup();
+    desktop.addEventListener('change', setup);
+    reduce.addEventListener('change', setup);
+
+    /* --- Counters (port of the Framer "Counter" code component): +1 every SPEED ms while the
+           number is on screen, pausing when it scrolls out of view. --- */
+    const SPEED = 20;
+    const format = (n: number) => n.toLocaleString('en-US');
+
+    section.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
+      const end = Number(el.dataset.end);
+      if (reduce.matches || !('IntersectionObserver' in window)) return; // keep the final value
+
+      let value = Number(el.dataset.start);
+      let timer = 0;
+      el.textContent = format(value);
+
+      const stop = () => {
+        clearInterval(timer);
+        timer = 0;
+      };
+      const io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !timer && value < end) {
+          timer = window.setInterval(() => {
+            value += 1;
+            el.textContent = format(value);
+            if (value >= end) {
+              stop();
+              io.disconnect();
+            }
+          }, SPEED);
+        } else if (!entry.isIntersecting && timer) {
+          stop();
+        }
+      });
+      io.observe(el);
+    });
+  }
+</script>
