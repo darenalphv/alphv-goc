@@ -1,67 +1,9 @@
 ---
-// Home — "One ecosystem": how the four companies feed each other (build → train → grow → hire),
-// plus a careers strip that points to ALPHV Recruit's open roles.
-// Accents are shades of the ALPHV blue palette (nav blue, brand blue, sky, deep).
-import SmallHeading from './b/SmallHeading.astro';
-
-const steps = [
-  {
-    verb: 'Build',
-    name: 'ALPHV Technologies',
-    color: '#2A2AF3',
-    href: 'https://alphv.com',
-    body: 'Designs, integrates and runs production AI and software inside the systems a business already uses.',
-  },
-  {
-    verb: 'Train',
-    name: 'ALPHV Academy',
-    color: '#1D64FF',
-    href: 'https://academy.alphv.com',
-    body: 'Teaches the teams who operate those systems, with HRDC-certified, practitioner-led programs.',
-  },
-  {
-    verb: 'Grow',
-    name: 'ALPHV DevRel',
-    color: '#0099FF',
-    href: 'https://devrel.alphv.com',
-    body: 'Builds the Developer Kaki community and connects technology companies with the developers in it.',
-  },
-  {
-    verb: 'Hire',
-    name: 'ALPHV Recruit',
-    color: '#0B3FCC',
-    href: 'https://recruit.alphv.com',
-    body: 'Places the engineers, leaders and specialists who help organisations scale what they have built.',
-  },
-];
+// Home — careers strip that points to ALPHV Recruit's open roles. (The Build / Train / Grow / Hire
+// stages now label the service cards in Services.astro instead of repeating them here.)
 ---
 
-<section class="flow" id="ecosystem" aria-labelledby="flow-title">
-  <div class="flow__head">
-    <SmallHeading label="One Ecosystem" icon="stack" data-reveal="left" style="--reveal-distance: 30px" />
-    <h2 id="flow-title" class="flow__title" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 100ms">
-      Four companies that <span class="text-blue">feed each other</span>
-    </h2>
-    <p class="flow__lead" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 200ms">
-      Work with one company or all four. Each stands on its own, and together they cover building, skills, community
-      and talent.
-    </p>
-  </div>
-
-  <ol class="flow__steps">
-    {
-      steps.map((s, i) => (
-        <li class="flow__step" style={`--accent: ${s.color}; --reveal-distance: 40px; --reveal-delay: ${i * 100}ms`} data-reveal>
-          <span class="flow__num">0{i + 1}</span>
-          <p class="flow__verb">{s.verb}</p>
-          <h3 class="flow__name">{s.name}</h3>
-          <p class="flow__body">{s.body}</p>
-          <a class="flow__link" href={s.href} target="_blank" rel="noopener">Visit {s.name.replace('ALPHV ', '')} →</a>
-        </li>
-      ))
-    }
-  </ol>
-
+<section class="flow" aria-label="Careers">
   <div class="flow__careers" data-reveal style="--reveal-distance: 30px">
     <div>
       <h3 class="flow__careers-title">Careers at ALPHV</h3>
@@ -80,83 +22,10 @@ const steps = [
     width: 100%;
     max-width: 1400px;
     margin-inline: auto;
-    padding: 100px 100px 60px;
+    padding: 0 100px 60px;
     display: flex;
     flex-direction: column;
     gap: 50px;
-  }
-  .flow__head {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 720px;
-  }
-  .flow__title {
-    font-family: var(--font-sans);
-    font-size: 48px;
-    font-weight: 600;
-    letter-spacing: -0.04em;
-    line-height: 1.15;
-    color: var(--c-text);
-  }
-  .flow__lead {
-    font-family: var(--font-inter);
-    font-size: 18px;
-    line-height: 1.5;
-    color: var(--c-text-body);
-  }
-  .flow__steps {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-  .flow__step {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 28px;
-    border: 1px solid var(--c-border);
-    border-top: 4px solid var(--accent);
-    border-radius: var(--radius-lg);
-    background: var(--c-surface);
-  }
-  .flow__num {
-    font-family: var(--font-inter);
-    font-size: 14px;
-    color: var(--c-grey);
-  }
-  .flow__verb {
-    font-family: var(--font-sans);
-    font-size: 40px;
-    font-weight: 600;
-    letter-spacing: -0.04em;
-    color: var(--accent);
-  }
-  .flow__name {
-    font-family: var(--font-sans);
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--c-text-strong);
-  }
-  .flow__body {
-    flex: 1;
-    font-family: var(--font-inter);
-    font-size: 15px;
-    line-height: 1.5;
-    color: var(--c-text-body);
-  }
-  .flow__link {
-    font-family: var(--font-inter);
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--c-text-strong);
-    text-decoration: none;
-  }
-  .flow__link:hover {
-    color: var(--accent);
   }
   .flow__careers {
     display: flex;
@@ -185,22 +54,13 @@ const steps = [
 
   @media (max-width: 1199px) {
     .flow {
-      padding: 80px 40px 40px;
-    }
-    .flow__steps {
-      grid-template-columns: repeat(2, 1fr);
+      padding: 0 40px 40px;
     }
   }
   @media (max-width: 809px) {
     .flow {
-      padding: 60px 20px 30px;
+      padding: 0 20px 30px;
       gap: 36px;
-    }
-    .flow__title {
-      font-size: 34px;
-    }
-    .flow__steps {
-      grid-template-columns: 1fr;
     }
     .flow__careers {
       flex-direction: column;

@@ -127,23 +127,10 @@ const visual = {
     color: var(--c-blue);
   }
 
-  /* Live-site quirk, reproduced on purpose: at ≥1200px Framer renders the headline with its
-     unstyled default text style (Inter 16px, black, one line). Delete this block to use the
-     large two-line headline on desktop as well. */
   @media (min-width: 1200px) {
     .hero__title {
-      font-family: var(--font-inter);
-      font-size: 16px;
-      font-weight: 400;
-      letter-spacing: 0;
+      font-size: 55px;
       line-height: 1.2;
-      color: var(--c-black);
-    }
-    .hero__break {
-      display: none;
-    }
-    .hero__accent {
-      color: inherit;
     }
   }
 
