@@ -1,8 +1,7 @@
 ---
 import '../styles/global.css';
-import NavMain from '../components/shared/NavMain.astro';
-import NavPill from '../components/shared/NavPill.astro';
-import Footer from '../components/shared/Footer.astro';
+import Header from '../components/site/Header.astro';
+import Footer from '../components/site/Footer.astro';
 import { url } from '../lib/paths';
 
 interface Props {
@@ -10,8 +9,6 @@ interface Props {
   description: string;
   /** Root-relative path of this page, used for the canonical URL, e.g. "/about-us". */
   path: string;
-  /** Home uses the full-width "Ecosystem" navbar; other pages use the centred pill nav. */
-  nav?: 'main' | 'pill';
   ogImage?: string;
   /** Set false for pages that should not be indexed (e.g. 404). */
   index?: boolean;
@@ -21,7 +18,6 @@ const {
   title,
   description,
   path,
-  nav = 'pill',
   ogImage = '/images/XLdIyFNeWEQPk8DuOEnZbpdQjhk.png',
   index = true,
 } = Astro.props;
@@ -56,10 +52,13 @@ const GA_ID = 'G-5QRFPXJGLL';
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <!-- Self-hosted copies of the exact font files the Framer site used (see public/fonts/fonts.css). -->
-    <link rel="stylesheet" href={url('/fonts/fonts.css')} />
-
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <!-- Brand typefaces: Archivo Expanded (width 125) for display, Inter for body. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500&family=Inter:wght@400;500&display=swap"
+    />
 
     <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
     <script is:inline define:vars={{ GA_ID }}>
@@ -73,31 +72,10 @@ const GA_ID = 'G-5QRFPXJGLL';
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    {nav === 'main' ? <NavMain /> : <NavPill />}
+    <Header current={path} />
     <main id="main">
       <slot />
     </main>
     <Footer />
-
-    <script>
-      // Scroll-reveal for [data-reveal] elements (Framer appear effects).
-      const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
-      if (!('IntersectionObserver' in window)) {
-        els.forEach((el) => el.classList.add('is-revealed'));
-      } else {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-revealed');
-                io.unobserve(entry.target);
-              }
-            }
-          },
-          { rootMargin: '0px 0px -8% 0px', threshold: 0.01 }
-        );
-        els.forEach((el) => io.observe(el));
-      }
-    </script>
   </body>
 </html>

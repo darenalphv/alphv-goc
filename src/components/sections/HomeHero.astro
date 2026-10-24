@@ -1,0 +1,74 @@
+---
+// Home hero: hard-left uppercase statement, lead, actions and the group stats strip.
+import { url } from '../../lib/paths';
+import Icon from '../ui/Icon.astro';
+import { stats } from '../../data/group';
+---
+
+<section class="hero">
+  <div class="wrap">
+    <p class="label hero__kicker"><span class="dot"></span>ALPHV group of companies _ Kuala Lumpur</p>
+    <h1 class="display hero__title">
+      Build.<br />Train.<br />Grow. <span class="accent">Hire.</span>
+    </h1>
+    <div class="hero__row">
+      <p class="lead">
+        ALPHV is a Malaysian group of four companies. It builds production AI and software, trains teams with
+        HRDC-certified programs, grows Southeast Asia's largest developer community and places the tech talent behind
+        it all.
+      </p>
+      <div class="actions">
+        <a class="btn btn--primary" href={url('/service')}>Explore the companies <Icon name="arrow-right" /></a>
+        <a class="btn" href={url('/contact-us')}>Contact the group</a>
+      </div>
+    </div>
+
+    <dl class="stats">
+      {
+        stats.map((s) => (
+          <div class="hero__stat">
+            <dt class="label muted">{s.label}</dt>
+            <dd class="h2">{s.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: 88px var(--section);
+  }
+  .hero__kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .hero__title {
+    margin-bottom: 48px;
+  }
+  .hero__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 32px 48px;
+    align-items: end;
+    padding-bottom: 80px;
+  }
+  .hero__row .actions {
+    justify-content: flex-end;
+  }
+  @media (max-width: 960px) {
+    .hero {
+      padding-top: 56px;
+    }
+    .hero__row {
+      grid-template-columns: 1fr;
+      padding-bottom: 56px;
+    }
+    .hero__row .actions {
+      justify-content: flex-start;
+    }
+  }
+</style>

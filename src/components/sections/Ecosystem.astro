@@ -1,0 +1,65 @@
+---
+// Full-bleed blue field: how the four companies hand work to each other.
+import { companies } from '../../data/group';
+
+const roles = [
+  'Designs and runs the AI and software a business depends on.',
+  'Trains the teams who operate and extend those systems.',
+  'Grows the developer community the systems are built for.',
+  'Places the engineers and leaders who scale what has been built.',
+];
+---
+
+<section class="section section--blue" aria-labelledby="eco-title">
+  <div class="wrap">
+    <div class="head">
+      <div class="head__title">
+        <p class="label">02 _ How it fits</p>
+        <h2 class="h1" id="eco-title">One path,<br />four stages.</h2>
+      </div>
+      <p class="lead muted">
+        Work with one company or several. A client can start with a system build, train its team, recruit from the
+        community and hire through Recruit, with no hand-off between vendors.
+      </p>
+    </div>
+
+    <ol class="steps">
+      {
+        companies.map((c, i) => (
+          <li class="step">
+            <span class="label">Stage 0{i + 1}</span>
+            <p class="h2">{c.verb}</p>
+            <p class="label">{c.name}</p>
+            <p class="body muted">{roles[i]}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 40px 24px;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 24px;
+    border-top: 1px solid var(--white);
+  }
+  @media (max-width: 960px) {
+    .steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+    }
+  }
+</style>

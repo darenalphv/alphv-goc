@@ -1,29 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/home/Hero.astro';
-import Partners from '../components/home/Partners.astro';
-import Services from '../components/home/Services.astro';
-import GroupFlow from '../components/home/GroupFlow.astro';
-import Counter from '../components/home/Counter.astro';
-import HowItWorks from '../components/home/HowItWorks.astro';
-import Press from '../components/home/Press.astro';
-import Faq from '../components/home/Faq.astro';
-import CtaInnovate from '../components/shared/CtaInnovate.astro';
+import HomeHero from '../components/sections/HomeHero.astro';
+import CompanyGrid from '../components/sections/CompanyGrid.astro';
+import Ecosystem from '../components/sections/Ecosystem.astro';
+import WorkTable from '../components/sections/WorkTable.astro';
+import Clients from '../components/sections/Clients.astro';
+import Press from '../components/sections/Press.astro';
+import Careers from '../components/sections/Careers.astro';
+import Faq from '../components/sections/Faq.astro';
+import ContactBand from '../components/sections/ContactBand.astro';
 ---
 
 <BaseLayout
   title="ALPHV — Technology, Training, Developer Community & Talent Group"
   description="ALPHV is a Malaysian group of companies: ALPHV Technologies (AI & software), Academy (HRDC-certified training), DevRel (75,000+ developer community) and Recruit (tech recruitment)."
   path="/"
-  nav="main"
 >
-  <Hero />
-  <Partners />
-  <Services />
-  <GroupFlow />
-  <Counter />
-  <HowItWorks />
+  <HomeHero />
+  <CompanyGrid />
+  <Ecosystem />
+  <WorkTable />
+  <Clients />
   <Press />
+  <Careers />
   <Faq />
-  <CtaInnovate />
+  <ContactBand />
 </BaseLayout>
