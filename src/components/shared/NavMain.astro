@@ -187,7 +187,7 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
                 ))
               }
             </ul>
-            <p class="mnav__explore">Explore the ecosystem</p>
+            <a class="mnav__explore" href={url('/service')}>Explore the ecosystem</a>
           </div>
 
           {
@@ -639,11 +639,17 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
     color: #999;
   }
   .mnav__explore {
+    display: block;
     padding-top: 8px;
     font-size: 13px;
     font-weight: 500;
     color: var(--mnav-blue);
     line-height: 24px;
+    text-decoration: none;
+  }
+  .mnav__explore:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .mnav__detail {
