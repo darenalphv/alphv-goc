@@ -1,0 +1,266 @@
+---
+// About — corporate structure: ALPHV Group Pte. Ltd. (Singapore) as the parent company, with the two
+// Malaysian operating companies beneath it. Registry details from ACRA (via SGPBusiness) and the
+// footers of alphv.com, academy/devrel.alphv.com and recruit.alphv.com.
+import SectionHeading from './SectionHeading.astro';
+
+const parent = {
+  country: 'Singapore',
+  role: 'Parent company',
+  name: 'ALPHV Group Pte. Ltd.',
+  facts: [
+    ['UEN', '202634999N'],
+    ['Incorporated', '1 August 2026'],
+    ['Entity type', 'Exempt private company limited by shares'],
+    ['Principal activity', 'Management consultancy services (SSIC 70201)'],
+    ['Registered office', '21 Bukit Batok Crescent, #25-73 WCEGA Tower, Singapore 658065'],
+  ],
+};
+
+const subsidiaries = [
+  {
+    country: 'Malaysia',
+    name: 'ALPHV Technologies Sdn Bhd',
+    reg: 'Company No. 202301015604 (1509526-V)',
+    brands: ['ALPHV Technologies', 'ALPHV Academy', 'ALPHV DevRel'],
+    note: 'AI systems integration, HRDC-certified training and developer relations.',
+  },
+  {
+    country: 'Malaysia',
+    name: 'Agensi Pekerjaan ALPHV Sdn. Bhd.',
+    reg: 'Company No. 1597069-U · EA License JTKSM 1807',
+    brands: ['ALPHV Recruit'],
+    note: 'Licensed employment agency for tech recruitment and executive search.',
+  },
+];
+---
+
+<section class="gs about-slide" data-reveal style="--reveal-distance:170px" aria-labelledby="gs-title">
+  <div class="gs__inner">
+    <SectionHeading id="gs-title" parts={['Group ', { text: 'Structure', class: 'text-blue' }]} />
+
+    <article class="gs__parent">
+      <div class="gs__head">
+        <p class="gs__tag gs__tag--light">{parent.country} · {parent.role}</p>
+        <h3 class="gs__name">{parent.name}</h3>
+      </div>
+      <dl class="gs__facts">
+        {
+          parent.facts.map(([k, v]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </article>
+
+    <div class="gs__connector" aria-hidden="true"><span></span></div>
+
+    <ul class="gs__subs">
+      {
+        subsidiaries.map((s) => (
+          <li class="gs__sub">
+            <p class="gs__tag">{s.country}</p>
+            <h3 class="gs__sub-name">{s.name}</h3>
+            <p class="gs__reg">{s.reg}</p>
+            <p class="gs__note">{s.note}</p>
+            <ul class="gs__brands" aria-label="Operates">
+              {s.brands.map((b) => (
+                <li>{b}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .gs {
+    display: flex;
+    justify-content: center;
+    padding: 70px 40px;
+  }
+  .gs__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .gs__parent {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    gap: 40px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 30px;
+    background: var(--c-blue);
+    color: var(--c-white);
+  }
+  .gs__head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .gs__tag {
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    background: rgba(29, 100, 255, 0.08);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--c-blue);
+  }
+  .gs__tag--light {
+    background: rgba(255, 255, 255, 0.16);
+    color: var(--c-white);
+  }
+  .gs__name {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+  .gs__facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 24px;
+    margin: 0;
+  }
+  .gs__facts div:last-child {
+    grid-column: 1 / -1;
+  }
+  .gs__facts dt {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .gs__facts dd {
+    margin: 4px 0 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  /* Connector: a stem from the parent that branches to the two subsidiaries. */
+  .gs__connector {
+    position: relative;
+    width: 50%;
+    height: 40px;
+    margin: -50px 0;
+  }
+  .gs__connector::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 20px;
+    background: var(--c-blue);
+  }
+  .gs__connector span {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    border: 2px solid var(--c-blue);
+    border-bottom: 0;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .gs__subs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+  }
+  .gs__sub {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 32px;
+    border: 1px solid var(--c-border);
+    border-radius: 30px;
+    background: var(--c-surface);
+  }
+  .gs__sub-name {
+    margin-top: 6px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--c-text);
+  }
+  .gs__reg {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--c-blue);
+  }
+  .gs__note {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgb(89, 100, 107);
+  }
+  .gs__brands {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .gs__brands li {
+    padding: 6px 14px;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-pill);
+    background: var(--c-white);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--c-text);
+  }
+
+  @media (max-width: 999.98px) {
+    .gs__parent {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+    }
+  }
+
+  @media (max-width: 809.98px) {
+    .gs {
+      padding: 60px 20px;
+    }
+    .gs__parent,
+    .gs__sub {
+      padding: 28px 24px;
+      border-radius: 24px;
+    }
+    .gs__name {
+      font-size: 28px;
+    }
+    .gs__facts {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .gs__connector {
+      width: 2px;
+      margin: -30px 0;
+    }
+    .gs__connector::before {
+      height: 40px;
+    }
+    .gs__connector span {
+      display: none;
+    }
+    .gs__subs {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
