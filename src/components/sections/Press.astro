@@ -1,0 +1,74 @@
+---
+// Media coverage as a ruled list of outbound links.
+import Icon from '../ui/Icon.astro';
+import { press } from '../../data/group';
+---
+
+<section class="section" aria-labelledby="press-title">
+  <div class="wrap">
+    <div class="head">
+      <div class="head__title">
+        <p class="label accent">05 _ Media</p>
+        <h2 class="h1" id="press-title">In the news.</h2>
+      </div>
+      <p class="lead muted">Partnerships, interviews and commentary on AI and the developer economy.</p>
+    </div>
+
+    <ul class="press">
+      {
+        press.map((p) => (
+          <li>
+            <a class="press__row" href={p.href} target="_blank" rel="noopener">
+              <span class="label">{p.outlet}</span>
+              <span class="h3 press__title">{p.title}</span>
+              <span class="press__date muted">{p.date}</span>
+              <Icon name="arrow-up-right" size={20} class="press__icon" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .press {
+    border-top: var(--rule);
+  }
+  .press__row {
+    display: grid;
+    grid-template-columns: 16% minmax(0, 1fr) 100px 20px;
+    align-items: center;
+    gap: 16px;
+    padding-block: 24px;
+    border-bottom: var(--hairline);
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+  .press__row:hover {
+    color: var(--blue);
+  }
+  .press__title {
+    font-size: clamp(16px, 1.4vw, 20px);
+  }
+  .press__date {
+    font-size: 14px;
+    text-align: right;
+  }
+  @media (max-width: 760px) {
+    .press__row {
+      grid-template-columns: minmax(0, 1fr) 20px;
+      gap: 10px 16px;
+    }
+    .press__title {
+      grid-column: 1;
+    }
+    .press__date {
+      display: none;
+    }
+    .press__row :global(.press__icon) {
+      grid-row: 1;
+      grid-column: 2;
+    }
+  }
+</style>

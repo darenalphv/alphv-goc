@@ -1,0 +1,105 @@
+---
+// The four companies as bordered cards: number, category, name, summary, key services and a link out.
+import Icon from '../ui/Icon.astro';
+import { url } from '../../lib/paths';
+import { companies } from '../../data/group';
+---
+
+<section class="section" id="companies" aria-labelledby="companies-title">
+  <div class="wrap">
+    <div class="head">
+      <div class="head__title">
+        <p class="label accent">01 _ The group</p>
+        <h2 class="h1" id="companies-title">Four companies.<br />One ecosystem.</h2>
+      </div>
+      <p class="lead muted">
+        Each company stands on its own, with its own team and website. Together they cover the full path from building
+        a system to staffing it.
+      </p>
+    </div>
+
+    <ul class="grid">
+      {
+        companies.map((c, i) => (
+          <li class="card">
+            <div class="card__top">
+              <span class="label">0{i + 1}</span>
+              <span class="label muted">{c.category}</span>
+            </div>
+            <p class="card__verb display accent">{c.verb}</p>
+            <h3 class="h3">{c.name}</h3>
+            <p class="body muted">{c.summary}</p>
+            <ul class="card__services">
+              {c.services.slice(0, 4).map((s) => (
+                <li>{s.title}</li>
+              ))}
+            </ul>
+            <div class="card__links">
+              <a class="link" href={c.url} target="_blank" rel="noopener">
+                {c.domain} <Icon name="arrow-up-right" />
+              </a>
+              <a class="link muted" href={url(`/service#${c.id}`)}>
+                Details <Icon name="arrow-right" />
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: var(--rule);
+    border-left: var(--rule);
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    border-right: var(--rule);
+    border-bottom: var(--rule);
+    transition: background-color var(--dur) var(--ease);
+  }
+  .card:hover {
+    background: var(--n-100);
+  }
+  .card__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .card__verb {
+    font-size: clamp(44px, 5.6vw, 80px);
+  }
+  .card__services {
+    margin-top: 8px;
+    border-top: var(--hairline);
+    font-size: 14px;
+  }
+  .card__services li {
+    padding-block: 10px;
+    border-bottom: var(--hairline);
+  }
+  .card__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 16px;
+  }
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .card {
+      padding: 24px;
+    }
+  }
+</style>

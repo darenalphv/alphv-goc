@@ -1,0 +1,95 @@
+---
+// Client and partner logos in a hairline grid, plus certifications. Logos are shown in greyscale so
+// third-party brand colours do not compete with the three-colour palette.
+import { url } from '../../lib/paths';
+import { clients, certifications } from '../../data/group';
+---
+
+<section class="section section--muted" aria-labelledby="clients-title">
+  <div class="wrap">
+    <div class="head">
+      <div class="head__title">
+        <p class="label accent">04 _ Clients and partners</p>
+        <h2 class="h1" id="clients-title">Trusted across<br />the region.</h2>
+      </div>
+      <p class="lead muted">Enterprises, technology companies and public bodies the ALPHV companies work with.</p>
+    </div>
+
+    <ul class="logos">
+      {
+        clients.map((c) => (
+          <li>
+            <img src={url(c.src)} alt={c.alt} loading="lazy" decoding="async" />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="certs">
+      <p class="label">Registered and certified</p>
+      <ul>
+        {
+          certifications.map((c) => (
+            <li>
+              <img src={url(c.src)} alt={c.alt} loading="lazy" decoding="async" />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .logos {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    border-top: var(--hairline);
+    border-left: var(--hairline);
+    background: var(--white);
+  }
+  .logos li {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 2;
+    padding: 24px;
+    border-right: var(--hairline);
+    border-bottom: var(--hairline);
+  }
+  .logos img,
+  .certs img {
+    max-height: 56px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(1);
+  }
+  .certs {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding-top: 40px;
+  }
+  .certs ul {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .certs img {
+    max-height: 64px;
+  }
+  @media (max-width: 960px) {
+    .logos {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 480px) {
+    .logos {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .logos li {
+      padding: 16px;
+    }
+  }
+</style>

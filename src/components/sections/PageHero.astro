@@ -1,0 +1,53 @@
+---
+// Inner-page hero: kicker label, uppercase title and lead, hard left over a closing rule.
+interface Props {
+  kicker: string;
+  title: string;
+  lead?: string;
+}
+const { kicker, title, lead } = Astro.props;
+---
+
+<section class="phero">
+  <div class="wrap">
+    <p class="label phero__kicker"><span class="dot"></span>{kicker}</p>
+    <h1 class="display phero__title" set:html={title} />
+    <div class="phero__row">
+      {lead && <p class="lead">{lead}</p>}
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .phero {
+    padding-block: 88px 64px;
+  }
+  .phero .wrap {
+    padding-bottom: 0;
+  }
+  .phero__kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .phero__title {
+    margin-bottom: 40px;
+  }
+  .phero__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    padding-bottom: 48px;
+    border-bottom: var(--rule);
+  }
+  @media (max-width: 960px) {
+    .phero {
+      padding-top: 56px;
+      padding-bottom: 48px;
+    }
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+// Recent work across the group as a spec-sheet table.
+import { work } from '../../data/group';
+---
+
+<section class="section" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="head">
+      <div class="head__title">
+        <p class="label accent">03 _ Recent work</p>
+        <h2 class="h1" id="work-title">In production,<br />in the room.</h2>
+      </div>
+      <p class="lead muted">
+        Systems delivered, programs run and events hosted by the ALPHV companies for clients and partners across the
+        region.
+      </p>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="label" scope="col">Company</th>
+          <th class="label" scope="col">Work</th>
+          <th class="label" scope="col">Client</th>
+          <th class="label" scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          work.map((w) => (
+            <tr>
+              <td class="label accent">{w.company}</td>
+              <td class="table__title">{w.title}</td>
+              <td class="muted">{w.client}</td>
+              <td class="muted">{w.date}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<style>
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  th {
+    text-align: left;
+    padding: 0 16px 14px 0;
+    border-bottom: var(--rule);
+    font-weight: 500;
+  }
+  td {
+    padding: 20px 16px 20px 0;
+    border-bottom: var(--hairline);
+    vertical-align: top;
+  }
+  tr:hover td {
+    background: var(--n-100);
+  }
+  .table__title {
+    font-weight: 500;
+  }
+  th:first-child,
+  td:first-child {
+    width: 16%;
+  }
+  th:last-child,
+  td:last-child {
+    width: 12%;
+    text-align: right;
+    padding-right: 0;
+  }
+  @media (max-width: 760px) {
+    thead {
+      display: none;
+    }
+    tr {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px 16px;
+      padding-block: 18px;
+      border-bottom: var(--hairline);
+    }
+    td,
+    td:first-child,
+    td:last-child {
+      width: auto;
+      padding: 0;
+      border: 0;
+      text-align: left;
+    }
+    .table__title {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+    td:nth-child(3) {
+      grid-row: 3;
+    }
+    td:last-child {
+      grid-row: 1;
+      grid-column: 2;
+      text-align: right;
+    }
+    tr:hover td {
+      background: none;
+    }
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+// Closing call to action, bordered on white.
+import { url } from '../../lib/paths';
+import Icon from '../ui/Icon.astro';
+import { contact } from '../../data/group';
+---
+
+<section class="section band-wrap">
+  <div class="wrap">
+    <div class="band">
+      <h2 class="h1">Talk to<br />the group.</h2>
+      <div class="band__copy">
+        <p class="lead muted">
+          Tell ALPHV what you need. The right company, whether Technologies, Academy, DevRel or Recruit, will reply.
+        </p>
+        <div class="actions">
+          <a class="btn btn--primary" href={url('/contact-us')}>Contact <Icon name="arrow-right" /></a>
+          <a class="btn" href={contact.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band-wrap {
+    padding-top: 0;
+  }
+  .band {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px 48px;
+    align-items: end;
+    padding: 56px;
+    border: 2px solid var(--black);
+  }
+  .band__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  @media (max-width: 960px) {
+    .band {
+      grid-template-columns: 1fr;
+      padding: 32px 24px;
+    }
+  }
+</style>
