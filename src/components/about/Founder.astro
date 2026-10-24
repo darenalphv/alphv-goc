@@ -1,74 +1,99 @@
 ---
+// About — "Our Founders": Daren Tan and Khor Jeng Yee, who co-founded ALPHV in April 2023. Each card keeps
+// the original speaker style (greyscale photo that turns colour on hover, blue corner glow, social icons).
+// Bios: Daren from his canonical bio and darentan.my; Jeng Yee from her LinkedIn experience.
 import { url } from '../../lib/paths';
 import SectionHeading from './SectionHeading.astro';
 
-// Phosphor "fill" icons, as inlined by the live site.
-const socials = [
+// Phosphor "fill" icons.
+const icons = {
+  instagram: 'M176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24ZM128,176a48,48,0,1,1,48-48A48.05,48.05,0,0,1,128,176Zm60-96a12,12,0,1,1,12-12A12,12,0,0,1,188,80Zm-28,48a32,32,0,1,1-32-32A32,32,0,0,1,160,128Z',
+  linkedin: 'M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24ZM96,176a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0ZM88,96a12,12,0,1,1,12-12A12,12,0,0,1,88,96Zm96,80a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140Z',
+};
+
+const founders = [
   {
-    label: 'Daren Tan on Instagram',
-    href: 'https://www.instagram.com/darentandz/',
-    path: 'M176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24ZM128,176a48,48,0,1,1,48-48A48.05,48.05,0,0,1,128,176Zm60-96a12,12,0,1,1,12-12A12,12,0,0,1,188,80Zm-28,48a32,32,0,1,1-32-32A32,32,0,0,1,160,128Z',
+    name: 'Daren Tan',
+    role: 'Co-founder & CEO, ALPHV Group',
+    photo: { src: '/images/cgPZRqrv944rtuZzDHsax8LAuI.png', alt: 'Daren Tan speaking on stage with a microphone', w: 1080, h: 1080 },
+    socials: [
+      { icon: 'instagram', label: 'Daren Tan on Instagram', href: 'https://www.instagram.com/darentandz/' },
+      { icon: 'linkedin', label: 'Daren Tan on LinkedIn', href: 'https://www.linkedin.com/in/daren-tan/' },
+    ],
+    bio: [
+      'Daren Tan is the Co-founder and Chief Executive Officer of ALPHV Group of Companies, which builds AI, data and cloud solutions for businesses across Southeast Asia. A technical founder with ten years in technology, he built AI/ML and virtual-agent solutions at BASF, served as CTO of startups in Singapore, China and Malaysia, and was Director of Technology at the accelerator Growth Charger.',
+      "He founded Developer Kaki, Malaysia's largest developer community with 82,000+ members, and co-founded Hackathon Kaki. Under his leadership, ALPHV became the first Malaysian Global Strategic Partner of Alibaba Cloud. He holds a master's in data science and gave the technical AI keynote at the ASEAN AI Summit 2025.",
+    ],
   },
   {
-    label: 'Daren Tan on LinkedIn',
-    href: 'https://www.linkedin.com/in/daren-tan/',
-    path: 'M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24ZM96,176a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0ZM88,96a12,12,0,1,1,12-12A12,12,0,0,1,88,96Zm96,80a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140Z',
+    name: 'Khor Jeng Yee',
+    role: 'Co-founder, ALPHV Group · CEO, ALPHV Recruit',
+    photo: { src: '/images/khor-jeng-yee.jpg', alt: 'Portrait of Khor Jeng Yee', w: 400, h: 400 },
+    socials: [
+      { icon: 'linkedin', label: 'Khor Jeng Yee on LinkedIn', href: 'https://www.linkedin.com/in/jengyee1130/' },
+    ],
+    bio: [
+      'Khor Jeng Yee is a Co-founder of ALPHV Group of Companies and Chief Executive Officer of ALPHV Recruit. She leads the group’s business strategy, business development and revenue growth, and co-founded Developer Kaki in 2020. At ALPHV Recruit, she runs tech recruitment led by recruiters who were once software engineers.',
+      'Before ALPHV, she spent six years in B2B sales and partnerships: as Associate Director of Corporate Sales at Paywatch, as Regional Key Account Manager for GrabForBusiness at Grab, and in business development at VBrand and After 5 Logistics. She began her career in management consulting at Accenture.',
+    ],
   },
-];
+] as const;
 ---
 
 <section class="founder about-slide" data-reveal style="--reveal-distance:170px" aria-labelledby="founder-title">
   <div class="founder__inner">
-    <SectionHeading id="founder-title" parts={['Our  ', { text: 'Founder', class: 'text-blue' }]} />
+    <SectionHeading id="founder-title" parts={['Our ', { text: 'Founders', class: 'text-blue' }]} />
 
-    <figure class="speaker">
-      <div class="speaker__media">
-        <div class="speaker__image">
-          <img
-            class="speaker__photo"
-            src={url('/images/cgPZRqrv944rtuZzDHsax8LAuI.png')}
-            alt="Daren Tan speaking on stage with a microphone"
-            width="1080"
-            height="1080"
-            loading="lazy"
-            decoding="async"
-          />
-          <img
-            class="speaker__glow"
-            src={url('/images/Q38ypNMBsBVK6qjiF6kKfrobM24.png')}
-            alt=""
-            width="571"
-            height="530"
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-        {
-          socials.map((s) => (
-            <a class="speaker__social" href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
-              <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false">
-                <path d={s.path} />
-              </svg>
-            </a>
-          ))
-        }
-      </div>
-      <figcaption class="speaker__profile">
-        <h3 class="speaker__name">Daren Tan</h3>
-        <p class="speaker__role">Co-founder &amp; CEO, ALPHV Group</p>
-      </figcaption>
-    </figure>
-
-    <p class="founder__bio">
-      <strong>Daren Tan</strong> is the Co-founder and CEO of ALPHV Group of Companies. A technical founder with 10 years
-      in the industry, he started as a developer and serial hackathon competitor, became CTO of startups in Singapore,
-      China and Malaysia, and built AI solutions at <strong>BASF</strong> and <strong>MaGIC</strong>. As Director of
-      Technology at the accelerator Growth Charger, he designed technical due-diligence frameworks and advised founders
-      on architecture and AI. He founded <strong>Developer Kaki</strong>, Malaysia's largest developer community, and
-      co-founded Hackathon Kaki. Under his leadership, ALPHV became the first Malaysian Global Strategic Partner of
-      <strong>Alibaba Cloud</strong>. He holds a master's in data science and gave the technical AI keynote at the ASEAN
-      AI Summit 2025.
-    </p>
+    <div class="founder__grid">
+      {
+        founders.map((f) => (
+          <article class="founder__card">
+            <figure class="speaker">
+              <div class="speaker__media">
+                <div class="speaker__image">
+                  <img
+                    class="speaker__photo"
+                    src={url(f.photo.src)}
+                    alt={f.photo.alt}
+                    width={f.photo.w}
+                    height={f.photo.h}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <img
+                    class="speaker__glow"
+                    src={url('/images/Q38ypNMBsBVK6qjiF6kKfrobM24.png')}
+                    alt=""
+                    width="571"
+                    height="530"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="speaker__socials">
+                  {f.socials.map((s) => (
+                    <a class="speaker__social" href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
+                      <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false">
+                        <path d={icons[s.icon]} />
+                      </svg>
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <figcaption class="speaker__profile">
+                <h3 class="speaker__name">{f.name}</h3>
+                <p class="speaker__role">{f.role}</p>
+              </figcaption>
+            </figure>
+            <div class="founder__bio">
+              {f.bio.map((para) => (
+                <p>{para}</p>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
   </div>
 </section>
 
@@ -88,14 +113,31 @@ const socials = [
     max-width: 1200px;
   }
 
+  .founder__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
+  }
+
+  .founder__card {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+    padding: 28px;
+    border: 1px solid var(--c-border);
+    border-radius: 30px;
+    background: var(--c-surface);
+  }
+
   /* ---------- Speaker card ---------- */
   .speaker {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    width: 380px;
-    max-width: 100%;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
   }
 
   .speaker__media {
@@ -126,7 +168,7 @@ const socials = [
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 165px;
+    width: 110px;
     height: auto;
     aspect-ratio: 1.07736;
     object-fit: cover;
@@ -137,19 +179,22 @@ const socials = [
   .speaker:hover .speaker__image,
   .speaker:focus-within .speaker__image { filter: none; }
   .speaker:hover .speaker__glow,
-  .speaker:focus-within .speaker__glow { transform: scale(1.2727); } /* 165px → 210px */
+  .speaker:focus-within .speaker__glow { transform: scale(1.2727); }
 
-  .speaker__social {
+  .speaker__socials {
     position: absolute;
+    right: 16px;
     bottom: 16px;
+    display: flex;
+    gap: 10px;
+  }
+  .speaker__social {
     display: grid;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     color: var(--c-white);
     transition: transform 0.3s var(--ease-out);
   }
-  .speaker__social:first-of-type { right: 66px; }
-  .speaker__social:last-of-type { right: 17px; }
   .speaker__social svg {
     width: 100%;
     height: 100%;
@@ -162,12 +207,11 @@ const socials = [
     flex-direction: column;
     gap: 4px;
     width: 100%;
-    text-align: center;
   }
 
   .speaker__name {
     font-family: var(--font-inter);
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.4;
     letter-spacing: -0.03em;
@@ -176,28 +220,35 @@ const socials = [
 
   .speaker__role {
     font-family: var(--font-inter);
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.45;
     color: var(--c-text);
   }
 
   .founder__bio {
-    width: 74%;
-    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 15px;
     font-weight: 500;
-    line-height: 2;
-    text-align: center;
+    line-height: 1.75;
     color: var(--c-text);
   }
-  .founder__bio strong { font-weight: 700; }
+
+  @media (max-width: 1199.98px) {
+    .founder__grid { grid-template-columns: minmax(0, 1fr); }
+  }
 
   @media (max-width: 809.98px) {
-    .founder { padding: 100px 20px; }
-    .speaker { width: 100%; }
-    .founder__bio {
-      width: 100%;
-      font-size: 14px;
+    .founder { padding: 60px 20px; }
+    .founder__card {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 20px;
+      padding: 20px;
+      border-radius: 24px;
     }
+    .speaker__media { max-width: 280px; }
+    .founder__bio { font-size: 14px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
