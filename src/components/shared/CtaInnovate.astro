@@ -15,7 +15,7 @@ const arrow =
       <div class="cta-innovate__text">
         <p class="tag tag--glass"><span class="tag__dot" aria-hidden="true"></span>75,000+ Developers. Countless Possibilities.</p>
         <h2 class="cta-innovate__title" id="cta-innovate-title">
-          Ready to Innovate<br />The <span class="text-blue">ALPHV</span> Way ?
+          Ready to Innovate<br />The <span class="text-blue">ALPHV</span> Way?
         </h2>
         <p class="cta-innovate__lead">Be part of the change shaping tomorrow’s tech</p>
       </div>
@@ -27,7 +27,7 @@ const arrow =
           </span>
         </a>
         <a class="btn btn--secondary" href={url('/service')}>
-          <span>Explore Services</span>
+          <span>Explore Our Companies</span>
           <span class="btn__icon" aria-hidden="true">
             <svg viewBox="0 0 256 256" fill="currentColor" focusable="false"><path d={arrow} /></svg>
           </span>
@@ -53,7 +53,7 @@ const arrow =
     align-items: center;
     gap: 20px;
     width: 100%;
-    padding: 100px 0;
+    padding: 80px 0 100px;
     overflow: hidden;
     background: var(--c-white);
   }
@@ -68,19 +68,18 @@ const arrow =
     z-index: 2;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 30px;
     width: 90%;
     max-width: 1200px;
-    height: 550px;
-    padding: 60px;
+    padding: 56px 80px;
     overflow: hidden;
     background: var(--c-white);
+    border: 1px solid var(--c-border);
     border-radius: 20px;
     box-shadow:
-      0 16px 35px 15px rgba(0, 0, 0, 0.15),
-      0 6px 15px rgba(0, 0, 0, 0.15),
-      0 2px 6px rgba(0, 0, 0, 0.1);
+      0 12px 32px -8px rgba(0, 0, 0, 0.12),
+      0 2px 6px rgba(0, 0, 0, 0.05);
   }
 
   .cta-innovate__content {
@@ -102,9 +101,10 @@ const arrow =
   }
   .cta-innovate__title {
     width: 100%;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
     color: var(--c-text);
     text-wrap: balance;
   }
@@ -131,6 +131,9 @@ const arrow =
 
   /* Tablet: stacked buttons, smaller map */
   @media (max-width: 1199.98px) {
+    .cta-innovate__card {
+      padding: 48px;
+    }
     .cta-innovate__buttons {
       flex-direction: column;
       align-items: flex-start;
@@ -146,10 +149,13 @@ const arrow =
     .cta-innovate__card {
       flex-direction: column;
       justify-content: flex-start;
-      height: auto;
+      padding: 36px 24px;
     }
     .cta-innovate__content {
-      width: 128%;
+      width: 100%;
+    }
+    .cta-innovate__title {
+      font-size: 30px;
     }
     .cta-innovate__map {
       display: none;

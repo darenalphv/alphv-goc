@@ -3,12 +3,21 @@ import SectionHeading from './SectionHeading.astro';
 
 const steps = [
   {
-    title: 'System Integration & Software Development',
-    text: 'Custom solutions, AI/ML, enterprise applications, cloud consulting.',
+    title: 'ALPHV Technologies: AI & Software',
+    text: 'Production AI, agentic automation, system integration, computer vision, and web and mobile apps.',
   },
-  { title: 'Talent Development ( ALPHV Academy )', text: 'HRDC-certified training, GenAI, Data Science, Analytics.' },
-  { title: 'Developer Relations (DevRel)', text: 'Hackathons, advocacy, events via Developer Kaki.' },
-  { title: 'Job Placement (ALPHV Recruit)', text: 'Streamlined recruitment and talent matching.' },
+  {
+    title: 'ALPHV Academy: Training',
+    text: 'HRDC-certified programs in AI, data science and emerging technology, with HRD Corp claims handled.',
+  },
+  {
+    title: 'ALPHV DevRel: Developer Relations',
+    text: 'Developer marketing, events, hackathons and executive roundtables through Developer Kaki.',
+  },
+  {
+    title: 'ALPHV Recruit: Tech Talent',
+    text: 'Executive search, tech recruiting, contract staffing and talent advisory across Southeast Asia.',
+  },
 ];
 ---
 
@@ -54,7 +63,7 @@ const steps = [
   .ecosystem {
     display: flex;
     justify-content: center;
-    padding: 100px 40px;
+    padding: 70px 40px;
     scroll-margin-top: 100px;
   }
 
@@ -164,7 +173,10 @@ const steps = [
       color: var(--eco-ink);
     }
     .eco__card.is-open { flex-grow: 1; }
-    .eco__card:not(.is-open):hover .eco__num { transform: translateX(20px); }
+    /* Collapsed cards: a smaller numeral that fits inside the 85px column instead of being clipped. */
+    .eco__card:not(.is-open) { padding-inline: 24px; }
+    .eco__card:not(.is-open) .eco__num { font-size: 56px; }
+    .eco__card:not(.is-open):hover .eco__num { transform: translateX(4px); }
 
     .eco__bg {
       right: -945px;

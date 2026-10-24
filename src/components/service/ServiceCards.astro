@@ -1,7 +1,7 @@
 ---
 // "Section PROJECTS" — the four service cards (Framer "Project Card" component).
 // Desktop: 2×2 grid inside a 1200px column. Tablet/phone: single column.
-// Every card links to the home page on the live site (href "./" from /service).
+// Each card links out to that company's own site and lists its main services.
 // Hover: the title turns brand blue.
 import { url } from '../../lib/paths';
 
@@ -9,6 +9,8 @@ interface ServiceCard {
   title: string;
   subtitle: string;
   href: string;
+  domain: string;
+  services: string[];
   image: string;
   alt: string;
 }
@@ -18,6 +20,8 @@ const cards: ServiceCard[] = [
     title: 'ALPHV Technologies',
     subtitle: 'AI systems integration and software development.',
     href: 'https://alphv.com',
+    domain: 'alphv.com',
+    services: ['AI engineering', 'Agentic automation', 'System integration', 'Computer vision', 'Web & mobile apps'],
     image: '/images/GHa4BAjiwhelgAStwsITxXFvryI.png',
     alt: 'Developer presenting code on a tablet to teammates at a desk',
   },
@@ -25,6 +29,8 @@ const cards: ServiceCard[] = [
     title: 'ALPHV Academy',
     subtitle: 'HRDC-certified AI, data and leadership training.',
     href: 'https://academy.alphv.com',
+    domain: 'academy.alphv.com',
+    services: ['Tech certification programs', 'AI train-the-trainer', 'GenAI & data workshops', 'Bootcamps & talks'],
     image: '/images/SOrmO2Qh38Nw0M9JFjVFQM8LtA.png',
     alt: 'ALPHV Academy logo over students coding at a computer',
   },
@@ -32,6 +38,8 @@ const cards: ServiceCard[] = [
     title: 'ALPHV DevRel',
     subtitle: 'Developer relations and the 75,000-strong Developer Kaki community.',
     href: 'https://devrel.alphv.com',
+    domain: 'devrel.alphv.com',
+    services: ['Developer marketing', 'Engagement events', 'Hackathons', 'Executive roundtables'],
     image: '/images/7ZQDTSHuvaFB1wUQmmJo8Jcws.png',
     alt: 'Team members joining hands in a high five around a meeting table',
   },
@@ -39,6 +47,8 @@ const cards: ServiceCard[] = [
     title: 'ALPHV Recruit',
     subtitle: 'Tech recruitment and executive search across Southeast Asia.',
     href: 'https://recruit.alphv.com',
+    domain: 'recruit.alphv.com',
+    services: ['Executive search', 'Tech talent recruiting', 'Contract staffing', 'Talent advisory'],
     image: '/images/rqiIGDbeDRiobhyef2bGIyvLg.png',
     alt: 'Hand selecting a candidate icon from a row of profile icons',
   },
@@ -64,9 +74,15 @@ const cards: ServiceCard[] = [
             </div>
             <div class="svc-card__text">
               <h2 class="svc-card__title">{card.title}</h2>
-              <p class="svc-card__subtitle">
-                <em>{card.subtitle}</em>
-              </p>
+              <p class="svc-card__subtitle">{card.subtitle}</p>
+              <ul class="svc-card__tags" aria-label={`${card.title} services`}>
+                {card.services.map((s) => (
+                  <li>{s}</li>
+                ))}
+              </ul>
+              <span class="svc-card__go">
+                Visit {card.domain} <span aria-hidden="true">↗</span>
+              </span>
             </div>
           </a>
         </li>
@@ -125,7 +141,7 @@ const cards: ServiceCard[] = [
   .svc-card__text {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
   }
 
   .svc-card__title {
@@ -143,10 +159,30 @@ const cards: ServiceCard[] = [
   }
 
   .svc-card__subtitle {
-    font-family: var(--font-inter-tight);
+    font-family: var(--font-inter);
     font-size: 16px;
-    line-height: 28px;
+    line-height: 26px;
     color: rgb(92, 92, 106);
+  }
+  .svc-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .svc-card__tags li {
+    padding: 5px 12px;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--c-text);
+  }
+  .svc-card__go {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c-blue);
   }
 
   /* Tablet: one card per row, full-width images */
@@ -167,17 +203,12 @@ const cards: ServiceCard[] = [
     }
 
     .svc-card__title {
-      font-size: 16px;
-    }
-
-    /* Live quirk: titles 2–4 sit in a bolder <strong> on phone, which also adds 1px of line height. */
-    .cards__item:not(:first-child) .svc-card__title {
-      font-weight: 800;
-      line-height: 21px;
+      font-size: 20px;
     }
 
     .svc-card__subtitle {
-      font-size: 12px;
+      font-size: 14px;
+      line-height: 22px;
     }
   }
 </style>

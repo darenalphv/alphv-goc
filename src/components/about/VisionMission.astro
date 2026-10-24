@@ -1,4 +1,6 @@
 ---
+// About — vision as a full-width blue card, then the mission card with its four commitments in a row
+// (two columns on tablet, stacked on phones).
 import SectionHeading from './SectionHeading.astro';
 
 const mission = [
@@ -9,60 +11,116 @@ const mission = [
 ];
 ---
 
-<section class="vm about-slide" data-reveal style="--reveal-distance:170px">
-  <SectionHeading parts={['Our Vision']} />
-  <p class="vm__text">
-    To pioneer transformative technology solutions that accelerate business innovation and<br />
-    shape the digital future. At ALPHV, we envision a world where cutting-edge technology<br />
-    seamlessly empowers organizations to achieve unprecedented growth and efficiency.
-  </p>
+<section class="vm about-slide" data-reveal style="--reveal-distance:170px" aria-label="Vision and mission">
+  <div class="vm__grid">
+    <article class="vm__card vm__card--vision">
+      <p class="vm__label">01</p>
+      <SectionHeading parts={['Our Vision']} />
+      <p class="vm__text">
+        To pioneer transformative technology solutions that accelerate business innovation and shape the digital
+        future. At ALPHV, we envision a world where cutting-edge technology empowers organisations to achieve
+        unprecedented growth and efficiency.
+      </p>
+    </article>
 
-  <SectionHeading parts={['Our Mission']} />
-  <div class="vm__text">
-    <p>
-      To deliver excellence in digital transformation through innovative software development,<br />
-      artificial intelligence solutions, and emerging technologies. We accomplish this by:
-    </p>
-    <ul class="vm__list">
-      {
-        mission.map(([verb, rest]) => (
-          <li>
-            <strong class="text-blue">{verb}</strong> {rest}
-          </li>
-        ))
-      }
-    </ul>
+    <article class="vm__card">
+      <p class="vm__label">02</p>
+      <SectionHeading parts={['Our Mission']} />
+      <p class="vm__text">
+        To deliver excellence in digital transformation through software development, artificial intelligence,
+        training, community and talent. We accomplish this by:
+      </p>
+      <ul class="vm__list">
+        {
+          mission.map(([verb, rest]) => (
+            <li>
+              <strong class="text-blue">{verb}</strong> {rest}
+            </li>
+          ))
+        }
+      </ul>
+    </article>
   </div>
 </section>
 
 <style>
   .vm {
+    width: 90%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 80px 0;
+  }
+
+  .vm__grid {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 60px;
-    padding: 100px 40px;
-    margin-bottom: 120px;
+    gap: 20px;
+  }
+
+  .vm__card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+    border: 1px solid var(--c-border);
+    border-radius: 30px;
+    background: var(--c-surface);
+  }
+  .vm__card--vision {
+    border-color: transparent;
+    background: var(--c-blue);
+    color: var(--c-white);
+  }
+  .vm__card--vision :global(.section-heading),
+  .vm__card--vision .vm__text {
+    color: var(--c-white);
+  }
+
+  .vm__card :global(.section-heading) {
+    font-size: 40px;
+    text-align: left;
+  }
+
+  .vm__label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
   }
 
   .vm__text {
-    width: 80%;
-    font-size: 20px;
+    max-width: 860px;
+    font-size: 18px;
     font-weight: 500;
-    line-height: 2;
-    text-align: center;
+    line-height: 1.7;
     color: var(--c-text);
   }
 
-  /* The live page separates the intro from the list with an empty 20px/2em paragraph. */
-  .vm__list { margin-top: 40px; }
+  .vm__list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .vm__list li {
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: var(--c-white);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--c-text);
+  }
   .vm__list strong { font-weight: 700; }
 
+  @media (max-width: 1199.98px) {
+    .vm__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
   @media (max-width: 809.98px) {
-    .vm { padding: 100px 20px; }
-    .vm__text {
-      width: 100%;
-      font-size: 14px;
-    }
+    .vm { width: auto; padding: 60px 20px; }
+    .vm__card { padding: 28px 24px; border-radius: 24px; }
+    .vm__card :global(.section-heading) { font-size: 30px; }
+    .vm__text { font-size: 15px; }
+    .vm__list { grid-template-columns: minmax(0, 1fr); }
   }
 </style>

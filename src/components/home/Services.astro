@@ -1,29 +1,32 @@
 ---
-// Home — Framer "Services Section" (#services): intro heading + paragraph, "Our Group of Companies"
-// logos, the 4-card services bento, the CEO quote and the "More Services" pill list.
+// Home — "Services Section" (#services): intro heading + paragraph, "Our Group of Companies"
+// logos with captions, the 4-card services bento (labelled Build / Train / Grow / Hire), the CEO
+// quote and the linked "More Services" pills.
 import { url } from '../../lib/paths';
 import Icon from './a/Icon.astro';
 import ServiceCard from './a/ServiceCard.astro';
 
 const companies = [
-  { href: 'https://alphv.com', src: '/images/hwb44JkUHK1ej38Ap2SZO0X0sc.png', alt: 'ALPHV Technology', w: 290, h: 138 },
-  { href: 'https://academy.alphv.com/', src: '/images/sEHPe4LvaMSZJQ4Q7pHnDhayo.png', alt: 'ALPHV Academy', w: 290, h: 138 },
-  { href: 'https://devrel.alphv.com/', src: '/images/yaTuWTNK4kISTNQoWMKPCnEnYmQ.png', alt: 'ALPHV DevRel', w: 290, h: 138 },
-  { href: 'http://recruit.alphv.com/', src: '/images/hWMaJ653nab1sdeWJnht0n5LnI0.png', alt: 'ALPHV Recruit', w: 290, h: 138 },
-  { href: 'https://jobs.developerkaki.my/', src: '/images/NwN1DZpJzC6EoWRyE09bhCwVkQ.png', alt: 'Jobs by Developer Kaki', w: 288, h: 154 },
+  { href: 'https://alphv.com', src: '/images/hwb44JkUHK1ej38Ap2SZO0X0sc.png', alt: 'ALPHV Technology', caption: 'Technologies', w: 290, h: 138 },
+  { href: 'https://academy.alphv.com/', src: '/images/sEHPe4LvaMSZJQ4Q7pHnDhayo.png', alt: 'ALPHV Academy', caption: 'Academy', w: 290, h: 138 },
+  { href: 'https://devrel.alphv.com/', src: '/images/yaTuWTNK4kISTNQoWMKPCnEnYmQ.png', alt: 'ALPHV DevRel', caption: 'DevRel', w: 290, h: 138 },
+  { href: 'https://recruit.alphv.com/', src: '/images/hWMaJ653nab1sdeWJnht0n5LnI0.png', alt: 'ALPHV Recruit', caption: 'Recruit', w: 290, h: 138 },
+  { href: 'https://jobs.developerkaki.my/', src: '/images/NwN1DZpJzC6EoWRyE09bhCwVkQ.png', alt: 'Jobs by Developer Kaki', caption: 'Kaki Jobs', w: 288, h: 154 },
 ];
 
+// Each pill links to the company that offers it.
+const tech = 'https://alphv.com';
 const moreServices = [
-  { icon: 'app-window', label: 'Software' },
-  { icon: 'hexagon', label: 'AI & Machine Learning' },
-  { icon: 'cloud', label: 'Cloud' },
-  { icon: 'chart-line', label: 'Analytics' },
-  { icon: 'sparkle', label: 'Integration' },
-  { icon: 'book', label: 'Training' },
-  { icon: 'search', label: 'Recruit' },
-  { icon: 'code-window', label: 'Devrel' },
-  { icon: 'cube', label: 'Hackathons' },
-  { icon: 'info', label: 'Consulting' },
+  { icon: 'app-window', label: 'Software', href: tech },
+  { icon: 'hexagon', label: 'AI & Machine Learning', href: tech },
+  { icon: 'cloud', label: 'Cloud', href: tech },
+  { icon: 'chart-line', label: 'Analytics', href: tech },
+  { icon: 'sparkle', label: 'Integration', href: tech },
+  { icon: 'book', label: 'Training', href: 'https://academy.alphv.com' },
+  { icon: 'search', label: 'Recruit', href: 'https://recruit.alphv.com' },
+  { icon: 'code-window', label: 'Devrel', href: 'https://devrel.alphv.com' },
+  { icon: 'cube', label: 'Hackathons', href: 'https://devrel.alphv.com' },
+  { icon: 'info', label: 'Consulting', href: tech },
 ] as const;
 ---
 
@@ -57,6 +60,7 @@ const moreServices = [
           <li class:list={['group__item', { 'group__item--lead': i === 0 }]}>
             <a href={c.href} target="_blank" rel="noopener">
               <img src={url(c.src)} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" />
+              <span class="group__caption">{c.caption} <span aria-hidden="true">↗</span></span>
             </a>
           </li>
         ))
@@ -69,7 +73,7 @@ const moreServices = [
       <ServiceCard
         icon="code"
         title="AI & Software Engineering"
-        category="Services"
+        category="01 · Build"
         href="https://alphv.com/"
         newTab
         revealDelay={200}
@@ -80,7 +84,7 @@ const moreServices = [
       <ServiceCard
         icon="users-four"
         title="Developer Relations"
-        category="Community"
+        category="03 · Grow"
         href="https://devrel.alphv.com/"
         fill
         photos={['/images/9jvJVjkD9jYYoV2ZAZqw2jnkM0.jpg', '/images/ymH6jZJosdsDDJ5qxRmRflBA.jpg']}
@@ -94,7 +98,7 @@ const moreServices = [
       <ServiceCard
         icon="dna"
         title="Training & Upskilling"
-        category="Training"
+        category="02 · Train"
         href="https://academy.alphv.com/"
         newTab
         fill
@@ -107,7 +111,7 @@ const moreServices = [
       <ServiceCard
         icon="notebook"
         title="Tech Recruitment"
-        category="Talent"
+        category="04 · Hire"
         href="http://recruit.alphv.com/"
         newTab
         revealDelay={200}
@@ -118,18 +122,39 @@ const moreServices = [
     </div>
   </div>
 
-  <blockquote class="quote" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 300ms">
-    <p>"We're Malaysia's AI-Native System Integrator.</p>
-    <p>Building Intelligent Solutions While Growing Asia's Largest Developer Community.</p>
-    <p>Empowering your team to innovate with confidence" - Daren<span class="ws">{'  '}</span>Tan, CEO</p>
-  </blockquote>
+  <figure class="quote" data-reveal style="--reveal-distance: 30px; --reveal-delay: 200ms">
+    <img
+      class="quote__photo"
+      src={url('/images/cgPZRqrv944rtuZzDHsax8LAuI.png')}
+      alt="Daren Tan speaking on stage"
+      width="1080"
+      height="1080"
+      loading="lazy"
+      decoding="async"
+    />
+    <div class="quote__body">
+      <span class="quote__mark" aria-hidden="true">“</span>
+      <blockquote class="quote__text">
+        <p>
+          We're Malaysia's AI-native system integrator, building intelligent solutions while growing Asia's largest
+          developer community, and empowering your team to innovate with confidence.
+        </p>
+      </blockquote>
+      <figcaption class="quote__by">
+        <strong>Daren Tan</strong>
+        <span>CEO, ALPHV</span>
+      </figcaption>
+    </div>
+  </figure>
 
   <ul class="more" aria-label="More services">
     {
       moreServices.map((s, i) => (
-        <li class="pill" data-reveal="left" style={`--reveal-distance: 50px; --reveal-delay: ${(i + 1) * 50}ms`}>
-          <Icon name={s.icon} class="pill__icon" />
-          {s.label}
+        <li data-reveal="left" style={`--reveal-distance: 50px; --reveal-delay: ${(i + 1) * 50}ms`}>
+          <a class="pill" href={s.href} target="_blank" rel="noopener">
+            <Icon name={s.icon} class="pill__icon" />
+            {s.label}
+          </a>
         </li>
       ))
     }
@@ -228,9 +253,27 @@ const moreServices = [
     gap: 20px;
     width: 100%;
   }
-  .group__item { flex: none; width: 150px; height: 73px; }
-  .group__item a { display: block; width: 100%; height: 100%; }
-  .group__item img { width: 100%; height: 100%; object-fit: contain; }
+  .group__item { flex: none; width: 150px; }
+  .group__item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 4px 10px;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  .group__item a:hover { background: var(--c-surface); }
+  .group__item img { width: 100%; height: 73px; object-fit: contain; }
+  .group__caption {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+    color: rgb(89, 100, 107);
+  }
+  .group__item a:hover .group__caption { color: var(--c-blue); }
 
   /* ---------- Bento ---------- */
   .bento {
@@ -254,13 +297,53 @@ const moreServices = [
 
   /* ---------- CEO quote ---------- */
   .quote {
-    width: 80%;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1.8;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 30px;
+    border: 1px solid var(--c-border);
+    border-radius: 30px;
+    background: var(--c-surface);
+  }
+  .quote__photo {
+    flex: none;
+    width: 180px;
+    height: 180px;
+    border-radius: 20px;
+    object-fit: cover;
+  }
+  .quote__body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .quote__mark {
+    height: 40px;
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--c-blue);
+  }
+  .quote__text {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    color: var(--c-text);
+  }
+  .quote__by {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 14px;
+    line-height: 1.4;
     color: rgb(89, 100, 107);
   }
+  .quote__by strong { font-size: 16px; color: var(--c-blue); }
 
   /* ---------- More Services ---------- */
   .more {
@@ -274,6 +357,10 @@ const moreServices = [
   }
   .pill {
     display: flex;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease;
     align-items: center;
     gap: 10px;
     padding: 19px; /* 20px in Framer, whose 1px border is drawn inside the box */
@@ -287,6 +374,7 @@ const moreServices = [
     white-space: nowrap;
   }
   .pill :global(.pill__icon) { flex: none; width: 20px; height: 20px; color: var(--c-blue); }
+  .pill:hover { border-color: var(--c-blue); color: var(--c-blue); }
 
   /* ---------- Tablet ---------- */
   @media (max-width: 1199.98px) {
@@ -310,13 +398,16 @@ const moreServices = [
       max-width: 100%;
     }
     .group__item { place-self: start; width: 100%; }
-    .group__item--lead { height: auto; aspect-ratio: 2.05479; }
+    .group__item img { height: auto; aspect-ratio: 2.05479; }
     .bento { flex-direction: column; }
     .bento__col { flex: none; width: 100%; height: auto; }
-    /* Framer fixes the first column at 663px on phone and centres its taller content, so the
-       cards overflow it by ~64px at both ends (overlapping the Jobs logo above and the next card
-       below). Reproduced as-is; drop this rule to let the column grow instead. */
-    .bento__col--a { height: 663px; }
-    .quote { width: 100%; }
+    .quote {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 24px;
+    }
+    .quote__photo { width: 96px; height: 96px; border-radius: 16px; }
+    .quote__text { font-size: 18px; }
   }
 </style>
