@@ -9,20 +9,24 @@ interface FooterItem {
   href?: string;
 }
 
-const home: FooterItem[] = [{ label: 'About Us' }, { label: 'Awards' }, { label: 'Testimonials' }];
+const home: FooterItem[] = [
+  { label: 'About Us', href: '/about-us' },
+  { label: 'Our Companies', href: '/service' },
+  { label: 'Contact Us', href: '/contact-us' },
+];
 const services: FooterItem[] = [
-  { label: 'Custom AI Solution' },
-  { label: 'Digital Avatars' },
-  { label: 'Web Development' },
-  { label: 'Mobile Apps' },
-  { label: 'Technology Consulting' },
-  { label: 'Computer Vision' },
+  { label: 'AI Engineering' },
+  { label: 'Agentic Automation' },
+  { label: 'System Integration' },
+  { label: 'HRDC-Certified Training' },
+  { label: 'Developer Relations' },
+  { label: 'Tech Recruitment' },
 ];
 const explore: FooterItem[] = [
-  { label: 'Technologies' },
-  { label: 'Academy' },
-  { label: 'Recruit' },
-  { label: 'Devrel' },
+  { label: 'Technologies', href: 'https://alphv.com' },
+  { label: 'Academy', href: 'https://academy.alphv.com' },
+  { label: 'Devrel', href: 'https://devrel.alphv.com' },
+  { label: 'Recruit', href: 'https://recruit.alphv.com' },
 ];
 
 const groups = [
@@ -48,7 +52,9 @@ const groups = [
           </g>
         </svg>
       </a>
-      <p class="site-footer__company">ALPHV Technologies Sdn Bhd (1509526-V)</p>
+      <p class="site-footer__company">
+        ALPHV Technologies Sdn Bhd (1509526-V)<br />Agensi Pekerjaan ALPHV Sdn. Bhd. (1597069-U), EA License JTKSM 1807
+      </p>
       <address class="site-footer__address">
         Unit 21-05, Level 21, Tower A, The Vertical Business Suites, 8, Jalan Kerinchi, Bangsar South, 59200 Kuala
         Lumpur, Federal Territory of Kuala Lumpur

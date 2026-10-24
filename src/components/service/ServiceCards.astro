@@ -8,44 +8,49 @@ import { url } from '../../lib/paths';
 interface ServiceCard {
   title: string;
   subtitle: string;
+  href: string;
   image: string;
   alt: string;
 }
 
 const cards: ServiceCard[] = [
   {
-    title: 'System & Software Development',
-    subtitle: 'Smarter systems, better productivity, scalable growth.',
+    title: 'ALPHV Technologies',
+    subtitle: 'AI systems integration and software development.',
+    href: 'https://alphv.com',
     image: '/images/GHa4BAjiwhelgAStwsITxXFvryI.png',
     alt: 'Developer presenting code on a tablet to teammates at a desk',
   },
   {
     title: 'ALPHV Academy',
-    subtitle: 'Upskilling the next generation of talent.',
+    subtitle: 'HRDC-certified AI, data and leadership training.',
+    href: 'https://academy.alphv.com',
     image: '/images/SOrmO2Qh38Nw0M9JFjVFQM8LtA.png',
     alt: 'ALPHV Academy logo over students coding at a computer',
   },
   {
-    title: 'Developer Relations (DevRel)',
-    subtitle: 'Building the strongest tech community ecosystem.',
+    title: 'ALPHV DevRel',
+    subtitle: 'Developer relations and the 75,000-strong Developer Kaki community.',
+    href: 'https://devrel.alphv.com',
     image: '/images/7ZQDTSHuvaFB1wUQmmJo8Jcws.png',
     alt: 'Team members joining hands in a high five around a meeting table',
   },
   {
     title: 'ALPHV Recruit',
-    subtitle: 'Connecting talent with opportunity.',
+    subtitle: 'Tech recruitment and executive search across Southeast Asia.',
+    href: 'https://recruit.alphv.com',
     image: '/images/rqiIGDbeDRiobhyef2bGIyvLg.png',
     alt: 'Hand selecting a candidate icon from a row of profile icons',
   },
 ];
 ---
 
-<section class="cards" id="case-studies" aria-label="Our services">
+<section class="cards" id="case-studies" aria-label="Our companies">
   <ul class="cards__grid">
     {
       cards.map((card, i) => (
         <li class="cards__item" data-reveal style="--reveal-distance: 200px">
-          <a class="svc-card" href={url('/')}>
+          <a class="svc-card" href={card.href} target="_blank" rel="noopener">
             <div class="svc-card__media">
               <img
                 src={url(card.image)}
