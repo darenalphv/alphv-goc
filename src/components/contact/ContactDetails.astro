@@ -2,6 +2,7 @@
 // Contact page — contact cards (KL head office, Singapore registered office, group lines, Recruit, WhatsApp) and a "go direct" grid
 // linking to each company's own site. Uses the same rounded-card and tag styling as the home page.
 import { url } from '../../lib/paths';
+import { links } from '../../lib/links';
 
 const whatsapp = 'https://wa.me/60165187740';
 
@@ -21,14 +22,14 @@ const cards = [
   {
     label: 'Group',
     title: 'Technologies, Academy & DevRel',
-    lines: ['+60 16-518 7740', 'hello@alphv.com'],
+    lines: ['hello@alphv.com', 'Projects, training programs and developer partnerships.'],
     link: { text: 'Email the team', href: 'mailto:hello@alphv.com' },
   },
   {
     label: 'Recruit',
     title: 'Hiring & job seekers',
-    lines: ['+60 19-476 5833', 'hello@alphv.com'],
-    link: { text: 'Call ALPHV Recruit', href: 'tel:+60194765833' },
+    lines: ['Companies hiring tech talent, and candidates looking for their next role.'],
+    link: { text: 'Hire through ALPHV Recruit', href: links.recruit.hire },
   },
   {
     label: 'WhatsApp',
@@ -39,10 +40,10 @@ const cards = [
 ];
 
 const companies = [
-  { name: 'ALPHV Technologies', role: 'AI systems integration & software', href: 'https://alphv.com', logo: '/images/hwb44JkUHK1ej38Ap2SZO0X0sc.png' },
-  { name: 'ALPHV Academy', role: 'HRDC-certified training', href: 'https://academy.alphv.com', logo: '/images/sEHPe4LvaMSZJQ4Q7pHnDhayo.png' },
-  { name: 'ALPHV DevRel', role: 'Developer relations & Developer Kaki', href: 'https://devrel.alphv.com', logo: '/images/yaTuWTNK4kISTNQoWMKPCnEnYmQ.png' },
-  { name: 'ALPHV Recruit', role: 'Tech recruitment & executive search', href: 'https://recruit.alphv.com', logo: '/images/hWMaJ653nab1sdeWJnht0n5LnI0.png' },
+  { name: 'ALPHV Technologies', role: 'AI systems integration & software', href: links.tech.services, logo: '/images/hwb44JkUHK1ej38Ap2SZO0X0sc.png' },
+  { name: 'ALPHV Academy', role: 'HRDC-certified training', href: links.academy.courses, logo: '/images/sEHPe4LvaMSZJQ4Q7pHnDhayo.png' },
+  { name: 'ALPHV DevRel', role: 'Developer relations & Developer Kaki', href: links.devrel.services, logo: '/images/yaTuWTNK4kISTNQoWMKPCnEnYmQ.png' },
+  { name: 'ALPHV Recruit', role: 'Tech recruitment & executive search', href: links.recruit.services, logo: '/images/hWMaJ653nab1sdeWJnht0n5LnI0.png' },
 ];
 
 ---
