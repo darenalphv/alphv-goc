@@ -13,13 +13,12 @@ import { url } from '../../lib/paths';
 const whatsapp =
   'https://api.whatsapp.com/send/?phone=60165187740&text=Hello%20ALPHV%20Technologies&type=phone_number&app_absent=0';
 
-// Same targets as the live site, except that the alphv.com/<page> links for pages that exist in this
-// project point at the local pages (alphv.com does not serve them yet — they 404).
+// Same labels and targets as the pill nav on the inner pages.
 const links = [
-  { label: 'Solutions', href: url('/service'), icon: 'solutions' },
-  { label: 'Training', href: 'https://academy.alphv.com', icon: 'training', external: true },
-  { label: 'Insights', href: url('/contact-us'), icon: 'insights' },
+  { label: 'Companies', href: url('/service'), icon: 'solutions' },
   { label: 'About', href: url('/about-us'), icon: 'about' },
+  { label: 'Careers', href: 'https://recruit.alphv.com', icon: 'careers', external: true },
+  { label: 'Contact', href: url('/contact-us'), icon: 'contact' },
 ];
 
 // Copy as rendered on the live site. (The component source had "Build · Software & AI", "goal · ASEAN" and
@@ -277,19 +276,16 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
                       <rect x="14" y="14" width="7" height="7" rx="1.5" />
                     </>
                   )}
-                  {link.icon === 'training' && (
+                  {link.icon === 'careers' && (
                     <>
-                      <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
-                      <path d="M14 3v6h6" />
-                      <path d="M8 13h8" />
-                      <path d="M8 17h5" />
+                      <rect x="2" y="7" width="20" height="14" rx="2" />
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                     </>
                   )}
-                  {link.icon === 'insights' && (
+                  {link.icon === 'contact' && (
                     <>
-                      <path d="M9 18h6" />
-                      <path d="M10 21h4" />
-                      <path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1.2 1.5 1.5 2.5h5c.3-1 .7-1.7 1.5-2.5A6 6 0 0 0 12 3z" />
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                     </>
                   )}
                   {link.icon === 'about' && (

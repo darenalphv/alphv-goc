@@ -32,11 +32,12 @@
   /* Type */
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-inter: 'Inter', system-ui, sans-serif;
-  --font-inter-tight: 'Inter Tight', 'Inter', system-ui, sans-serif;
-  --font-manrope: 'Manrope', system-ui, sans-serif;
-  --font-poppins: 'Poppins', system-ui, sans-serif;
-  --font-display: 'Clash Display', 'Plus Jakarta Sans', sans-serif;
-  --font-satoshi: 'Satoshi', 'Plus Jakarta Sans', sans-serif;
+  /* Two families only: the older Framer aliases below now resolve to Plus Jakarta Sans or Inter. */
+  --font-inter-tight: var(--font-inter);
+  --font-manrope: var(--font-sans);
+  --font-poppins: var(--font-sans);
+  --font-display: var(--font-sans);
+  --font-satoshi: var(--font-sans);
 
   /* Layout */
   --container: 1200px;
