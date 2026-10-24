@@ -1,11 +1,11 @@
 ---
 // Service page hero — Framer frame "Hero" (padding 80px 20px, identical at every breakpoint).
-// The eyebrow keeps the live site's copy verbatim ("Sevices" typo included).
+// The eyebrow is a centred tag pill, matching the home hero.
 ---
 
 <section class="hero">
   <div class="hero__inner">
-    <p class="hero__eyebrow">Our Companies</p>
+    <p class="tag hero__eyebrow"><span class="tag__dot" aria-hidden="true"></span>Our Companies</p>
     <h1 class="hero__title" data-reveal style="--reveal-distance: 20px; --reveal-delay: 200ms">
       We <span class="text-blue">Build</span> What Matters
     </h1>
@@ -31,12 +31,18 @@
   }
 
   .hero__eyebrow {
-    align-self: stretch;
-    font-family: var(--font-inter);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--c-black);
+    gap: 10px;
+    padding: 7px 15px;
+    border: 0;
+    box-shadow:
+      inset 0 0 0 1px #f5f5f5,
+      0 1px 2px rgba(0, 0, 0, 0.05);
+    font-size: 12px;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .hero__eyebrow .tag__dot {
+    box-shadow: 0 0 4px 4px rgba(28, 100, 255, 0.2);
   }
 
   .hero__title {
