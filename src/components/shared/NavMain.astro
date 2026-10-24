@@ -28,6 +28,7 @@ const entities = [
   {
     id: 'technologies',
     name: 'ALPHV Technologies',
+    logo: '/images/logo-technologies.png',
     tagline: 'Build Software & AI',
     color: '#2A2AF3',
     url: 'https://alphv.com',
@@ -55,6 +56,7 @@ const entities = [
   {
     id: 'academy',
     name: 'ALPHV Academy',
+    logo: '/images/logo-academy.png',
     tagline: 'Training & Upskilling',
     color: '#1D64FF',
     url: 'https://academy.alphv.com',
@@ -82,6 +84,7 @@ const entities = [
   {
     id: 'devrel',
     name: 'ALPHV DevRel',
+    logo: '/images/logo-devrel.png',
     tagline: 'Developer Relations',
     color: '#0099FF',
     url: 'https://devrel.alphv.com',
@@ -108,6 +111,7 @@ const entities = [
   {
     id: 'recruit',
     name: 'ALPHV Recruit',
+    logo: '/images/logo-recruit.png',
     tagline: 'Tech Recruitment',
     color: '#0B3FCC',
     url: 'https://recruit.alphv.com',
@@ -177,11 +181,15 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
                       data-entity={entity.id}
                       style={`--accent: ${entity.color}`}
                     >
-                      <span class="mnav__dot" aria-hidden="true"></span>
-                      <span>
-                        <span class="mnav__entity-name">{entity.name}</span>
-                        <span class="mnav__entity-tagline">{entity.tagline}</span>
-                      </span>
+                      <img
+                        class="mnav__entity-logo"
+                        src={url(entity.logo)}
+                        alt={entity.name}
+                        width="228"
+                        height="76"
+                        decoding="async"
+                      />
+                      <span class="mnav__entity-tagline">{entity.tagline}</span>
                     </a>
                   </li>
                 ))
@@ -345,11 +353,16 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
           entities.map((entity) => (
             <li>
               <a class="mnav__m-entity" href={entity.url} {...ext} style={`--accent: ${entity.color}`}>
-                <span class="mnav__dot" aria-hidden="true"></span>
-                <span>
-                  <span class="mnav__m-entity-name">{entity.name}</span>
-                  <span class="mnav__m-entity-tagline">{entity.tagline}</span>
-                </span>
+                <img
+                  class="mnav__entity-logo"
+                  src={url(entity.logo)}
+                  alt={entity.name}
+                  width="228"
+                  height="76"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="mnav__m-entity-tagline">{entity.tagline}</span>
               </a>
             </li>
           ))
@@ -598,8 +611,15 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
   .mnav__entity,
   .mnav__m-entity {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .mnav__entity-logo {
+    display: block;
+    width: auto;
+    height: 44px;
+    margin-left: -4px;
   }
   .mnav__entity {
     padding: 11px 12px;
@@ -610,26 +630,11 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
   .mnav__entity.is-active {
     background: #f5f5ff;
   }
-  .mnav__dot {
-    flex: none;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  .mnav__entity-name,
   .mnav__entity-tagline,
-  .mnav__m-entity-name,
   .mnav__m-entity-tagline {
     display: block;
   }
-  .mnav__entity-name {
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.3;
-    color: var(--mnav-ink);
-  }
-  .mnav__entity.is-active .mnav__entity-name {
+  .mnav__entity.is-active .mnav__entity-tagline {
     color: var(--mnav-blue);
   }
   .mnav__entity-tagline {
@@ -876,12 +881,6 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
   }
   .mnav__m-entity {
     padding: 12px 0;
-  }
-  .mnav__m-entity-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--mnav-ink);
-    line-height: 25px;
   }
   .mnav__m-entity-tagline {
     margin-top: 1px;
