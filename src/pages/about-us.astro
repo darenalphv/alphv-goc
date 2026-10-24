@@ -1,16 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/sections/PageHero.astro';
-import ContactBand from '../components/sections/ContactBand.astro';
-import { url } from '../lib/paths';
-import { companies, entities, stats } from '../data/group';
-
-const mission = [
-  ['Build', 'intelligent, scalable systems that solve real business problems.'],
-  ['Create', 'lasting impact through sustainable digital transformation.'],
-  ['Foster', 'technological progress through an integrated ecosystem.'],
-  ['Develop', 'the next generation of tech talent in Malaysia and the region.'],
-];
+import Hero from '../components/about/Hero.astro';
+import Story from '../components/about/Story.astro';
+import VisionMission from '../components/about/VisionMission.astro';
+import Impact from '../components/about/Impact.astro';
+import Ecosystem from '../components/about/Ecosystem.astro';
+import Founder from '../components/about/Founder.astro';
+import CtaInnovate from '../components/shared/CtaInnovate.astro';
 ---
 
 <BaseLayout
@@ -18,220 +14,19 @@ const mission = [
   description="Meet the ALPHV group: four Malaysian companies spanning AI engineering, training, developer relations and tech recruitment, behind Developer Kaki."
   path="/about-us"
 >
-  <PageHero
-    kicker="About ALPHV"
-    title="Welcome to<br />the peak."
-    lead="ALPHV is a Kuala Lumpur-based group of companies with a 100% Malaysian team. It builds AI systems, trains professionals, runs one of Southeast Asia's largest developer communities and recruits tech talent."
-  />
-
-  <section class="section" aria-labelledby="story-title">
-    <div class="wrap split">
-      <div class="head__title">
-        <p class="label accent">01 _ Story</p>
-        <h2 class="h1" id="story-title">From community<br />to group.</h2>
-      </div>
-      <div class="split__copy">
-        <p class="lead">
-          ALPHV's roots are in the developer community. Since 2019 Developer Kaki has grown to over 75,000 members,
-          and the group has grown around it.
-        </p>
-        <p class="body muted">
-          ALPHV Technologies Sdn Bhd, incorporated in 2023, runs the AI systems integration business together with ALPHV
-          Academy and ALPHV DevRel. ALPHV Recruit operates as Agensi Pekerjaan ALPHV Sdn. Bhd., a licensed employment
-          agency. The group is headquartered in Bangsar South, Kuala Lumpur, with a regional presence in Singapore.
-        </p>
-        <dl class="stats stats--stack" style="--cols: 2">
-          {
-            stats.map((s) => (
-              <div>
-                <dt class="label muted">{s.label}</dt>
-                <dd class="h2">{s.value}</dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--black" aria-labelledby="vision-title">
-    <div class="wrap split">
-      <div class="head__title">
-        <p class="label">02 _ Vision and mission</p>
-        <h2 class="h1" id="vision-title">Technology that<br />earns its place.</h2>
-      </div>
-      <div class="split__copy">
-        <p class="lead">
-          ALPHV's vision is to pioneer technology that accelerates business innovation and shapes the digital future of
-          Malaysia and Southeast Asia.
-        </p>
-        <ol class="mission">
-          {
-            mission.map(([verb, rest], i) => (
-              <li>
-                <span class="label">0{i + 1}</span>
-                <p class="h3">{verb}</p>
-                <p class="body muted">{rest}</p>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="founder-title">
-    <div class="wrap split">
-      <div class="head__title">
-        <p class="label accent">03 _ Leadership</p>
-        <h2 class="h1" id="founder-title">Daren Tan,<br />CEO.</h2>
-      </div>
-      <div class="founder">
-        <img
-          class="founder__img"
-          src={url('/images/cgPZRqrv944rtuZzDHsax8LAuI.png')}
-          alt="Daren Tan speaking on stage"
-          loading="lazy"
-          decoding="async"
-        />
-        <div class="split__copy">
-          <p class="lead">
-            ALPHV is led by Daren Tan, a former Senior Full Stack Developer at MaGIC and Digital Transformation Specialist
-            at BASF.
-          </p>
-          <p class="body muted">
-            The group is rooted in both enterprise experience and grassroots developer engagement. Through CSR
-            initiatives, training and strategic partnerships, including Alibaba Cloud and FPT AI Factory, ALPHV bridges
-            local expertise with regional impact. The founder still writes code.
-          </p>
-          <div class="actions">
-            <a class="link" href="https://www.linkedin.com/in/daren-tan/" target="_blank" rel="noopener">LinkedIn</a>
-            <a class="link" href="https://www.instagram.com/darentandz/" target="_blank" rel="noopener">Instagram</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--muted" aria-labelledby="entities-title">
-    <div class="wrap split">
-      <div class="head__title">
-        <p class="label accent">04 _ Corporate information</p>
-        <h2 class="h1" id="entities-title">Group<br />structure.</h2>
-      </div>
-      <div>
-        <table class="spec">
-          <tbody>
-            {
-              companies.map((c) => (
-                <tr>
-                  <th class="label" scope="row">{c.name}</th>
-                  <td>{c.category}</td>
-                  <td class="muted">{c.domain}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-        <table class="spec spec--legal">
-          <tbody>
-            {
-              entities.map((e) => (
-                <tr>
-                  <th class="label" scope="row">{e.name}</th>
-                  <td>Reg. No _ {e.reg}</td>
-                  <td class="muted">{e.note}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <div style="padding-top: var(--section)"></div>
-  <ContactBand />
+  <Hero />
+  <Story />
+  <VisionMission />
+  <Impact />
+  <Ecosystem />
+  <Founder />
+  <CtaInnovate />
 </BaseLayout>
 
 <style>
-  .split {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-    gap: 40px 48px;
-  }
-  .split__copy {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  .mission {
-    border-top: 1px solid var(--white);
-  }
-  .mission li {
-    display: grid;
-    grid-template-columns: 48px 140px minmax(0, 1fr);
-    gap: 16px;
-    align-items: baseline;
-    padding-block: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.24);
-  }
-  .founder {
-    display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
-    gap: 32px;
-  }
-  .founder__img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    filter: grayscale(1);
-  }
-  .spec {
-    width: 100%;
-    border-collapse: collapse;
-    border-top: var(--rule);
-    font-size: 15px;
-  }
-  .spec--legal {
-    margin-top: 40px;
-  }
-  .spec th,
-  .spec td {
-    padding: 18px 16px 18px 0;
-    border-bottom: var(--hairline);
-    text-align: left;
-    vertical-align: top;
-    font-weight: 400;
-  }
-  .spec th {
-    width: 40%;
-    font-weight: 500;
-  }
-  @media (max-width: 960px) {
-    .split,
-    .founder {
-      grid-template-columns: 1fr;
-    }
-  }
-  @media (max-width: 560px) {
-    .mission li {
-      grid-template-columns: 40px minmax(0, 1fr);
-    }
-    .mission li .body {
-      grid-column: 2;
-    }
-    .spec tr {
-      display: grid;
-      gap: 4px;
-      padding-block: 16px;
-      border-bottom: var(--hairline);
-    }
-    .spec th,
-    .spec td {
-      width: auto;
-      padding: 0;
-      border: 0;
-    }
+  /* About sections slide up 170px into place without fading (Framer appear: y 170 → 0, opacity 1). */
+  :global(html.js .about-slide[data-reveal]) {
+    opacity: 1;
+    transition-duration: 1s;
   }
 </style>

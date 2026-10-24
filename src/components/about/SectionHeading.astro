@@ -1,0 +1,36 @@
+---
+/**
+ * Centered section title used by the About page sections ("Our Vision", "Bringing Impact To Business"…).
+ * Framer text effect: words blur/slide in one after another when the title scrolls into view.
+ */
+import SplitText, { type SplitPart } from './SplitText.astro';
+
+interface Props {
+  parts: SplitPart[];
+  id?: string;
+}
+
+const { parts, id } = Astro.props;
+---
+
+<h2 class="section-heading" id={id} data-split data-split-blur style="--split-stagger:0.05s;--split-duration:0.7s">
+  <SplitText parts={parts} />
+</h2>
+
+<style>
+  .section-heading {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    text-wrap: balance;
+    color: var(--c-text);
+  }
+
+  @media (max-width: 809.98px) {
+    .section-heading { font-size: 35px; }
+  }
+</style>

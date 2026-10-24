@@ -1,0 +1,189 @@
+---
+// One card of the home "Services Bento" (Framer "Logo Design Card" / "Framer Design Card").
+//   fill=true   → card stretches to fill the rest of its 685px column and shows the two
+//                 overlapping photos (desktop only; a single photo on phone, none on tablet).
+//   fill=false  → card hugs its content.
+// The description goes in the default slot (it contains <strong> runs).
+import { url } from '../../../lib/paths';
+import Icon from './Icon.astro';
+import ArrowButton from './ArrowButton.astro';
+
+interface Props {
+  icon: 'code' | 'users-four' | 'dna' | 'notebook';
+  title: string;
+  category: string;
+  href: string;
+  newTab?: boolean;
+  fill?: boolean;
+  /** [back photo, front photo]; the front photo is also the one shown on phone. */
+  photos?: [string, string];
+  revealDelay?: number;
+}
+
+const { icon, title, category, href, newTab = false, fill = false, photos, revealDelay = 0 } = Astro.props;
+---
+
+<article
+  class:list={['card', 'svc', { 'svc--fill': fill }]}
+  data-reveal="left"
+  style={`--reveal-distance: 50px; --reveal-delay: ${revealDelay}ms`}
+>
+  <div class="svc__content">
+    <div class="svc__text">
+      <div class="svc__head">
+        <h3 class="svc__title"><Icon name={icon} class="svc__icon" />{title}</h3>
+        <p class="svc__category">{category}</p>
+      </div>
+      <p class="svc__desc"><slot /></p>
+    </div>
+    <ArrowButton href={href} label="Read More" size="m" newTab={newTab} />
+  </div>
+
+  {
+    photos && (
+      <>
+        <div class="svc__photos" aria-hidden="true">
+          <img class="svc__photo svc__photo--back" src={url(photos[0])} alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+          <img class="svc__photo svc__photo--front" src={url(photos[1])} alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+        </div>
+        <img class="svc__photo-mobile" src={url(photos[1])} alt="" width="1920" height="1080" loading="lazy" decoding="async" />
+      </>
+    )
+  }
+</article>
+
+<style>
+  .svc {
+    position: relative;
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+    padding: 30px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+  }
+  /* Hairline border drawn inside the box (as Framer does) so the photos can cover it. */
+  .svc::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .svc--fill {
+    flex: 1 1 0;
+    min-height: 0;
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  .svc__content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+  }
+  .svc__text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .svc__head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .svc__title {
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--c-blue);
+  }
+  .svc__title :global(.svc__icon) {
+    flex: none;
+    width: 25px;
+    height: 25px;
+  }
+  .svc__category {
+    flex: none;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.8;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+  }
+  .svc__desc {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.8;
+    color: rgb(89, 100, 107);
+  }
+  .svc__desc :global(strong) { font-weight: 700; }
+
+  /* Two overlapping photos filling the bottom of the card (desktop) */
+  .svc__photos {
+    position: relative;
+    z-index: 2;
+    flex: 1 1 0;
+    width: 100%;
+    min-height: 0;
+  }
+  .svc__photo {
+    position: absolute;
+    border-radius: 7px;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+  }
+  .svc__photo--back {
+    top: 63%;
+    left: 66%;
+    width: 340px;
+    aspect-ratio: 1.4031;
+    opacity: 0.7;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.04);
+  }
+  .svc__photo--front {
+    top: 77%;
+    left: 39%;
+    width: 388px;
+    aspect-ratio: 1.68696;
+    box-shadow: 20px 30px 20px 8px rgba(0, 0, 0, 0.4);
+  }
+  .svc__photo-mobile { display: none; }
+
+  @media (max-width: 1199.98px) {
+    .svc__photos { display: none; }
+  }
+
+  @media (max-width: 809.98px) {
+    .svc--fill {
+      flex: none;
+      justify-content: center;
+    }
+    .svc__photo-mobile {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      aspect-ratio: 1.68696;
+      border-radius: 7px;
+      object-fit: cover;
+    }
+  }
+</style>
