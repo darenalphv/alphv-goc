@@ -1,5 +1,13 @@
 ---
-import LoopVideo from './LoopVideo.astro';
+// About hero: intro copy over a mosaic of real ALPHV photos (Academy cohort, Technologies team,
+// Developer Kaki meetup). Replaces the earlier animated illustration video.
+import { url } from '../../lib/paths';
+
+const photos = [
+  { src: '/images/about-academy-cohort.jpg', alt: 'An ALPHV Academy training cohort', w: 1600, h: 1067 },
+  { src: '/images/technologies-team-booth.jpg', alt: 'The ALPHV Technologies team at its exhibition booth', w: 952, h: 899 },
+  { src: '/images/devrel-developer-kaki-meetup.jpg', alt: 'Developers at a Developer Kaki community meetup', w: 1080, h: 1020 },
+];
 ---
 
 <section class="hero" aria-labelledby="about-title">
@@ -9,19 +17,30 @@ import LoopVideo from './LoopVideo.astro';
       Building the Future Together
     </p>
     <p class="hero__lead" data-reveal style="--reveal-distance:20px;--reveal-delay:300ms">
-      ALPHV is a group of four companies that goes <strong>beyond</strong> systems integration. We are <strong
-        class="text-blue">builders</strong>, <strong class="text-blue">educators</strong>, <strong
-        class="text-blue">community enablers</strong> and <strong class="text-blue">talent partners</strong>, crafting an
-      ecosystem where businesses grow, developers thrive, and innovation flourishes.
+      ALPHV is a technology group headquartered in Kuala Lumpur, with its parent company in Singapore. Through four
+      specialised companies, we help organisations <strong class="text-blue">adopt AI</strong>, <strong
+        class="text-blue">upskill their teams</strong>, <strong class="text-blue">reach developers</strong> and <strong
+        class="text-blue">hire technical talent</strong>.
     </p>
     <p class="tag hero__badge" data-reveal style="--reveal-distance:20px;--reveal-delay:100ms">
       <span class="tag__dot" aria-hidden="true"></span>75,000+ Developers. Countless Possibilities.
     </p>
   </div>
 
-  <!-- Illustration collage: "Code • Build • Repeat •" badge, #ALPHV, code windows (animated video). -->
-  <div class="hero__media">
-    <LoopVideo src="/assets/Ccdk3b41CaOc7CZjqmGBNOJWc.mp4" eager />
+  <div class="hero__media" data-reveal style="--reveal-distance:30px;--reveal-delay:300ms">
+    {
+      photos.map((p, i) => (
+        <img
+          class={`hero__photo hero__photo--${i + 1}`}
+          src={url(p.src)}
+          alt={p.alt}
+          width={p.w}
+          height={p.h}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      ))
+    }
   </div>
 </section>
 
@@ -89,17 +108,36 @@ import LoopVideo from './LoopVideo.astro';
   .hero__badge .tag__dot { box-shadow: 0 0 4px 4px rgba(28, 100, 255, 0.2); }
 
   .hero__media {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
     width: 90%;
-    aspect-ratio: 16 / 9;
-    border-radius: 10px;
-    overflow: hidden;
+    max-width: 1200px;
+    height: 560px;
   }
+  .hero__photo {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border-radius: 24px;
+    object-fit: cover;
+  }
+  .hero__photo--1 { grid-row: 1 / span 2; }
 
   @media (max-width: 809.98px) {
     .hero__intro { width: 100%; }
     .hero__title { font-size: 20px; }
     .hero__tagline { font-size: 35px; }
     .hero__lead { width: 100%; font-size: 14px; }
-    .hero__media { width: 100%; }
+    .hero__media {
+      width: 100%;
+      height: auto;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 10px;
+    }
+    .hero__photo { aspect-ratio: 1; border-radius: 16px; }
+    .hero__photo--1 { grid-column: 1 / span 2; grid-row: auto; aspect-ratio: 3 / 2; }
   }
 </style>

@@ -8,7 +8,7 @@
  * to "bottom reaches viewport bottom" (Framer scroll-target transform, viewport: end).
  * Tablet: only the intro row (the sticky stage is hidden in Framer).
  * Phone: Framer hides this section and shows a separate stacked "Heading & Description" frame
- * in its place (same copy, 35px heading, "Impact We Brought") — reproduced here with CSS.
+ * in its place (same copy, 35px heading) — reproduced here with CSS.
  */
 import SmallHeading from './b/SmallHeading.astro';
 import { url } from '../../lib/paths';
@@ -24,11 +24,11 @@ const stats = [
 <section class="counter" id="counter-sticky" aria-labelledby="counter-title" data-counter-section>
   <div class="counter__intro">
     <div class="counter__heading">
-      <SmallHeading label="What is ALPHV" icon="stack" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 100ms" />
+      <SmallHeading label="ALPHV in Numbers" icon="stack" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 100ms" />
 
       <h2 id="counter-title" class="counter__title" data-reveal="left" style="--reveal-distance: 30px; --reveal-delay: 200ms">
-        Get To <span class="text-blue">Know Us More</span> and<br />
-        The <span class="text-blue">Impact We <span class="counter__word--wide">Delivered</span><span class="counter__word--phone">Brought</span></span>
+        The ALPHV Group<br />
+        <span class="text-blue">at a Glance</span>
       </h2>
 
       <a class="btn btn--secondary" href={url('/about-us')}>
@@ -123,7 +123,6 @@ const stats = [
     line-height: 1.4;
     color: var(--c-text);
   }
-  .counter__word--phone { display: none; }
   .counter__desc {
     flex: 1 1 0;
     min-width: 0;
@@ -219,8 +218,6 @@ const stats = [
     .counter__heading,
     .counter__desc { flex: none; }
     .counter__title { font-size: 35px; }
-    .counter__word--wide { display: none; }
-    .counter__word--phone { display: inline; }
   }
 
   @media (prefers-reduced-motion: reduce) {
