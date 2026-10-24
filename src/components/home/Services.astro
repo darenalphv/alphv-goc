@@ -5,6 +5,7 @@
 import { url } from '../../lib/paths';
 import Icon from './a/Icon.astro';
 import ServiceCard from './a/ServiceCard.astro';
+import { links } from '../../lib/links';
 
 const companies = [
   { href: 'https://alphv.com', src: '/images/hwb44JkUHK1ej38Ap2SZO0X0sc.png', alt: 'ALPHV Technology', caption: 'Technologies', w: 290, h: 138 },
@@ -14,19 +15,18 @@ const companies = [
   { href: 'https://jobs.developerkaki.my/', src: '/images/NwN1DZpJzC6EoWRyE09bhCwVkQ.png', alt: 'Jobs by Developer Kaki', caption: 'Kaki Jobs', w: 288, h: 154 },
 ];
 
-// Each pill links to the company that offers it.
-const tech = 'https://alphv.com';
+// Each pill links to the matching page on the subsidiary site that offers it.
 const moreServices = [
-  { icon: 'app-window', label: 'Software', href: tech },
-  { icon: 'hexagon', label: 'AI & Machine Learning', href: tech },
-  { icon: 'cloud', label: 'Cloud', href: tech },
-  { icon: 'chart-line', label: 'Analytics', href: tech },
-  { icon: 'sparkle', label: 'Integration', href: tech },
-  { icon: 'book', label: 'Training', href: 'https://academy.alphv.com' },
-  { icon: 'search', label: 'Recruit', href: 'https://recruit.alphv.com' },
-  { icon: 'code-window', label: 'Devrel', href: 'https://devrel.alphv.com' },
-  { icon: 'cube', label: 'Hackathons', href: 'https://devrel.alphv.com' },
-  { icon: 'info', label: 'Consulting', href: tech },
+  { icon: 'app-window', label: 'Software', href: links.tech.webMobile },
+  { icon: 'hexagon', label: 'AI & Machine Learning', href: links.tech.aiEngineering },
+  { icon: 'cloud', label: 'Cloud', href: links.tech.systemIntegration },
+  { icon: 'chart-line', label: 'Analytics', href: links.tech.computerVision },
+  { icon: 'sparkle', label: 'Integration', href: links.tech.systemIntegration },
+  { icon: 'book', label: 'Training', href: links.academy.courses },
+  { icon: 'search', label: 'Recruit', href: links.recruit.services },
+  { icon: 'code-window', label: 'Devrel', href: links.devrel.services },
+  { icon: 'cube', label: 'Hackathons', href: links.devrel.hackathons },
+  { icon: 'info', label: 'Consulting', href: links.tech.systemIntegration },
 ] as const;
 ---
 
@@ -74,7 +74,7 @@ const moreServices = [
         icon="code"
         title="AI & Software Engineering"
         category="01 · Build"
-        href="https://alphv.com/"
+        href={links.tech.services}
         newTab
         revealDelay={200}
       >
@@ -85,7 +85,7 @@ const moreServices = [
         icon="users-four"
         title="Developer Relations"
         category="03 · Grow"
-        href="https://devrel.alphv.com/"
+        href={links.devrel.services}
         fill
         photos={['/images/9jvJVjkD9jYYoV2ZAZqw2jnkM0.jpg', '/images/ymH6jZJosdsDDJ5qxRmRflBA.jpg']}
         revealDelay={300}
@@ -99,7 +99,7 @@ const moreServices = [
         icon="dna"
         title="Training & Upskilling"
         category="02 · Train"
-        href="https://academy.alphv.com/"
+        href={links.academy.courses}
         newTab
         fill
         photos={['/images/qiplSkiBBYKKxgegzuqc7GQYBY.jpg', '/images/M73iDdjZDAZh0MTOxJLNhPJojA.jpg']}
@@ -112,7 +112,7 @@ const moreServices = [
         icon="notebook"
         title="Tech Recruitment"
         category="04 · Hire"
-        href="http://recruit.alphv.com/"
+        href={links.recruit.services}
         newTab
         revealDelay={200}
       >

@@ -1,6 +1,7 @@
 ---
 // Home — careers strip that points to ALPHV Recruit's open roles. (The Build / Train / Grow / Hire
 // stages now label the service cards in Services.astro instead of repeating them here.)
+import { links } from '../../lib/links';
 ---
 
 <section class="flow" aria-label="Careers">
@@ -11,9 +12,14 @@
         Join a 100% local team shipping AI into production, or browse the roles ALPHV Recruit is hiring for right now.
       </p>
     </div>
-    <a class="btn btn--primary" href="https://recruit.alphv.com" target="_blank" rel="noopener">
-      <span>See open roles</span>
-    </a>
+    <div class="flow__actions">
+      <a class="btn btn--secondary" href={links.tech.careers} target="_blank" rel="noopener">
+        <span>Work at ALPHV</span>
+      </a>
+      <a class="btn btn--primary" href={links.recruit.jobs} target="_blank" rel="noopener">
+        <span>See open roles</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -36,6 +42,11 @@
     border-radius: var(--radius-xl);
     background: var(--c-dark);
     color: var(--c-white);
+  }
+  .flow__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
   .flow__careers-title {
     font-family: var(--font-sans);

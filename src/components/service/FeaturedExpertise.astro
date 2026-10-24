@@ -1,6 +1,7 @@
 ---
 // "Featured Expertise" heading + wrapped pill list with Phosphor (fill) icons.
 // The 120px top padding reproduces the empty spacer frame Framer places after the service cards.
+import { links } from '../../lib/links';
 const items = [
   {
     label: 'Software', // Phosphor AppWindow
@@ -43,12 +44,18 @@ const items = [
     path: 'M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z',
   },
 ];
-// Pills link to the company that offers the service; anything not listed goes to ALPHV Technologies.
+// Pills link to the matching page on the subsidiary site that offers the service.
 const companyFor: Record<string, string> = {
-  Training: 'https://academy.alphv.com',
-  Recruit: 'https://recruit.alphv.com',
-  Devrel: 'https://devrel.alphv.com',
-  Hackathons: 'https://devrel.alphv.com',
+  Software: links.tech.webMobile,
+  'AI & Machine Learning': links.tech.aiEngineering,
+  Cloud: links.tech.systemIntegration,
+  Analytics: links.tech.computerVision,
+  Integration: links.tech.systemIntegration,
+  Training: links.academy.courses,
+  Recruit: links.recruit.services,
+  Devrel: links.devrel.services,
+  Hackathons: links.devrel.hackathons,
+  Consulting: links.tech.systemIntegration,
 };
 ---
 
@@ -68,7 +75,7 @@ const companyFor: Record<string, string> = {
     {
       items.map((item, i) => (
         <li data-reveal="left" style={`--reveal-distance: 50px; --reveal-delay: ${(i + 1) * 50}ms`}>
-          <a class="expertise__pill" href={companyFor[item.label] ?? 'https://alphv.com'} target="_blank" rel="noopener">
+          <a class="expertise__pill" href={companyFor[item.label] ?? links.tech.services} target="_blank" rel="noopener">
             <svg class="expertise__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
               <path d={item.path} />
             </svg>

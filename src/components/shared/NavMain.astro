@@ -9,6 +9,7 @@
 // - Escape, the backdrop or the toggle closes the menus.
 // On phones Framer puts the spacer at the very bottom of the page, so the hero starts under the bar there.
 import { url } from '../../lib/paths';
+import { links as go } from '../../lib/links';
 
 const whatsapp =
   'https://api.whatsapp.com/send/?phone=60165187740&text=Hello%20ALPHV%20Technologies&type=phone_number&app_absent=0';
@@ -17,7 +18,7 @@ const whatsapp =
 const links = [
   { label: 'Companies', href: url('/service'), icon: 'solutions' },
   { label: 'About', href: url('/about-us'), icon: 'about' },
-  { label: 'Careers', href: 'https://recruit.alphv.com', icon: 'careers', external: true },
+  { label: 'Careers', href: go.tech.careers, icon: 'careers', external: true },
   { label: 'Contact', href: url('/contact-us'), icon: 'contact' },
 ];
 
@@ -32,12 +33,12 @@ const entities = [
     url: 'https://alphv.com',
     category: 'SOFTWARE & AI DEVELOPMENT',
     services: [
-      ['AI Engineering', 'Knowledge integration, RAG and fine-tuning on your own data'],
-      ['Agentic Automation', 'Agentic process automation and multi-agent systems'],
-      ['System Integration & Consulting', 'AI embedded into the ERP, CRM and portals you already run'],
-      ['Computer Vision & Smart City', 'People counting, traffic analytics and sentiment monitoring'],
-      ['Web & Mobile Apps', 'From concept to deployment, full-stack product engineering'],
-      ['Data, RPA & MLOps', 'Pipelines, automation and monitoring after go-live'],
+      ['AI Engineering', 'Knowledge integration, RAG and fine-tuning on your own data', go.tech.aiEngineering],
+      ['Agentic Automation', 'Agentic process automation and multi-agent systems', go.tech.agenticAutomation],
+      ['System Integration & Consulting', 'AI embedded into the ERP, CRM and portals you already run', go.tech.systemIntegration],
+      ['Computer Vision & Smart City', 'People counting, traffic analytics and sentiment monitoring', go.tech.computerVision],
+      ['Web & Mobile Apps', 'From concept to deployment, full-stack product engineering', go.tech.webMobile],
+      ['Data, RPA & MLOps', 'Pipelines, automation and monitoring after go-live', go.tech.services],
     ],
     card: {
       badge: 'AI CRM CASE STUDY',
@@ -48,7 +49,7 @@ const entities = [
       headline: 'AI built into the systems that run your business',
       body: 'WhatsApp AI agents cut manual data entry by 80% for a Singapore hospitality group. We design, integrate and run production AI end to end.',
       cta: 'See AI solutions',
-      ctaUrl: 'https://alphv.com',
+      ctaUrl: go.tech.services,
     },
   },
   {
@@ -59,12 +60,12 @@ const entities = [
     url: 'https://academy.alphv.com',
     category: 'TRAINING & UPSKILLING',
     services: [
-      ['Tech Certification Programs', 'HRDC-claimable training in AI, data science and cloud'],
-      ['AI Train-the-Trainer', 'Equip in-house mentors with our delivery methodology'],
-      ['GenAI & Data Workshops', 'Hands-on sessions for teams, from LLM apps to analytics'],
-      ['Industry Bootcamps & Talks', 'Practitioner-led sessions on what is coming next'],
-      ['In-House Corporate Training', 'Curriculum tailored to your industry, tools and skill level'],
-      ['HRD Corp Claims Handled', 'Grant applications and claim paperwork managed for you'],
+      ['Tech Certification Programs', 'HRDC-claimable training in AI, data science and cloud', go.academy.courses],
+      ['AI Train-the-Trainer', 'Equip in-house mentors with our delivery methodology', go.academy.offer],
+      ['GenAI & Data Workshops', 'Hands-on sessions for teams, from LLM apps to analytics', go.academy.courses],
+      ['Industry Bootcamps & Talks', 'Practitioner-led sessions on what is coming next', go.academy.offer],
+      ['In-House Corporate Training', 'Curriculum tailored to your industry, tools and skill level', go.academy.offer],
+      ['HRD Corp Claims Handled', 'Grant applications and claim paperwork managed for you', go.academy.about],
     ],
     card: {
       badge: 'PROFESSIONALS TRAINED',
@@ -75,7 +76,7 @@ const entities = [
       headline: 'Training that turns teams into builders',
       body: 'Practitioner-led programs in AI, data science and emerging technology. 100% hands-on, delivered in person, online or hybrid.',
       cta: 'Browse all courses',
-      ctaUrl: 'https://academy.alphv.com',
+      ctaUrl: go.academy.courses,
     },
   },
   {
@@ -86,11 +87,11 @@ const entities = [
     url: 'https://devrel.alphv.com',
     category: 'COMMUNITY & ADVOCACY',
     services: [
-      ['Developer Marketing', 'Strategy, content and campaigns developers recommend'],
-      ['Engagement Events', 'Workshops, dev nights and technical sessions'],
-      ['Hackathons', '48-hour build sprints that surface power users'],
-      ['Executive Roundtables', 'Invite-only dinners with CIOs, CTOs and founders'],
-      ['Developer Kaki Community', "Southeast Asia's largest developer community"],
+      ['Developer Marketing', 'Strategy, content and campaigns developers recommend', go.devrel.developerMarketing],
+      ['Engagement Events', 'Workshops, dev nights and technical sessions', go.devrel.engagementEvents],
+      ['Hackathons', '48-hour build sprints that surface power users', go.devrel.hackathons],
+      ['Executive Roundtables', 'Invite-only dinners with CIOs, CTOs and founders', go.devrel.executiveRoundtables],
+      ['Developer Kaki Community', "Southeast Asia's largest developer community", go.devrel.community],
     ],
     card: {
       badge: 'DEVELOPERS',
@@ -101,7 +102,7 @@ const entities = [
       headline: 'Reach the developers who shape the region',
       body: 'Since 2019 we have built the community behind Developer Kaki. Events, hackathons and campaigns with measurable outcomes.',
       cta: 'Partner with us',
-      ctaUrl: 'https://devrel.alphv.com',
+      ctaUrl: go.devrel.contact,
     },
   },
   {
@@ -112,12 +113,12 @@ const entities = [
     url: 'https://recruit.alphv.com',
     category: 'HIRING & PLACEMENT',
     services: [
-      ['Executive Search', 'C-suite and board-level leaders, confidential and precise'],
-      ['Tech Talent Recruiting', 'Engineers, data scientists, product managers and CTOs'],
-      ['Contract & Project Staffing', 'Pre-vetted professionals ready from day one'],
-      ['Talent Advisory', 'Salary benchmarking and workforce planning'],
-      ['Regional Expansion', 'Founding teams for new Southeast Asian markets'],
-      ['Diversity & Inclusion Hiring', 'Purposeful strategies for diverse leadership teams'],
+      ['Executive Search', 'C-suite and board-level leaders, confidential and precise', go.recruit.services],
+      ['Tech Talent Recruiting', 'Engineers, data scientists, product managers and CTOs', go.recruit.services],
+      ['Contract & Project Staffing', 'Pre-vetted professionals ready from day one', go.recruit.services],
+      ['Talent Advisory', 'Salary benchmarking and workforce planning', go.recruit.services],
+      ['Regional Expansion', 'Founding teams for new Southeast Asian markets', go.recruit.services],
+      ['Diversity & Inclusion Hiring', 'Purposeful strategies for diverse leadership teams', go.recruit.services],
     ],
     card: {
       badge: 'HIRING SOLUTIONS',
@@ -128,7 +129,7 @@ const entities = [
       headline: 'We find the tech talent who build your empire',
       body: 'Data-driven executive search and tech recruitment across Malaysia and Southeast Asia, with shortlists in days and a guarantee on every placement.',
       cta: 'Start hiring',
-      ctaUrl: 'https://recruit.alphv.com',
+      ctaUrl: go.recruit.hire,
     },
   },
 ];
@@ -186,7 +187,7 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
                 ))
               }
             </ul>
-            <p class="mnav__explore">Explore the ecosystem</p>
+            <a class="mnav__explore" href={url('/service')}>Explore the ecosystem</a>
           </div>
 
           {
@@ -199,10 +200,12 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
                 <div class="mnav__services">
                   <p class="mnav__category">{entity.category}</p>
                   <ul>
-                    {entity.services.map(([title, desc]) => (
-                      <li class="mnav__service">
-                        <p class="mnav__service-title">{title}</p>
-                        <p class="mnav__service-desc">{desc}</p>
+                    {entity.services.map(([title, desc, href]) => (
+                      <li>
+                        <a class="mnav__service" href={href} {...ext}>
+                          <span class="mnav__service-title">{title}</span>
+                          <span class="mnav__service-desc">{desc}</span>
+                        </a>
                       </li>
                     ))}
                   </ul>
@@ -636,11 +639,17 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
     color: #999;
   }
   .mnav__explore {
+    display: block;
     padding-top: 8px;
     font-size: 13px;
     font-weight: 500;
     color: var(--mnav-blue);
     line-height: 24px;
+    text-decoration: none;
+  }
+  .mnav__explore:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .mnav__detail {
@@ -662,10 +671,16 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
     line-height: 18px;
   }
   .mnav__service {
+    display: block;
     padding: 12px 0;
     border-bottom: 1px solid #f5f5f8;
+    text-decoration: none;
+  }
+  .mnav__service:hover .mnav__service-title {
+    color: var(--accent);
   }
   .mnav__service-title {
+    display: block;
     margin-bottom: 2px;
     font-size: 14px;
     font-weight: 600;
@@ -673,6 +688,7 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
     line-height: 25px;
   }
   .mnav__service-desc {
+    display: block;
     font-size: 12px;
     line-height: 1.5;
     color: #777;

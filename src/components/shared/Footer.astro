@@ -3,6 +3,7 @@
 // Same on every page. On the live site the column entries are plain text (no links); give an
 // entry an `href` here to turn it into a link.
 import { url } from '../../lib/paths';
+import { links } from '../../lib/links';
 
 interface FooterItem {
   label: string;
@@ -12,16 +13,16 @@ interface FooterItem {
 const home: FooterItem[] = [
   { label: 'About Us', href: '/about-us' },
   { label: 'Our Companies', href: '/service' },
-  { label: 'Careers', href: 'https://recruit.alphv.com' },
+  { label: 'Careers', href: links.tech.careers },
   { label: 'Contact Us', href: '/contact-us' },
 ];
 const services: FooterItem[] = [
-  { label: 'AI Engineering' },
-  { label: 'Agentic Automation' },
-  { label: 'System Integration' },
-  { label: 'HRDC-Certified Training' },
-  { label: 'Developer Relations' },
-  { label: 'Tech Recruitment' },
+  { label: 'AI Engineering', href: links.tech.aiEngineering },
+  { label: 'Agentic Automation', href: links.tech.agenticAutomation },
+  { label: 'System Integration', href: links.tech.systemIntegration },
+  { label: 'HRDC-Certified Training', href: links.academy.courses },
+  { label: 'Developer Relations', href: links.devrel.services },
+  { label: 'Tech Recruitment', href: links.recruit.services },
 ];
 const explore: FooterItem[] = [
   { label: 'Technologies', href: 'https://alphv.com' },
@@ -54,14 +55,17 @@ const groups = [
         </svg>
       </a>
       <address class="site-footer__address">
+        <strong>Kuala Lumpur (HQ)</strong>
         Unit 21-05, Level 21, Tower A, The Vertical Business Suites, 8, Jalan Kerinchi, Bangsar South, 59200 Kuala
-        Lumpur, Federal Territory of Kuala Lumpur
+        Lumpur
+      </address>
+      <address class="site-footer__address">
+        <strong>Singapore</strong>
+        21 Bukit Batok Crescent, #25-73 WCEGA Tower, Singapore 658065
       </address>
       <div class="site-footer__contact">
         <p class="site-footer__idea">Have an idea?</p>
         <a class="site-footer__email" href="mailto:hello@alphv.com">hello@alphv.com</a>
-        <a class="site-footer__email" href="tel:+60165187740">+60 16-518 7740</a>
-        <a class="site-footer__email" href="tel:+60194765833">Recruit: +60 19-476 5833</a>
       </div>
     </div>
 
@@ -73,7 +77,18 @@ const groups = [
             <h2 class="site-footer__heading">{group.title}</h2>
             <ul class="site-footer__list">
               {group.items.map((item) => (
-                <li>{item.href ? <a href={url(item.href)}>{item.label}</a> : item.label}</li>
+                <li>
+                  {item.href ? (
+                    <a
+                      href={url(item.href)}
+                      {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    item.label
+                  )}
+                </li>
               ))}
             </ul>
           </div>
@@ -140,6 +155,14 @@ const groups = [
     line-height: 1.2;
     color: var(--c-surface);
     text-wrap: balance;
+  }
+  .site-footer__address strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
   .site-footer__contact {
     display: flex;
