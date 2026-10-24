@@ -1,9 +1,7 @@
 # ALPHV GOC website
 
-The ALPHV group of companies site (alphvgroup.com): a static [Astro](https://astro.build) site,
-hosted on GitHub Pages, presenting ALPHV Technologies, Academy, DevRel and Recruit. The design
-follows the ALPHV brand system: blue/black/white only, zero radius, no shadows, uppercase Archivo
-Expanded headlines and Inter body text.
+The ALPHV Technologies marketing site (alphvgroup.com), ported from Framer to a static
+[Astro](https://astro.build) site and hosted on GitHub Pages.
 
 ## Develop
 
@@ -20,16 +18,14 @@ Requires Node 22.12+.
 
 ```
 src/
-  data/group.ts               all site copy: companies, stats, work, clients, press, FAQ, contact
-  layouts/BaseLayout.astro    <head> (SEO, fonts, GA4), header, footer
-  components/site/            Header, Footer
-  components/sections/        page sections (hero, company grid, ecosystem, work table, …)
-  components/ui/              Logo (brand lockup), Icon (Lucide, inlined)
-  pages/                      index, about-us, service (Our companies), contact-us, 404, sitemap.xml, robots.txt
-  styles/global.css           brand tokens + shared primitives (.wrap, .section, .h1–.h3, .label, .btn, .stats)
+  layouts/BaseLayout.astro    <head> (SEO, fonts, GA4), nav, footer, scroll-reveal script
+  components/shared/          NavMain (home navbar), NavPill (inner pages), Footer, CtaInnovate
+  components/home|about|service|contact/   page sections
+  pages/                      index, about-us, service, contact-us, 404, sitemap.xml, robots.txt
+  styles/global.css           design tokens + shared primitives (.btn, .tag, .card, .marquee, data-reveal)
   lib/paths.ts                url() helper — prefixes the base path
 public/
-  images/                     photos and client logos
+  images/, assets/            media downloaded from the Framer project
 ```
 
 Conventions:
@@ -37,10 +33,9 @@ Conventions:
 - Wrap every internal link and every `public/` path in `url()` from `src/lib/paths.ts`
   (`<img src={url('/images/x.png')}>`, `<a href={url('/about-us')}>`). This keeps the site working
   both on a custom domain and under `https://<user>.github.io/<repo>/`.
-- Edit copy in `src/data/group.ts`, not in components.
-- Brand rules: only `--blue`, `--black`, `--white` (plus the neutral greys), no border radius, no shadows,
-  no gradients. Hover states swap colours; they never fade opacity.
-- Pass `size` to `<Icon>` rather than sizing it from a scoped class (scoped styles do not reach child components).
+- Add `data-reveal` to an element to fade it in on scroll (optional `style="--reveal-delay: 120ms"`).
+- Breakpoints match the old Framer project: phone `< 810px`, tablet `810–1199px`,
+  desktop `1200–1439px`, ultra-wide `≥ 1440px`.
 
 ## Deploy
 

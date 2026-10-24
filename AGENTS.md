@@ -23,8 +23,7 @@ Consult these guides before working on related tasks:
 
 ## Project notes
 
-- Static site for the ALPHV group of companies (Technologies, Academy, DevRel, Recruit); deployed to GitHub Pages by `.github/workflows/deploy.yml`.
+- Static marketing site for ALPHV Technologies, ported from Framer; deployed to GitHub Pages by `.github/workflows/deploy.yml`.
 - Wrap every internal link and `public/` path in `url()` from `src/lib/paths.ts` — the site may be served under a sub-path.
-- Site copy lives in `src/data/group.ts`. Brand tokens and primitives (`.wrap`, `.section`, `.h1`–`.h3`, `.label`, `.btn`, `.stats`) live in `src/styles/global.css`; component styles are scoped `<style>` blocks.
-- Follow the ALPHV brand system: blue `#0100FE`, black and white only, zero radius, no shadows or gradients, uppercase Archivo Expanded headlines, sentence-case Inter body.
+- Shared design tokens and primitives (`.btn`, `.tag`, `.card`, `.marquee`, `data-reveal`) live in `src/styles/global.css`; component styles are scoped `<style>` blocks.
 - No UI framework: interactivity is small vanilla `<script>` blocks inside components.

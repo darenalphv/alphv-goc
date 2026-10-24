@@ -1,0 +1,352 @@
+---
+/**
+ * Home — "Press Section" ("Media Carousel" component).
+ *
+ * The live carousel is a two-page grid (auto-fill, min 280px columns) toggled by the
+ * prev/next arrows. Each breakpoint shows a different slice of the 10 CMS articles:
+ *   ultra-wide ≥1440: page 1 = 1–8, page 2 = 9–10
+ *   desktop 1200–1439: page 1 = 1–6, page 2 = 7–10
+ *   tablet 810–1199:   page 1 = 1–4, page 2 = 5–8
+ *   phone <810:        page 1 = 1–3, page 2 = 4–6
+ * Both arrows flip between the two pages, exactly like the Framer variants.
+ */
+import { url } from '../../lib/paths';
+
+const logos = {
+  fpt: { src: '/images/ev0dSzv4gmoeLWCS0epD1ijMvo.png', alt: 'FPT' },
+  fptAi: { src: '/images/TyVFTWn1qHFolKjJ05QzO2z8M.png', alt: 'FPT AI Factory' },
+  bfm: { src: '/images/PnHH6NVU3XStzFoOG8LGwh9NToo.png', alt: 'BFM 89.9' },
+  star: { src: '/images/rbNZu2Mt1nhbuALHgPjdTOio3U.png', alt: 'The Star' },
+  malayMail: { src: '/images/zUWUVJn1M7Q6ffJpPanJ9uYVRKo.png', alt: 'Malay Mail' },
+};
+
+const articles = [
+  {
+    title: 'FPT and ALPHV partner to accelerate AI innovation in Malaysia',
+    href: 'https://fpt.com/en/news/fpt-news/fpt-va-alphv-hop-tac-thuc-day-doi-moi-sang-tao-ai-tai-malaysia',
+    date: '2026-04-29',
+    image: { src: '/images/fipDVvUmzMNHli9yEbdgbvYzGw.jpg', width: 1920, height: 1080 },
+    logo: logos.fpt,
+  },
+  {
+    title: 'FPT AI Factory and ALPHV Announce Strategic Partnership to Accelerate AI Innovation in Malaysia',
+    href: 'https://factory.fpt.ai/news/fpt-ai-factory-and-alphv-announce-strategic-partnership-to-accelerate-ai-innovation-in-malaysia',
+    date: '2026-04-24',
+    image: { src: '/images/IImczZfxh3mIyzP3njoNLyx1pU.jpg', width: 1920, height: 1080 },
+    logo: logos.fptAi,
+  },
+  {
+    title: '$100K AI Bills? 4 Drivers of Token Bill Shock',
+    href: 'https://www.bfm.my/content/podcast/dollar100k-ai-bills-4-drivers-of-token-bill-shock',
+    date: '2026-03-19',
+    image: { src: '/images/FpLUgpj960i6NCuGWHwwXiYjCGM.png', width: 1178, height: 617 },
+    logo: logos.bfm,
+  },
+  {
+    title: 'Shadow AI & The True Cost Of LLMs',
+    href: 'https://www.bfm.my/content/podcast/shadow-ai-and-the-true-cost-of-llms',
+    date: '2026-03-12',
+    image: { src: '/images/nksUzWrAVCQZTB6MttyddZZFuqE.png', width: 1178, height: 617 },
+    logo: logos.bfm,
+  },
+  {
+    title: 'The rise of vibe coding: Programming made easy with AI',
+    href: 'https://www.thestar.com.my/tech/tech-news/2025/09/01/the-rise-of-vibe-coding-programming-made-easy-with-ai',
+    date: '2025-09-01',
+    image: { src: '/images/7X4bxQQaScamXAHWf2dIytK8Bw.jpg', width: 1240, height: 694 },
+    logo: logos.star,
+  },
+  {
+    title: 'Coding 101: Is AI rewriting the rules?',
+    href: 'https://www.thestar.com.my/tech/2025/03/17/coding-101-is-ai-rewriting-the-rules',
+    date: '2025-03-17',
+    image: { src: '/images/7MyL0pIzWoqYUmdTiD4P8KamHA.jpg', width: 1240, height: 1106 },
+    logo: logos.star,
+  },
+  {
+    title: 'How This Freelancer Dev Built a Fast-Growing Tech Biz',
+    href: 'https://www.bfm.my/content/podcast/how-this-freelancer-dev-built-a-fast-growing-tech-biz',
+    date: '2025-02-27',
+    image: { src: '/images/h55UlhNRAAV3j2E6XUUtp3fzY0g.png', width: 1178, height: 617 },
+    logo: logos.bfm,
+  },
+  {
+    title: 'Reporting bugs without backlash: Towards fixing flaws without fear',
+    href: 'https://www.thestar.com.my/tech/tech-news/2025/02/10/reporting-bugs-without-backlash-towards-fixing-flaws-without-fear',
+    date: '2025-02-10',
+    image: { src: '/images/6eH3QlvGRTYZMULFAOSUd5A8EE4.jpeg', width: 1240, height: 827 },
+    logo: logos.star,
+  },
+  {
+    title: 'Navigating the tech startup challenge: Two technopreneurs share their stories',
+    href: 'https://www.malaymail.com/news/malaysia/2024/08/07/navigating-the-tech-startup-challenge-two-technopreneurs-share-their-stories/145060',
+    date: '2024-08-07',
+    image: { src: '/images/swOGVyfqeTMlmvyjqQlD5bx3s.jpg', width: 1000, height: 667 },
+    logo: logos.malayMail,
+  },
+  {
+    title: 'Thriving together: How social media is helping communities cultivate connections',
+    href: 'https://www.thestar.com.my/tech/tech-news/2023/06/26/thriving-together-how-social-media-is-helping-communities-cultivate-connections',
+    date: '2023-06-26',
+    image: { src: '/images/bkLYO3DyZTzIyyGIVrzCcYhMc8.jpg', width: 1240, height: 826 },
+    logo: logos.star,
+  },
+];
+
+const formatDate = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+---
+
+<section class="press" aria-labelledby="press-title" data-press>
+  <div class="press__header">
+    <h2 id="press-title" class="press__eyebrow">Featured In / Media</h2>
+    <div class="press__arrows">
+      <button class="press__arrow" type="button" aria-label="Previous articles" aria-controls="press-grid" data-press-flip>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 4.5 7.5 12l7.5 7.5"></path></svg>
+      </button>
+      <button class="press__arrow" type="button" aria-label="Next articles" aria-controls="press-grid" data-press-flip>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 4.5 7.5 7.5L9 19.5"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <ul class="press__grid" id="press-grid" data-page="1">
+    {
+      articles.map((a) => (
+        <li class="press__item">
+          <a class="press__card" href={a.href} target="_blank" rel="noopener">
+            <img
+              class="press__image"
+              src={url(a.image.src)}
+              alt=""
+              width={a.image.width}
+              height={a.image.height}
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="press__logo">
+              <img src={url(a.logo.src)} alt={a.logo.alt} width="72" height="18" loading="lazy" decoding="async" />
+            </span>
+            <span class="press__overlay">
+              <span class="press__text">
+                <h3 class="press__title">{a.title}</h3>
+                <time class="press__date" datetime={a.date}>
+                  {formatDate(a.date)}
+                </time>
+              </span>
+              <svg class="press__go" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M6 18 13.125 10.875M8.25 6H18v9.75Z"></path>
+              </svg>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .press {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 90%;
+    max-width: 1600px;
+    margin-inline: auto;
+    padding: 100px 0;
+    overflow: clip;
+  }
+
+  .press__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .press__eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-blue);
+    white-space: nowrap;
+  }
+  .press__arrows {
+    display: flex;
+    gap: 10px;
+  }
+  .press__arrow {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgba(109, 122, 130, 0.4);
+    color: var(--c-text);
+    transition: background-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+  }
+  .press__arrow:hover {
+    background-color: rgba(31, 23, 39, 0.04);
+    transform: scale(1.06);
+  }
+  .press__arrow:active { transform: scale(0.97); }
+  .press__arrow svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---------- Grid + paging ---------- */
+  .press__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-auto-rows: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .press__grid.is-flipping { animation: press-in 0.45s var(--ease-out); }
+  @keyframes press-in {
+    from { opacity: 0; transform: translateY(12px); }
+  }
+
+  .press__item { display: none; }
+  @media (min-width: 1440px) {
+    [data-page='1'] > .press__item:nth-child(-n + 8),
+    [data-page='2'] > .press__item:nth-child(n + 9):nth-child(-n + 10) { display: block; }
+  }
+  @media (min-width: 1200px) and (max-width: 1439.98px) {
+    [data-page='1'] > .press__item:nth-child(-n + 6),
+    [data-page='2'] > .press__item:nth-child(n + 7):nth-child(-n + 10) { display: block; }
+  }
+  @media (min-width: 810px) and (max-width: 1199.98px) {
+    [data-page='1'] > .press__item:nth-child(-n + 4),
+    [data-page='2'] > .press__item:nth-child(n + 5):nth-child(-n + 8) { display: block; }
+  }
+  @media (max-width: 809.98px) {
+    [data-page='1'] > .press__item:nth-child(-n + 3),
+    [data-page='2'] > .press__item:nth-child(n + 4):nth-child(-n + 6) { display: block; }
+  }
+
+  /* ---------- Card ---------- */
+  .press__item { position: relative; }
+  .press__item:hover { z-index: 1; }
+  .press__card {
+    position: relative;
+    display: block;
+    height: 100%;
+    min-height: 250px;
+    border-radius: var(--radius-lg);
+    overflow: clip;
+    transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  }
+  .press__card:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 14px 30px rgba(31, 23, 39, 0.1);
+  }
+  .press__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .press__logo {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: flex;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .press__logo img {
+    width: 72px;
+    height: 18px;
+    object-fit: cover;
+  }
+
+  .press__overlay {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100px;
+    padding: 48px 18px 18px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.78) 100%);
+    color: var(--c-white);
+  }
+  .press__text {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .press__title {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+  .press__date {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .press__go {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @media (max-width: 1199.98px) {
+    .press { padding: 80px 0; }
+  }
+  @media (max-width: 809.98px) {
+    .press { padding: 60px 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .press__grid.is-flipping { animation: none; }
+    .press__card,
+    .press__arrow { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-press]').forEach((press) => {
+    const grid = press.querySelector<HTMLElement>('.press__grid');
+    if (!grid) return;
+    press.querySelectorAll('[data-press-flip]').forEach((btn) =>
+      btn.addEventListener('click', () => {
+        grid.dataset.page = grid.dataset.page === '2' ? '1' : '2';
+        grid.classList.remove('is-flipping');
+        void grid.offsetWidth; // restart the entrance animation
+        grid.classList.add('is-flipping');
+      })
+    );
+  });
+</script>

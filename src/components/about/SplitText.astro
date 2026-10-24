@@ -1,0 +1,113 @@
+---
+/**
+ * Renders text as per-word or per-character spans for Framer-style "text effects"
+ * (tokens fade/slide in one after another when the parent scrolls into view).
+ *
+ * Put it inside the element that should trigger the effect and mark that element:
+ *   <h2 data-split data-split-blur style="--split-stagger:0.05s">
+ *     <SplitText parts={['Our ', { text: 'Ecosystem', class: 'text-blue' }]} />
+ *   </h2>
+ * Parent options: data-split-blur (start blurred), --split-stagger (delay per token),
+ * --split-duration (per-token duration).
+ */
+export type SplitPart = string | { text: string; class?: string };
+
+interface Props {
+  parts: SplitPart[];
+  by?: 'word' | 'char';
+}
+
+const { parts, by = 'word' } = Astro.props;
+
+type Token = { kind: 'space'; text: string } | { kind: 'word'; text: string; start: number };
+type Group = { class?: string; tokens: Token[] };
+
+let index = 0;
+const groups: Group[] = parts.map((part) => {
+  const { text, class: cls } = typeof part === 'string' ? { text: part, class: undefined } : part;
+  const tokens: Token[] = text
+    .split(/(\s+)/)
+    .filter(Boolean)
+    .map((chunk) => {
+      if (/^\s+$/.test(chunk)) return { kind: 'space', text: chunk } as const;
+      const start = index;
+      index += by === 'char' ? [...chunk].length : 1;
+      return { kind: 'word', text: chunk, start } as const;
+    });
+  return { class: cls, tokens };
+});
+
+const plain = parts.map((p) => (typeof p === 'string' ? p : p.text)).join('');
+---
+
+{by === 'char' && <span class="sr-only">{plain}</span>}
+<span class="split" aria-hidden={by === 'char' ? 'true' : undefined}>
+  {groups.map((group) => (
+    <span class:list={['split__group', group.class]}>
+      {group.tokens.map((token) =>
+        token.kind === 'space' ? (
+          token.text.length > 1 ? <span class="split__space">{token.text}</span> : ' '
+        ) : by === 'char' ? (
+          <span class="split__word">
+            {[...token.text].map((ch, i) => (
+              <span class="split__t" style={`--i:${token.start + i}`}>{ch}</span>
+            ))}
+          </span>
+        ) : (
+          <span class="split__t" style={`--i:${token.start}`}>{token.text}</span>
+        )
+      )}
+    </span>
+  ))}
+</span>
+
+<style>
+  .split__word { white-space: nowrap; }
+  .split__space { white-space: pre-wrap; }
+  .split__t { display: inline-block; }
+
+  :global(html.js [data-split]) .split__t {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity var(--split-duration, 0.6s) var(--ease-out),
+      transform var(--split-duration, 0.6s) var(--ease-out),
+      filter var(--split-duration, 0.6s) var(--ease-out);
+    transition-delay: calc(var(--i) * var(--split-stagger, 0.05s));
+  }
+  :global(html.js [data-split][data-split-blur]) .split__t { filter: blur(10px); }
+  :global(html.js [data-split].is-split-in) .split__t {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js [data-split]) .split__t {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Reveal split text once at least half of the element is visible (Framer threshold 0.5).
+  const targets = document.querySelectorAll<HTMLElement>('[data-split]');
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach((el) => el.classList.add('is-split-in'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add('is-split-in');
+          io.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    targets.forEach((el) => io.observe(el));
+  }
+</script>

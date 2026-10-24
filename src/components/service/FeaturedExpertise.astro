@@ -1,0 +1,149 @@
+---
+// "Featured Expertise" heading + wrapped pill list with Phosphor (fill) icons.
+// The 120px top padding reproduces the empty spacer frame Framer places after the service cards.
+const items = [
+  {
+    label: 'Software', // Phosphor AppWindow
+    path: 'M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM68,96A12,12,0,1,1,80,84,12,12,0,0,1,68,96Zm40,0a12,12,0,1,1,12-12A12,12,0,0,1,108,96Z',
+  },
+  {
+    label: 'AI & Machine Learning', // Phosphor Nut
+    path: 'M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,168a40,40,0,1,1,40-40A40,40,0,0,1,128,168Z',
+  },
+  {
+    label: 'Cloud', // Phosphor Cloud
+    path: 'M160.06,40A88.1,88.1,0,0,0,81.29,88.67h0A87.48,87.48,0,0,0,72,127.73,8.18,8.18,0,0,1,64.57,136,8,8,0,0,1,56,128a103.66,103.66,0,0,1,5.34-32.92,4,4,0,0,0-4.75-5.18A64.09,64.09,0,0,0,8,152c0,35.19,29.75,64,65,64H160a88.09,88.09,0,0,0,87.93-91.48C246.11,77.54,207.07,40,160.06,40Z',
+  },
+  {
+    label: 'Analytics', // Phosphor ChartLineUp
+    path: 'M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM200,192H56a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v76.69l34.34-34.35a8,8,0,0,1,11.32,0L128,132.69,172.69,88H152a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V99.31l-50.34,50.35a8,8,0,0,1-11.32,0L104,131.31l-40,40V176H200a8,8,0,0,1,0,16Z',
+  },
+  {
+    label: 'Integration', // Phosphor Sparkle
+    path: 'M208,144a15.78,15.78,0,0,1-10.42,14.94l-51.65,19-19,51.61a15.92,15.92,0,0,1-29.88,0L78,178l-51.62-19a15.92,15.92,0,0,1,0-29.88l51.65-19,19-51.61a15.92,15.92,0,0,1,29.88,0l19,51.65,51.61,19A15.78,15.78,0,0,1,208,144ZM152,48h16V64a8,8,0,0,0,16,0V48h16a8,8,0,0,0,0-16H184V16a8,8,0,0,0-16,0V32H152a8,8,0,0,0,0,16Zm88,32h-8V72a8,8,0,0,0-16,0v8h-8a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0V96h8a8,8,0,0,0,0-16Z',
+  },
+  {
+    label: 'Training', // Phosphor Book
+    path: 'M216,32V192a8,8,0,0,1-8,8H72a16,16,0,0,0-16,16H192a8,8,0,0,1,0,16H48a8,8,0,0,1-8-8V56A32,32,0,0,1,72,24H208A8,8,0,0,1,216,32Z',
+  },
+  {
+    label: 'Recruit', // Phosphor MagnifyingGlass
+    path: 'M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z',
+  },
+  {
+    label: 'Devrel', // Phosphor Code (window)
+    path: 'M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM92.8,145.6a8,8,0,1,1-9.6,12.8l-32-24a8,8,0,0,1,0-12.8l32-24a8,8,0,0,1,9.6,12.8L69.33,128Zm58.89-71.4-32,112a8,8,0,1,1-15.38-4.4l32-112a8,8,0,0,1,15.38,4.4Zm53.11,60.2-32,24a8,8,0,0,1-9.6-12.8L186.67,128,163.2,110.4a8,8,0,1,1,9.6-12.8l32,24a8,8,0,0,1,0,12.8Z',
+  },
+  {
+    label: 'Hackathons', // Phosphor CodepenLogo
+    path: 'M235.79,89l-104-56a8,8,0,0,0-7.58,0l-104,56A8,8,0,0,0,16,96v64a8,8,0,0,0,4.21,7L114.1,217.6a4,4,0,0,0,5.9-3.52v-57.3L66.55,128,32,146.61V109.39L66.55,128l16.88-9.09L40.87,96,120,53.39V99.22L83.43,118.91l44.57,24,44.57-24L189.45,128,224,109.39v37.22L189.45,128,136,156.78v57.3a4,4,0,0,0,5.9,3.52L235.79,167a8,8,0,0,0,4.21-7V96A8,8,0,0,0,235.79,89Zm-63.22,30L136,99.22V53.39L215.13,96Z',
+  },
+  {
+    label: 'Consulting', // Phosphor Info
+    path: 'M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z',
+  },
+];
+---
+
+<section class="expertise" aria-labelledby="expertise-title">
+  <div class="expertise__head">
+    <h2
+      class="expertise__title"
+      id="expertise-title"
+      data-reveal="left"
+      style="--reveal-distance: 30px; --reveal-delay: 200ms"
+    >
+      <span class="text-blue">Featured</span> Expertise
+    </h2>
+  </div>
+
+  <ul class="expertise__list">
+    {
+      items.map((item, i) => (
+        <li
+          class="expertise__pill"
+          data-reveal="left"
+          style={`--reveal-distance: 50px; --reveal-delay: ${(i + 1) * 50}ms`}
+        >
+          <svg class="expertise__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
+            <path d={item.path} />
+          </svg>
+          <span>{item.label}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .expertise {
+    padding-top: 120px;
+  }
+
+  .expertise__head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+  }
+
+  .expertise__title {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 45px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--c-text);
+  }
+
+  .expertise__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+
+  .expertise__pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 19px; /* 20px in Framer, whose 1px border is drawn inside the box */
+    background: var(--c-white);
+    border: 1px solid var(--c-border);
+    border-radius: 20px;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.7;
+    color: var(--c-black);
+    white-space: nowrap;
+  }
+
+  .expertise__icon {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    fill: var(--c-blue);
+  }
+
+  @media (max-width: 809.98px) {
+    /* Framer pins the heading frame to 145px; the two-line heading overflows it evenly. */
+    .expertise__head {
+      height: 145px;
+    }
+
+    .expertise__list {
+      width: 80%;
+    }
+
+    .expertise__pill {
+      max-width: 100%;
+    }
+  }
+</style>

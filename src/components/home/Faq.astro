@@ -1,0 +1,303 @@
+---
+/**
+ * Home — "FAQs Section" ("All FAQs" + CTA component) and the FAQPage JSON-LD that the
+ * "FAQ Schema (SEO)" code component injects.
+ *
+ * Each question toggles independently (several can be open at once, as on the live site);
+ * the first one starts open.
+ */
+import SmallHeading from './b/SmallHeading.astro';
+
+// Group-level answers; the FAQPage JSON-LD below reuses the same list.
+const faqs = [
+  {
+    q: 'What is ALPHV?',
+    a: 'ALPHV is a Kuala Lumpur-based group of four companies: ALPHV Technologies (AI and software), ALPHV Academy (HRDC-certified training), ALPHV DevRel (developer relations and the Developer Kaki community) and ALPHV Recruit (tech recruitment and executive search).',
+  },
+  {
+    q: 'What does ALPHV Technologies do?',
+    a: 'ALPHV Technologies is an AI systems integrator. We design, integrate and run production AI inside the systems you already use, such as ERP, CRM, case management and third-party portals, for legal, insurance, healthcare, hospitality, finance and retail teams in Malaysia, Singapore and Vietnam.',
+  },
+  {
+    q: 'What does ALPHV Academy offer?',
+    a: 'ALPHV Academy delivers HRDC-certified training in AI, data science and emerging technology: tech certification programs, AI train-the-trainer, GenAI and data workshops, and industry bootcamps. Programs are claimable under HRD Corp SBL for Malaysian employers, and we handle the grant paperwork.',
+  },
+  {
+    q: 'What does ALPHV DevRel do?',
+    a: "ALPHV DevRel is a developer relations studio. Since 2019 we have built the Developer Kaki community, now over 75,000 developers strong, and help technology companies reach it through developer marketing, engagement events, hackathons and executive roundtables.",
+  },
+  {
+    q: 'What does ALPHV Recruit do?',
+    a: 'ALPHV Recruit is a tech recruitment agency for Malaysia and Southeast Asia. It covers executive search, tech talent recruiting, contract and project staffing, talent advisory and regional expansion hiring, with a replacement guarantee on every placement.',
+  },
+  {
+    q: 'How do the companies work together?',
+    a: 'Each company stands on its own, and together they form one ecosystem: Technologies builds the systems, Academy trains the people who run them, DevRel grows the developer community around them, and Recruit places the talent to scale them. You can work with one company or several.',
+  },
+  {
+    q: 'Is my data secure when ALPHV builds AI for us?',
+    a: 'Yes. ALPHV chooses models, hosting and guardrails around your data, cost and residency needs, including locally hosted models where data must stay in-house.',
+  },
+  {
+    q: 'How do I get started?',
+    a: 'Use our Contact Us page or WhatsApp to reach the group, or go straight to the company you need: Technologies for AI and software, Academy for training, DevRel for developer programs, or Recruit for hiring.',
+  },
+];
+const schemaFaqs = faqs;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: schemaFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<section class="faq" aria-labelledby="faq-title">
+  <div class="faq__layout">
+    <div class="faq__aside">
+      <div class="faq__heading">
+        <SmallHeading label="FAQs" icon="question" data-reveal style="--reveal-distance: 20px" />
+        <h2 id="faq-title" class="faq__title" data-reveal style="--reveal-distance: 20px; --reveal-delay: 100ms">
+          Frequently Asked Questions!
+        </h2>
+      </div>
+
+      <div class="faq__cta" data-reveal style="--reveal-distance: 20px; --reveal-delay: 200ms">
+        <p class="faq__cta-title">
+          Can't Find Your Answer Here?<br class="faq__br" />{' '}<span>We Can Help Out!</span>
+        </p>
+        {/* href as on the live site */}
+        <a class="btn btn--primary faq__btn" href="mailto:hey@framerit.com">
+          <span>Send Us an Email</span>
+          <span class="btn__icon" aria-hidden="true">
+            {/* Phosphor "PaperPlaneTilt" (regular) */}
+            <svg viewBox="0 0 256 256" fill="currentColor" focusable="false">
+              <path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="faq__list" data-reveal style="--reveal-distance: 20px; --reveal-delay: 300ms">
+      {
+        faqs.map((f, i) => (
+          <div class:list={['faq__item', { 'is-open': i === 0 }]} data-faq-item>
+            <h3 class="faq__q">
+              <button
+                class="faq__toggle"
+                type="button"
+                id={`faq-q-${i}`}
+                aria-expanded={i === 0 ? 'true' : 'false'}
+                aria-controls={`faq-a-${i}`}
+              >
+                <span class="faq__question">{f.q}</span>
+                {/* Phosphor "Plus" (bold); rotates 45° into an × when open */}
+                <svg class="faq__icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" focusable="false">
+                  <path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z" />
+                </svg>
+              </button>
+            </h3>
+            <div class="faq__a" id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
+              <div class="faq__a-clip">
+                <p class="faq__answer">{f.a}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>
+
+<style>
+  .faq {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin-inline: auto;
+    padding: 100px 0 50px;
+    background: var(--c-white);
+    box-shadow: inset 0 1px 0 var(--c-border);
+    overflow: hidden;
+  }
+
+  .faq__layout {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  /* ---------- Left column: heading at the top, CTA card pinned to the bottom ---------- */
+  .faq__aside {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+    justify-content: space-between;
+    min-width: 0;
+  }
+  .faq__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+  .faq__title {
+    width: 100%;
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--c-black);
+  }
+
+  .faq__cta {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    background: var(--c-white);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+  }
+  .faq__cta::after,
+  .faq__item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px dashed var(--c-border);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .faq__cta-title {
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--c-black);
+  }
+  .faq__cta-title span { color: rgba(109, 122, 130, 0.7); }
+
+  /* ---------- Right column: accordion ---------- */
+  .faq__list {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: 15px;
+    width: 55%;
+  }
+  .faq__item {
+    position: relative;
+    padding: 0 20px 0 10px;
+    border-radius: 15px;
+    background: var(--c-white);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+  }
+  .faq__q { font: inherit; }
+  .faq__toggle {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+    padding: 30px 20px;
+    text-align: left;
+    user-select: none;
+    transition: padding-bottom 0.35s var(--ease-out);
+  }
+  .faq__question {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--c-black);
+  }
+  .faq__icon {
+    flex: none;
+    width: 15px;
+    height: 15px;
+    color: var(--c-black);
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .faq__a {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.35s var(--ease-out), visibility 0s;
+  }
+  .faq__a-clip {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .faq__answer {
+    padding: 10px 20px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.7);
+    white-space: pre-line;
+  }
+
+  .faq__item.is-open .faq__toggle { padding-bottom: 15px; }
+  .faq__item.is-open .faq__icon { transform: rotate(45deg); }
+  /* Collapse only once JS is available, so answers stay readable without it. */
+  :global(html.js) .faq__item:not(.is-open) .faq__a {
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows 0.35s var(--ease-out), visibility 0s 0.35s;
+  }
+
+  /* ---------- Phone: stacked ("Variant 3") ---------- */
+  @media (max-width: 809.98px) {
+    .faq__layout {
+      flex-direction: column;
+    }
+    .faq__aside {
+      flex: none;
+      align-self: auto;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+    }
+    .faq__title { font-size: 35px; }
+    .faq__cta { padding: 19px; }
+    .faq__cta-title { font-size: 20px; }
+    .faq__br { display: none; }
+    .faq__btn { width: 100%; }
+    .faq__list { width: 100%; }
+    .faq__answer { font-size: 15px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq__toggle,
+    .faq__icon,
+    .faq__a,
+    :global(html.js) .faq__item:not(.is-open) .faq__a { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-faq-item]').forEach((item) => {
+    const toggle = item.querySelector<HTMLButtonElement>('.faq__toggle');
+    toggle?.addEventListener('click', () => {
+      const open = !item.classList.contains('is-open');
+      item.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  });
+</script>
