@@ -1,5 +1,5 @@
 ---
-// Contact page — contact cards (head office, group lines, Recruit, WhatsApp) and a "go direct" grid
+// Contact page — contact cards (KL head office, Singapore registered office, group lines, Recruit, WhatsApp) and a "go direct" grid
 // linking to each company's own site. Uses the same rounded-card and tag styling as the home page.
 import { url } from '../../lib/paths';
 
@@ -7,10 +7,16 @@ const whatsapp = 'https://wa.me/60165187740';
 
 const cards = [
   {
-    label: 'Head office',
+    label: 'Kuala Lumpur HQ',
     title: 'Bangsar South, Kuala Lumpur',
     lines: ['Unit 21-05, Level 21, Tower A', 'The Vertical Business Suites', '8 Jalan Kerinchi, 59200 Kuala Lumpur'],
     link: { text: 'Open in Google Maps', href: 'https://maps.google.com/?q=The+Vertical+Business+Suites+Bangsar+South' },
+  },
+  {
+    label: 'Singapore',
+    title: 'ALPHV Group Pte. Ltd.',
+    lines: ['Registered office', '21 Bukit Batok Crescent, #25-73', 'WCEGA Tower, Singapore 658065'],
+    link: { text: 'Open in Google Maps', href: 'https://maps.google.com/?q=WCEGA+Tower+21+Bukit+Batok+Crescent+Singapore+658065' },
   },
   {
     label: 'Group',
@@ -100,7 +106,7 @@ const companies = [
 
   .details__cards {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 20px;
   }
   .card {
@@ -225,7 +231,6 @@ const companies = [
   }
 
   @media (max-width: 1199.98px) {
-    .details__cards,
     .direct__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
